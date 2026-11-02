@@ -11,6 +11,7 @@
 
 2. Устанавливаем все библиотеки напрямую в созданное окружение(один раз,дальше этот шаг можно пропускать):
    .venv\Scripts\python.exe -m pip install -r prototype/requirements.txt
+   python -m pip install pandas numpy openpyxl sqlalchemy pydantic
 
 ------------------------------------------------------------------------
 СТАДИЯ 2: ЗАПУСК ПРОТОТИПА

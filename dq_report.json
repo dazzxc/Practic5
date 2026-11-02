@@ -1,38 +1,40 @@
 {
-    "timestamp": "2026-11-02T16:28:46.846261",
-    "total_rows": 5,
-    "total_columns": 3,
+    "timestamp": "2026-11-02T17:44:28.287179",
+    "total_rows": 50500,
+    "total_columns": 5,
     "metrics": {
-        "completeness_score": 86.67,
-        "quality_score": 55.0,
-        "total_errors_found": 3.0
+        "completeness_score": 99.6,
+        "quality_score": 70.0,
+        "total_errors_found": 2.0
     },
     "issues": [
         {
             "check_type": "missing_values",
-            "column": "name",
-            "severity": "high",
-            "message": "Обнаружено 1 пропущенных значений в 'name'",
-            "count": 1,
+            "column": "amount",
+            "severity": "medium",
+            "message": "Обнаружено 999 пропущенных значений в 'amount'",
+            "count": 999,
             "sample": [
                 {
-                    "id": 1,
-                    "name": null,
-                    "age": 40.0
-                }
-            ]
-        },
-        {
-            "check_type": "missing_values",
-            "column": "age",
-            "severity": "high",
-            "message": "Обнаружено 1 пропущенных значений в 'age'",
-            "count": 1,
-            "sample": [
+                    "transaction_id": 5000011,
+                    "customer_id": 107986,
+                    "amount": null,
+                    "created_at": "2026-01-17 22:15:00",
+                    "completed_at": "2026-01-22 22:15:00"
+                },
                 {
-                    "id": 1,
-                    "name": "Петр",
-                    "age": null
+                    "transaction_id": 5000082,
+                    "customer_id": 102153,
+                    "amount": null,
+                    "created_at": "2026-11-25 04:45:00",
+                    "completed_at": "2026-11-30 04:45:00"
+                },
+                {
+                    "transaction_id": 5000099,
+                    "customer_id": 106881,
+                    "amount": null,
+                    "created_at": "2026-04-26 02:46:00",
+                    "completed_at": "2026-04-28 02:46:00"
                 }
             ]
         },
@@ -41,17 +43,28 @@
             "column": "ALL",
             "severity": "high",
             "message": "Обнаружены полные дубликаты строк",
-            "count": 2,
+            "count": 1000,
             "sample": [
                 {
-                    "id": 1,
-                    "name": "Анна",
-                    "age": 30.0
+                    "transaction_id": 5000000,
+                    "customer_id": 100734,
+                    "amount": 65748.50314216291,
+                    "created_at": "2026-07-05 20:14:00",
+                    "completed_at": "2026-07-10 20:14:00"
                 },
                 {
-                    "id": 1,
-                    "name": "Анна",
-                    "age": 30.0
+                    "transaction_id": 5000001,
+                    "customer_id": 105311,
+                    "amount": 14848.103395559556,
+                    "created_at": "2026-01-18 22:43:00",
+                    "completed_at": "2026-01-21 22:43:00"
+                },
+                {
+                    "transaction_id": 5000002,
+                    "customer_id": 101189,
+                    "amount": 23164.876461875745,
+                    "created_at": "2026-05-17 00:51:00",
+                    "completed_at": "2026-05-21 00:51:00"
                 }
             ]
         }
