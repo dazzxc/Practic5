@@ -42,7 +42,7 @@ def generate_large_datasets():
         "country": [random.choice(["Russia", "Belarus", "Kazakhstan", None]) for _ in range(size_users)]
     })
     
-    df_users.to_csv("large_users_quality.csv", index=False)
+    df_users.to_csv("large_users_quality.csv", index=False, sep=";", encoding="utf-8-sig")
     print("✅ Создан файл: large_users_quality.csv")
 
     # -------------------------------------------------------------
@@ -81,7 +81,7 @@ def generate_large_datasets():
     # Добавляем 500 полных дубликатов строк в самый конец
     df_tx = pd.concat([df_tx, df_tx.head(500)], ignore_index=True)
     
-    df_tx.to_csv("large_transactions_quality.csv", index=False)
+    df_tx.to_csv("large_transactions_quality.csv", index=False, sep=";", encoding="utf-8-sig")
     print(f"✅ Создан файл: large_transactions_quality.csv ({len(df_tx)} строк)")
 
 if __name__ == "__main__":
