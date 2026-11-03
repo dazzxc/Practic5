@@ -38,17 +38,80 @@ class DataQualityEngine:
                 sample=[{k: (None if pd.isna(v) else v) for k, v in r.items()} for r in samples]
             ))
 
+    # НОВАЯ ПРОВЕРКА: Несогласованность дат
+    def check_date_consistency(self):
+        # Проверяем, есть ли нужные колонки в файле (чтобы не падало на других данных)
+        if 'created_at' in self.df.columns and 'completed_at' in self.df.columns:
+            # Переводим в формат datetime, ошибки парсинга превращаем в NaT (Not a Time)
+            created = pd.to_datetime(self.df['created_at'], errors='coerce')
+            completed = pd.to_datetime(self.df['completed_at'], errors='coerce')
+
+            # Ищем строки, где дата завершения МЕНЬШЕ даты создания, игнорируя пустые значения
+            invalid_mask = (completed < created) & created.notna() & completed.notna()
+            invalid_count = invalid_mask.sum()
+
+            if invalid_count > 0:
+                samples = self.df[invalid_mask].head(3).to_dict(orient='records')
+                clean_samples = [{k: (None if pd.isna(v) else str(v)) for k, v in r.items()} for r in samples]
+                self.issues.append(Issue(
+                    check_type="date_inconsistency",
+                    column="created_at, completed_at",
+                    severity="high",
+                    message=f"Нарушена логика дат: 'completed_at' раньше 'created_at' ({invalid_count} раз)",
+                    count=int(invalid_count),
+                    sample=clean_samples
+                ))
+
+    # НОВАЯ ПРОВЕРКА: Некорректные значения (отрицательные суммы)
+    def check_invalid_values(self):
+        if 'amount' in self.df.columns:
+            # Переводим в числа, если есть текст - станет NaN
+            amounts = pd.to_numeric(self.df['amount'], errors='coerce')
+            
+            # Ищем отрицательные значения
+            negative_mask = amounts < 0
+            negative_count = negative_mask.sum()
+
+            if negative_count > 0:
+                samples = self.df[negative_mask].head(3).to_dict(orient='records')
+                clean_samples = [{k: (None if pd.isna(v) else v) for k, v in r.items()} for r in samples]
+                self.issues.append(Issue(
+                    check_type="invalid_value",
+                    column="amount",
+                    severity="high",
+                    message=f"Обнаружено {negative_count} отрицательных значений в колонке 'amount'",
+                    count=int(negative_count),
+                    sample=clean_samples
+                ))
+
     def run_all(self) -> QualityReport:
+        # Запускаем все проверки
         self.check_missing()
         self.check_duplicates()
+        self.check_date_consistency()
+        self.check_invalid_values()
 
+        # Считаем метрики
         total_cells = self.total_rows * len(self.df.columns)
         total_missing = self.df.isna().sum().sum()
         completeness = ((total_cells - total_missing) / total_cells) * 100 if total_cells > 0 else 100
 
+        # Улучшенная формула качества (Quality Score)
+        # Начинаем со 100 баллов и вычитаем штрафы в зависимости от критичности (severity)
+        penalty = 0
+        for issue in self.issues:
+            if issue.severity == 'high':
+                penalty += 10
+            elif issue.severity == 'medium':
+                penalty += 5
+            else:
+                penalty += 2
+
+        quality_score = max(0.0, 100.0 - penalty)
+
         metrics = {
             "completeness_score": round(completeness, 2),
-            "quality_score": round(max(0.0, 100.0 - (len(self.issues) * 15)), 2),
+            "quality_score": round(quality_score, 2),
             "total_errors_found": float(len(self.issues))
         }
 
