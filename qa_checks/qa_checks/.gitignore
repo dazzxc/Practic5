@@ -1,6 +1,7 @@
 # Большие тестовые файлы (создаются заново через make_big_file.py)
 test_data/big.csv
 test_data/big.xlsx
+test_data/big.json
 
 # Результат запуска run.py
 result.json

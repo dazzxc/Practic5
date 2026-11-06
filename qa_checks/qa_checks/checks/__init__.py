@@ -60,7 +60,7 @@ def check_file(path, config=None, chunk_size=DEFAULT_CHUNK_SIZE, on_progress=Non
     """
     Проверяет файл любого размера.
 
-    path        - путь к .csv или .xlsx
+    path        - путь к .csv, .xlsx или .json
     config      - настройки проверок (см. run.py)
     chunk_size  - сколько строк читать за раз
     on_progress - необязательная функция, которую вызываем после каждого чанка
@@ -76,8 +76,16 @@ def check_file(path, config=None, chunk_size=DEFAULT_CHUNK_SIZE, on_progress=Non
     columns = []
 
     for chunk in read_in_chunks(path, chunk_size):
-        if not columns:
-            columns = list(chunk.columns)
+        # В JSON у разных записей могут быть разные поля.
+        # Если в этой части появилась новая колонка, то во ВСЕХ прошлых строках
+        # её не было - это тоже пропуски, их надо посчитать.
+        new_columns = [c for c in chunk.columns if c not in columns]
+        if new_columns and total_rows > 0:
+            collector.add(_missing_in_previous_rows(new_columns, total_rows))
+        columns += new_columns
+
+        # Все части приводим к одному набору колонок (чего нет - будет пусто)
+        chunk = chunk.reindex(columns=columns)
 
         # Эти проверки смотрят только на одну строку, поэтому работают по чанку
         collector.add(check_missing(chunk))
@@ -95,6 +103,22 @@ def check_file(path, config=None, chunk_size=DEFAULT_CHUNK_SIZE, on_progress=Non
     issues.sort(key=_issue_order)
 
     return {"total_rows": total_rows, "columns": columns, "issues": issues}
+
+
+def _missing_in_previous_rows(new_columns, rows_before):
+    """Пропуски в колонках, которые появились не в первой части файла."""
+    issues = []
+    for column in new_columns:
+        issues.append({
+            "type": "missing",
+            "column": column,
+            "count": rows_before,
+            "percent": 0,      # пересчитается в конце
+            "severity": "low",  # пересчитается в конце
+            "message": "",      # пересчитается в конце
+            "sample_rows": list(range(min(5, rows_before))),
+        })
+    return issues
 
 
 def run_all_checks(df, config=None):

@@ -4,6 +4,7 @@
 Запуск:
     python make_big_file.py 1000000          -> test_data/big.csv на 1 млн строк
     python make_big_file.py 200000 xlsx      -> test_data/big.xlsx на 200 тыс. строк
+    python make_big_file.py 500000 json      -> test_data/big.json на 500 тыс. записей
 
 В файл специально добавлены ошибки (примерно 1% строк каждого вида).
 """
@@ -52,6 +53,17 @@ if file_type == "xlsx":
     for i in range(rows):
         ws.append(make_row(i))
     wb.save(path)
+elif file_type == "json":
+    import json
+
+    path = "test_data/big.json"
+    # Пишем по одной записи, чтобы не держать весь список в памяти
+    with open(path, "w", encoding="utf-8") as f:
+        f.write("[\n")
+        for i in range(rows):
+            record = dict(zip(HEADER, make_row(i)))
+            f.write(("," if i else "") + json.dumps(record, ensure_ascii=False) + "\n")
+        f.write("]\n")
 else:
     import csv
 

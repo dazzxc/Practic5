@@ -4,7 +4,7 @@
 Зачем: файл на 10 миллионов строк не влезет в память целиком.
 Поэтому читаем, например, по 15 000 строк, проверяем их и выкидываем из памяти.
 
-Поддерживаются: .csv и .xlsx
+Поддерживаются: .csv, .xlsx и .json / .jsonl (JSON читается в json_reader.py)
 (старый формат .xls не поддерживается - его надо пересохранить в .xlsx)
 
 ВАЖНО: номера строк (index) сквозные. Если в первом чанке строки 0..99999,
@@ -107,5 +107,8 @@ def read_in_chunks(path, chunk_size=DEFAULT_CHUNK_SIZE):
         return read_csv_chunks(path, chunk_size)
     if extension in (".xlsx", ".xlsm"):
         return read_excel_chunks(path, chunk_size)
+    if extension in (".json", ".jsonl", ".ndjson"):
+        from checks.json_reader import read_json_chunks
+        return read_json_chunks(path, chunk_size)
 
-    raise ValueError(f"Формат {extension} не поддерживается. Нужен .csv или .xlsx")
+    raise ValueError(f"Формат {extension} не поддерживается. Нужен .csv, .xlsx или .json")
