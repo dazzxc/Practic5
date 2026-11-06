@@ -11,9 +11,10 @@ import sys
 import time
 
 from checks import check_file
+from checks.reader import DEFAULT_CHUNK_SIZE
 
 file_path = sys.argv[1] if len(sys.argv) > 1 else "test_data/clients.csv"
-chunk_size = int(sys.argv[2]) if len(sys.argv) > 2 else 100_000
+chunk_size = int(sys.argv[2]) if len(sys.argv) > 2 else DEFAULT_CHUNK_SIZE
 
 # Настройки проверок (подходят для clients.csv и big.csv/big.xlsx)
 config = {

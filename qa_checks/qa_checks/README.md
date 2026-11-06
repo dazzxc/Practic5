@@ -13,7 +13,7 @@ pip install -r requirements.txt
 python run.py                              # маленький тестовый файл
 python run.py мой_файл.csv                 # свой CSV
 python run.py мой_файл.xlsx                # свой Excel
-python run.py мой_файл.csv 50000           # свой размер чанка (по умолчанию 100 000 строк)
+python run.py мой_файл.csv 50000           # свой размер чанка (по умолчанию 15 000 строк)
 ```
 
 ## Проверить на большом файле

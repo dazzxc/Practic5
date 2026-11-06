@@ -1,0 +1,22 @@
+# Большие тестовые файлы (создаются заново через make_big_file.py)
+test_data/big.csv
+test_data/big.xlsx
+
+# Результат запуска run.py
+result.json
+
+# Служебные файлы Python и pytest
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Виртуальное окружение
+venv/
+.venv/
+
+# Файлы с паролями и настройками
+.env
+
+# Настройки редакторов
+.vscode/
+.idea/
