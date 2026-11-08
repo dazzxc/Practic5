@@ -1,0 +1,15 @@
+#root {
+min-height: 100vh;
+}
+
+.app {
+min-height: 100vh;
+display: flex;
+background: #0e0f19;
+}
+
+.main-content {
+flex: 1;
+min-height: 100vh;
+background: #0e0f19;
+}
