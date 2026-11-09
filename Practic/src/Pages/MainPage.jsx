@@ -1,5 +1,5 @@
-import { useState } from "react";
-import "./MainPage.css";
+import { useState, useRef } from "react";
+import "./MainPage.css"; // Обрати внимание: у него путь ../ (на уровень выше), это нормально
 
 function MainPage() {
   const [file, setFile] = useState(null);
@@ -7,8 +7,10 @@ function MainPage() {
   const [statusText, setStatusText] = useState("");
   const [report, setReport] = useState(null);
   const [error, setError] = useState("");
+  
+  // Скрытый инпут для выбора файла через кнопку
+  const fileInputRef = useRef(null);
 
-  // Обработчик выбора файла
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       setFile(e.target.files[0]);
@@ -17,7 +19,6 @@ function MainPage() {
     }
   };
 
-  // Обработчик запуска
   const handleAnalyze = async () => {
     if (!file) {
       setError("Пожалуйста, выберите файл для анализа.");
@@ -28,7 +29,6 @@ function MainPage() {
     setError("");
     
     try {
-      // 1. Загружаем файл
       setStatusText("Загрузка файла на сервер...");
       const formData = new FormData();
       formData.append("file", file);
@@ -41,8 +41,7 @@ function MainPage() {
       if (!uploadRes.ok) throw new Error("Ошибка при загрузке файла");
       const uploadData = await uploadRes.json();
 
-      // 2. Запускаем проверку
-      setStatusText("Анализ данных (может занять время)...");
+      setStatusText("Анализ данных...");
       const analyzeRes = await fetch("/api/run-check", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -52,7 +51,6 @@ function MainPage() {
       if (!analyzeRes.ok) throw new Error("Ошибка при анализе данных");
       const reportData = await analyzeRes.json();
 
-      // 3. Сохраняем результат
       setReport(reportData);
       setStatusText("");
     } catch (err) {
@@ -63,36 +61,46 @@ function MainPage() {
   };
 
   return (
-    <div className="main-page">
-      <h1>Аудит качества данных</h1>
-      
-      {/* Блок загрузки */}
+    <section className="page">
+      <h1 className="page-title">Анализ качества данных</h1>
+      <p className="page-subtitle"> Загрузите CSV, Excel или JSON файл, чтобы проверить его качество </p>
+
       <div className="upload-card">
-        <input 
-          type="file" 
-          accept=".csv, .json, .xlsx" 
-          onChange={handleFileChange} 
-          id="file-upload" 
-          className="file-input"
-        />
-        <label htmlFor="file-upload" className="file-label">
-          {file ? file.name : "Нажмите, чтобы выбрать файл (CSV, JSON, XLSX)"}
-        </label>
-        
+        <div className="upload-area">
+          {/* Скрытый инпут для файла */}
+          <input 
+            type="file" 
+            accept=".csv, .json, .xlsx" 
+            onChange={handleFileChange} 
+            ref={fileInputRef}
+            style={{ display: "none" }} 
+          />
+          
+          {/* Иконка (пока текстом, как в его коде, потом можно вставить SVG) */}
+          <div style={{ fontSize: "40px", marginBottom: "10px" }}>📁</div>
+
+          <h2 className="text-title">
+            {file ? file.name : "Перетащите файл сюда"}
+          </h2>
+
+          <p className="text-subtitle">
+            Или <span className="text-blue" onClick={() => fileInputRef.current.click()} style={{ cursor: "pointer", textDecoration: "underline" }}>выберите файл</span> на компьютере
+          </p>
+        </div>
+
         <button 
-          className="analyze-btn" 
-          onClick={handleAnalyze} 
-          disabled={loading || !file}
+          className="primary-button" 
+          onClick={file ? handleAnalyze : () => fileInputRef.current.click()}
+          disabled={loading}
         >
-          {loading ? statusText : "Запустить аудит"}
+          {loading ? statusText : (file ? "Запустить аудит" : "Выбрать файл")}
         </button>
+        {error && <p style={{ color: "#ff4c4c", marginTop: "15px" }}>{error}</p>}
       </div>
 
-      {error && <div className="error-msg">{error}</div>}
-
-      {/* Блок результатов */}
+      {/* Наш блок с результатами (появляется после анализа) */}
       {report && (
-        <div className="report-dashboard">
+        <div className="report-dashboard" style={{ marginTop: "40px", animation: "fadeIn 0.5s ease-in-out" }}>
           <h2>Отчет готов!</h2>
           
           <div className="kpi-grid">
@@ -137,7 +145,7 @@ function MainPage() {
           </table>
         </div>
       )}
-    </div>
+    </section>
   );
 }
 

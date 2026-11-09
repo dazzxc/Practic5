@@ -139,3 +139,76 @@ h1 {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* Стили для верстки Pomidor-maker */
+.page {
+  padding: 40px;
+  color: #ffffff;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.page-title {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.page-subtitle {
+  color: #ACACAC;
+  margin-bottom: 30px;
+}
+
+.upload-card {
+  background: #161826;
+  border: 2px dashed #3734C7;
+  border-radius: 12px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.upload-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.text-title {
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+.text-subtitle {
+  color: #ACACAC;
+  font-size: 16px;
+}
+
+.text-blue {
+  color: #3734C7;
+  font-weight: bold;
+}
+
+.primary-button {
+  background: #3734C7;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: bold;
+}
+
+.primary-button:hover {
+  background: #25246a;
+}
+
+.primary-button:disabled {
+  background: #555;
+  cursor: not-allowed;
+}
