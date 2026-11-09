@@ -14,7 +14,7 @@
 }
 
 .nav-item {
-    height: 60px;
+    height: 68px;
     padding: 0 14px;
     display: flex;
     align-items: center;
@@ -41,7 +41,6 @@
 }
 
 .nav-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin-top: 11px;
+    margin-bottom: 18px;
 }
