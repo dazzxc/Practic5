@@ -4,3 +4,31 @@
    --accent-color:#F8F8F9;
    --logo-Bcolor:#2ED0FF;
 }
+
+*{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+min-height: 100%;
+}
+
+body {
+background: #0e0f19;
+color: #ffffff;
+font-family: Arial, Helvetica, sans-serif;
+min-width: 320px;
+}
+
+button,
+input {
+font: inherit;
+}
+
+button {
+border: none;
+}

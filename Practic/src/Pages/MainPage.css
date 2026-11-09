@@ -1,0 +1,70 @@
+.page {
+    width: 100%;
+    padding: 24px 18px;
+}
+
+.page-title {
+    margin-bottom: 6px;
+    color: #ffffff;
+    font-size: 48px;
+    font-weight: 400;
+}
+
+.page-subtitle {
+    margin-bottom: 14px;
+    color: #a29ac3;
+    font-size: 24px;
+}
+
+.upload-card {
+    width: 100%;
+    max-width: 1160px;
+    height:400px;
+    padding: 22px 34px 10px;
+    background: #161826;
+    border-radius: 8px;
+}
+
+.upload-area {
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #4B475B;
+    border-radius: 15px;
+    text-align: center;
+}
+
+
+.primary-button {
+    margin-top: 20px;
+    padding: 8px 20px;
+    background: #3734c7;
+    border-radius: 8px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 24px;
+    transition: 0.2s;
+}
+
+.primary-button:hover{
+    background: #4542df;
+}
+
+.text-title{
+    font-size: 29px;
+    margin-bottom: 5px;
+    color: #ffffff; 
+    font-weight: 300;
+
+
+}
+.text-subtitle{
+    font-size: 24px;
+    color: #A0A8C9;
+}
+.text-blue{
+    color: #6563C5;
+
+}
