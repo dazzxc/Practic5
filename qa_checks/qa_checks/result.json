@@ -1,0 +1,122 @@
+{
+  "total_rows": 1000000,
+  "columns": [
+    "id",
+    "name",
+    "email",
+    "age",
+    "gender",
+    "start_date",
+    "end_date",
+    "price",
+    "quantity",
+    "total"
+  ],
+  "issues": [
+    {
+      "type": "missing",
+      "column": "email",
+      "count": 9999,
+      "percent": 1.0,
+      "severity": "low",
+      "message": "В колонке 'email' пусто в 9999 строках из 1000000",
+      "sample_rows": [
+        127,
+        479,
+        672,
+        721,
+        864
+      ]
+    },
+    {
+      "type": "duplicate_key",
+      "column": "id",
+      "count": 9875,
+      "percent": 0.99,
+      "severity": "low",
+      "message": "В колонке 'id' значения повторяются в 9875 строках",
+      "sample_rows": [
+        49,
+        62,
+        124,
+        262,
+        279
+      ]
+    },
+    {
+      "type": "out_of_range",
+      "column": "age",
+      "count": 10188,
+      "percent": 1.02,
+      "severity": "low",
+      "message": "В колонке 'age' значения вне диапазона 0..120",
+      "sample_rows": [
+        755,
+        820,
+        944,
+        976,
+        1230
+      ]
+    },
+    {
+      "type": "wrong_format",
+      "column": "email",
+      "count": 10184,
+      "percent": 1.02,
+      "severity": "low",
+      "message": "В колонке 'email' неправильный формат email",
+      "sample_rows": [
+        147,
+        219,
+        272,
+        552,
+        553
+      ]
+    },
+    {
+      "type": "not_allowed",
+      "column": "gender",
+      "count": 10052,
+      "percent": 1.01,
+      "severity": "low",
+      "message": "В колонке 'gender' есть значения не из списка ['М', 'Ж']",
+      "sample_rows": [
+        95,
+        242,
+        378,
+        748,
+        817
+      ]
+    },
+    {
+      "type": "inconsistent",
+      "column": "start_date / end_date",
+      "count": 10071,
+      "percent": 1.01,
+      "severity": "low",
+      "message": "'end_date' раньше, чем 'start_date'",
+      "sample_rows": [
+        306,
+        366,
+        504,
+        564,
+        615
+      ]
+    },
+    {
+      "type": "inconsistent",
+      "column": "total",
+      "count": 10195,
+      "percent": 1.02,
+      "severity": "low",
+      "message": "'total' не равна 'price' × 'quantity'",
+      "sample_rows": [
+        60,
+        61,
+        470,
+        471,
+        530
+      ]
+    }
+  ]
+}
