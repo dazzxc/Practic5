@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import "./MainPage.css"; // Обрати внимание: у него путь ../ (на уровень выше), это нормально
+import DataDistribution from "../components/DataDistribution";
 
 function MainPage() {
   const [file, setFile] = useState(null);
@@ -120,6 +121,11 @@ function MainPage() {
               <span className="kpi-title">Типов ошибок</span>
               <span className="kpi-value info">{report.total_issues}</span>
             </div>
+          </div>
+          
+          <div>
+            <DataDistribution report={report} />
+            {/* график  */}
           </div>
 
           <h3>Найденные проблемы</h3>
