@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import "./MainPage.css"; // Обрати внимание: у него путь ../ (на уровень выше), это нормально
 import DataDistribution from "../components/DataDistribution";
+import Recommendations from "../components/Recommendations";
 
 function MainPage() {
   const [file, setFile] = useState(null);
@@ -126,6 +127,11 @@ function MainPage() {
           <div>
             <DataDistribution report={report} />
             {/* график  */}
+          </div>
+
+          <div>
+            <Recommendations issues={report?.issues} />
+            {/* Рекомендации по исправлению ошибок */}
           </div>
 
           <h3>Найденные проблемы</h3>

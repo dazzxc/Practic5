@@ -1,10 +1,9 @@
-
 .distribution-section {
   display: grid;
   grid-template-columns: 1.1fr 1fr;
   gap: 30px;
   width: 100%;
-  padding-bottom: 30px;
+  padding-bottom: 10px;
   margin-top: 30px;
 }
 
@@ -28,15 +27,11 @@
   font-weight: 500;
 }
 
-.distribution-card .distribution-title {
-  padding: 0;
-}
-
 .distribution-content {
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  gap: 25px;
+  justify-content: center;
+  gap: 30px;
   min-height: 190px;
 }
 
@@ -76,10 +71,8 @@
 
 .distribution-legend {
   display: flex;
-  flex: 1;
   flex-direction: column;
   gap: 17px;
-  min-width: 0;
 }
 
 .legend-item,

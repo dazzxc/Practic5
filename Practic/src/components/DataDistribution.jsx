@@ -5,17 +5,19 @@ const ERROR_TYPES = [
   {
     type: "missing",
     label: "Пропуски",
-    color: "#D7DF55",
+    
+    color: "#D9444A",
   },
   {
     type: "duplicate_row",
     label: "Дубликаты",
-    color: "#169BD5",
+    color: "#D7DF55",
+    
   },
   {
     type: "invalid_value",
     label: "Некорректные значения",
-    color: "#D9444A",
+    color: "#169BD5",
   },
   {
     type: "inconsistency",
@@ -36,7 +38,7 @@ function DataDistribution({ report }) {
 
   const missingValues = profile?.missing_values || 0;
 
-  // Предварительный процент заполненных ячеек.
+  //  процент заполненных ячеек
   const correctPercentage =
     totalCells > 0
       ? Math.max(
@@ -48,7 +50,7 @@ function DataDistribution({ report }) {
         )
       : 0;
 
-  // Группируем ошибки по типам.
+  // Группируем ошибки по типам
   const groupedIssues = issues.reduce((result, issue) => {
     const type = issue.type;
     const count = Number(issue.count) || 0;
@@ -80,8 +82,6 @@ function DataDistribution({ report }) {
     0
   );
 
-  // Строим диаграмму: зелёный сектор — заполненные ячейки,
-  // остальные сектора — доли найденных ошибок.
   const errorPercentage = 100 - correctPercentage;
 
   let currentAngle = correctPercentage * 3.6;
@@ -118,9 +118,7 @@ function DataDistribution({ report }) {
   return (
     <section className="distribution-section">
       <div className="distribution-card">
-        <h2 className="distribution-title">
-          Распределение проблем
-        </h2>
+        <h2 className="distribution-title">Распределение данных</h2>
 
         <div className="distribution-content">
           <div
