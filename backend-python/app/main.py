@@ -9,7 +9,8 @@ from app.api.routes import (
     upload,
     analysis,
     reports,
-    visualization
+    visualization,
+    export
 )
 
 from app.services.cleanup_service import (
@@ -21,14 +22,11 @@ from app.services.cleanup_service import (
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await asyncio.to_thread(cleanup_old_uploads)
-
     cleanup_task = asyncio.create_task(cleanup_loop())
-
     try:
         yield
     finally:
         cleanup_task.cancel()
-
         with suppress(asyncio.CancelledError):
             await cleanup_task
 
@@ -39,7 +37,6 @@ app = FastAPI(
     version="1.0.0",
     lifespan=lifespan
 )
-
 
 app.add_middleware(
     CORSMiddleware,
@@ -52,33 +49,9 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-
-app.include_router(
-    health.router,
-    prefix="/api",
-    tags=["Health"]
-)
-
-app.include_router(
-    upload.router,
-    prefix="/api",
-    tags=["Upload"]
-)
-
-app.include_router(
-    analysis.router,
-    prefix="/api",
-    tags=["Analysis"]
-)
-
-app.include_router(
-    reports.router,
-    prefix="/api",
-    tags=["Reports"]
-)
-
-app.include_router(
-    visualization.router,
-    prefix="/api",
-    tags=["Visualization"]
-)
+app.include_router(health.router, prefix="/api", tags=["Health"])
+app.include_router(upload.router, prefix="/api", tags=["Upload"])
+app.include_router(analysis.router, prefix="/api", tags=["Analysis"])
+app.include_router(reports.router, prefix="/api", tags=["Reports"])
+app.include_router(visualization.router, prefix="/api", tags=["Visualization"])
+app.include_router(export.router, prefix="/api", tags=["Export"])

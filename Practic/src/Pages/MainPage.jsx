@@ -1,7 +1,5 @@
 import { useState, useRef } from "react";
-import "./MainPage.css"; // Обрати внимание: у него путь ../ (на уровень выше), это нормально
-import DataDistribution from "../components/DataDistribution";
-import Recommendations from "../components/Recommendations";
+import "./MainPage.css"; 
 
 function MainPage() {
   const [file, setFile] = useState(null);
@@ -10,7 +8,6 @@ function MainPage() {
   const [report, setReport] = useState(null);
   const [error, setError] = useState("");
   
-  // Скрытый инпут для выбора файла через кнопку
   const fileInputRef = useRef(null);
 
   const handleFileChange = (e) => {
@@ -62,6 +59,32 @@ function MainPage() {
     }
   };
 
+  const handleExport = async (format) => {
+    if (!report) return;
+    
+    try {
+      const res = await fetch(`/api/export/${format}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(report),
+      });
+
+      if (!res.ok) throw new Error("Ошибка при генерации файла");
+
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = format === "excel" ? "data_quality_report.xlsx" : "data_quality_report.json";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   return (
     <section className="page">
       <h1 className="page-title">Анализ качества данных</h1>
@@ -69,7 +92,6 @@ function MainPage() {
 
       <div className="upload-card">
         <div className="upload-area">
-          {/* Скрытый инпут для файла */}
           <input 
             type="file" 
             accept=".csv, .json, .xlsx" 
@@ -78,11 +100,7 @@ function MainPage() {
             style={{ display: "none" }} 
           />
           
-          {/* Иконка (пока текстом, как в его коде, потом можно вставить SVG) */}
-          <div ><svg width="132" height="132" viewBox="0 0 132 132" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M126.894 86.2629V113.35C126.894 116.943 125.467 120.387 122.927 122.927C120.387 125.467 116.943 126.894 113.35 126.894H18.5438C14.9518 126.894 11.5068 125.467 8.96689 122.927C6.42693 120.387 5 116.943 5 113.35V86.2629M99.8067 52.4033L65.9471 86.2629L32.0876 52.4033M65.9471 86.2629V5" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" stroke="#3734C7"/>
-</svg>
-</div>
+          <div style={{ fontSize: "40px", marginBottom: "10px" }}>📁</div>
 
           <h2 className="text-title">
             {file ? file.name : "Перетащите файл сюда"}
@@ -103,11 +121,28 @@ function MainPage() {
         {error && <p style={{ color: "#ff4c4c", marginTop: "15px" }}>{error}</p>}
       </div>
 
-      {/* Наш блок с результатами (появляется после анализа) */}
       {report && (
         <div className="report-dashboard" style={{ marginTop: "40px", animation: "fadeIn 0.5s ease-in-out" }}>
-          <h2>Отчет готов!</h2>
           
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
+            <h2>Отчет готов!</h2>
+            
+            <div style={{ display: "flex", gap: "10px" }}>
+              <button 
+                onClick={() => handleExport("json")}
+                style={{ background: "#3734C7", color: "white", border: "none", padding: "10px 20px", borderRadius: "8px", cursor: "pointer", fontWeight: "bold" }}
+              >
+                Скачать JSON
+              </button>
+              <button 
+                onClick={() => handleExport("excel")}
+                style={{ background: "#217346", color: "white", border: "none", padding: "10px 20px", borderRadius: "8px", cursor: "pointer", fontWeight: "bold" }}
+              >
+                Скачать Excel
+              </button>
+            </div>
+          </div>
+
           <div className="kpi-grid">
             <div className="kpi-card">
               <span className="kpi-title">Всего строк</span>
@@ -125,16 +160,6 @@ function MainPage() {
               <span className="kpi-title">Типов ошибок</span>
               <span className="kpi-value info">{report.total_issues}</span>
             </div>
-          </div>
-          
-          <div>
-            <DataDistribution report={report} />
-            {/* график  */}
-          </div>
-
-          <div>
-            <Recommendations issues={report?.issues} />
-            {/* Рекомендации по исправлению ошибок */}
           </div>
 
           <h3>Найденные проблемы</h3>
