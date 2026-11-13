@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import "./MainPage.css";
+import DataDistribution from "../components/DataDistribution";
+import Recommendations from "../components/Recommendations";
 
 function MainPage() {
   const [file, setFile] = useState(null);
@@ -167,6 +169,16 @@ function MainPage() {
               <span className="kpi-title">Типов ошибок</span>
               <span className="kpi-value info">{report.total_issues}</span>
             </div>
+          </div>
+
+          <div>
+            <DataDistribution report={report} />
+            {/* график */}
+          </div>
+          
+          <div>
+            <Recommendations issues={report?.issues || []} />
+            {/* Рекомендации по исправлению ошибок */} 
           </div>
 
           <h3>Найденные проблемы</h3>
