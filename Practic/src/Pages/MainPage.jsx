@@ -10,6 +10,7 @@ function MainPage() {
   const [report, setReport] = useState(null);
   const [error, setError] = useState("");
   const [isDragging, setIsDragging] = useState(false);
+  const dragCounter = useRef(0); // NEW: чтобы dragleave не мигал на дочерних элементах
 
   const fileInputRef = useRef(null);
 
@@ -21,21 +22,37 @@ function MainPage() {
     }
   };
 
+  // drag & drop handlers
+  const handleDragEnter = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dragCounter.current += 1;
+    if (e.dataTransfer.items && e.dataTransfer.items.length > 0) {
+      setIsDragging(true);
+    }
+  };
+
   const handleDragOver = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsDragging(true);
+    e.dataTransfer.dropEffect = "copy";
+    if (!isDragging) setIsDragging(true);
   };
 
   const handleDragLeave = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsDragging(false);
+    dragCounter.current -= 1;
+    if (dragCounter.current <= 0) {
+      dragCounter.current = 0;
+      setIsDragging(false);
+    }
   };
 
   const handleDrop = (e) => {
     e.preventDefault();
     e.stopPropagation();
+    dragCounter.current = 0;
     setIsDragging(false);
 
     const droppedFile = e.dataTransfer.files && e.dataTransfer.files[0];
@@ -92,13 +109,15 @@ function MainPage() {
       <h1 className="page-title">Анализ качества данных</h1>
       <p className="page-subtitle"> Загрузите CSV, Excel или JSON файл, чтобы проверить его качество </p>
 
-      <div className="upload-card">
-        {/* Скрытый инпут для файла */}
+      <div
+        className="upload-card"
+        onDragEnter={handleDragEnter}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+      >
         <div
           className="upload-area"
-          onDragOver={handleDragOver}
-          onDragLeave={handleDragLeave}
-          onDrop={handleDrop}
           style={isDragging ? { borderColor: "#3734C7" } : undefined}
         >
           <input 
@@ -109,10 +128,11 @@ function MainPage() {
             style={{ display: "none" }} 
           />
           
-          <div ><svg width="132" height="132" viewBox="0 0 132 132" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M126.894 86.2629V113.35C126.894 116.943 125.467 120.387 122.927 122.927C120.387 125.467 116.943 126.894 113.35 126.894H18.5438C14.9518 126.894 11.5068 125.467 8.96689 122.927C6.42693 120.387 5 116.943 5 113.35V86.2629M99.8067 52.4033L65.9471 86.2629L32.0876 52.4033M65.9471 86.2629V5" strokeWidth="10" strokeLinecap="round" strokeLinejoin="round" stroke="#3734C7"/>
-</svg>
-</div>
+          <div>
+            <svg width="132" height="132" viewBox="0 0 132 132" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M126.894 86.2629V113.35C126.894 116.943 125.467 120.387 122.927 122.927C120.387 125.467 116.943 126.894 113.35 126.894H18.5438C14.9518 126.894 11.5068 125.467 8.96689 122.927C6.42693 120.387 5 116.943 5 113.35V86.2629M99.8067 52.4033L65.9471 86.2629L32.0876 52.4033M65.9471 86.2629V5" strokeWidth="10" strokeLinecap="round" strokeLinejoin="round" stroke="#3734C7"/>
+            </svg>
+          </div>
 
           <h2 className="text-title">
             {file ? file.name : (isDragging ? "Отпустите файл здесь" : "Перетащите файл сюда")}
@@ -132,7 +152,7 @@ function MainPage() {
         </button>
         {error && <p style={{ color: "#ff4c4c", marginTop: "15px" }}>{error}</p>}
       </div>
-
+      
       {/* Наш блок с результатами (появляется после анализа) */}
       {report && (
         <div className="report-dashboard" style={{ marginTop: "40px", animation: "fadeIn 0.5s ease-in-out" }}>
