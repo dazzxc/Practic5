@@ -1,13 +1,18 @@
-import { useState, useRef } from "react";
-import "./MainPage.css"; 
+import { useState, useRef, useEffect } from "react";
+import "./MainPage.css";
 
 function MainPage() {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [statusText, setStatusText] = useState("");
-  const [report, setReport] = useState(null);
-  const [error, setError] = useState("");
   
+  // Инициализируем отчет из localStorage, чтобы он не пропадал
+  const [report, setReport] = useState(() => {
+    const saved = localStorage.getItem("lastReport");
+    return saved ? JSON.parse(saved) : null;
+  });
+  
+  const [error, setError] = useState("");
   const fileInputRef = useRef(null);
 
   const handleFileChange = (e) => {
@@ -15,6 +20,7 @@ function MainPage() {
       setFile(e.target.files[0]);
       setError("");
       setReport(null);
+      localStorage.removeItem("lastReport"); // Очищаем старый отчет при выборе нового файла
     }
   };
 
@@ -51,6 +57,7 @@ function MainPage() {
       const reportData = await analyzeRes.json();
 
       setReport(reportData);
+      localStorage.setItem("lastReport", JSON.stringify(reportData)); // Сохраняем в localStorage
       setStatusText("");
     } catch (err) {
       setError(err.message || "Произошла ошибка");

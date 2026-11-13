@@ -10,7 +10,8 @@ from app.api.routes import (
     analysis,
     reports,
     visualization,
-    export
+    export,
+    reports_history
 )
 
 from app.services.cleanup_service import (
@@ -55,3 +56,4 @@ app.include_router(analysis.router, prefix="/api", tags=["Analysis"])
 app.include_router(reports.router, prefix="/api", tags=["Reports"])
 app.include_router(visualization.router, prefix="/api", tags=["Visualization"])
 app.include_router(export.router, prefix="/api", tags=["Export"])
+app.include_router(reports_history.router, prefix="/api", tags=["History"])
