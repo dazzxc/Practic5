@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import "./MainPage.css"; // Обрати внимание: у него путь ../ (на уровень выше), это нормально
+import "./MainPage.css";
 import DataDistribution from "../components/DataDistribution";
 import Recommendations from "../components/Recommendations";
 
@@ -9,13 +9,38 @@ function MainPage() {
   const [statusText, setStatusText] = useState("");
   const [report, setReport] = useState(null);
   const [error, setError] = useState("");
-  
-  // Скрытый инпут для выбора файла через кнопку
+  const [isDragging, setIsDragging] = useState(false);
+
   const fileInputRef = useRef(null);
 
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       setFile(e.target.files[0]);
+      setError("");
+      setReport(null);
+    }
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+
+    const droppedFile = e.dataTransfer.files && e.dataTransfer.files[0];
+    if (droppedFile) {
+      setFile(droppedFile);
       setError("");
       setReport(null);
     }
@@ -68,8 +93,14 @@ function MainPage() {
       <p className="page-subtitle"> Загрузите CSV, Excel или JSON файл, чтобы проверить его качество </p>
 
       <div className="upload-card">
-        <div className="upload-area">
-          {/* Скрытый инпут для файла */}
+        {/* Скрытый инпут для файла */}
+        <div
+          className="upload-area"
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+          style={isDragging ? { borderColor: "#3734C7" } : undefined}
+        >
           <input 
             type="file" 
             accept=".csv, .json, .xlsx" 
@@ -78,14 +109,13 @@ function MainPage() {
             style={{ display: "none" }} 
           />
           
-          {/* Иконка (пока текстом, как в его коде, потом можно вставить SVG) */}
           <div ><svg width="132" height="132" viewBox="0 0 132 132" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M126.894 86.2629V113.35C126.894 116.943 125.467 120.387 122.927 122.927C120.387 125.467 116.943 126.894 113.35 126.894H18.5438C14.9518 126.894 11.5068 125.467 8.96689 122.927C6.42693 120.387 5 116.943 5 113.35V86.2629M99.8067 52.4033L65.9471 86.2629L32.0876 52.4033M65.9471 86.2629V5" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" stroke="#3734C7"/>
+<path d="M126.894 86.2629V113.35C126.894 116.943 125.467 120.387 122.927 122.927C120.387 125.467 116.943 126.894 113.35 126.894H18.5438C14.9518 126.894 11.5068 125.467 8.96689 122.927C6.42693 120.387 5 116.943 5 113.35V86.2629M99.8067 52.4033L65.9471 86.2629L32.0876 52.4033M65.9471 86.2629V5" strokeWidth="10" strokeLinecap="round" strokeLinejoin="round" stroke="#3734C7"/>
 </svg>
 </div>
 
           <h2 className="text-title">
-            {file ? file.name : "Перетащите файл сюда"}
+            {file ? file.name : (isDragging ? "Отпустите файл здесь" : "Перетащите файл сюда")}
           </h2>
 
           <p className="text-subtitle">
