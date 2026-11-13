@@ -1,5 +1,7 @@
 import { useState, useRef } from "react";
 import "./MainPage.css"; // Обрати внимание: у него путь ../ (на уровень выше), это нормально
+import DataDistribution from "../components/DataDistribution";
+import Recommendations from "../components/Recommendations";
 
 function MainPage() {
   const [file, setFile] = useState(null);
@@ -77,7 +79,10 @@ function MainPage() {
           />
           
           {/* Иконка (пока текстом, как в его коде, потом можно вставить SVG) */}
-          <div style={{ fontSize: "40px", marginBottom: "10px" }}>📁</div>
+          <div ><svg width="132" height="132" viewBox="0 0 132 132" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M126.894 86.2629V113.35C126.894 116.943 125.467 120.387 122.927 122.927C120.387 125.467 116.943 126.894 113.35 126.894H18.5438C14.9518 126.894 11.5068 125.467 8.96689 122.927C6.42693 120.387 5 116.943 5 113.35V86.2629M99.8067 52.4033L65.9471 86.2629L32.0876 52.4033M65.9471 86.2629V5" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" stroke="#3734C7"/>
+</svg>
+</div>
 
           <h2 className="text-title">
             {file ? file.name : "Перетащите файл сюда"}
@@ -120,6 +125,16 @@ function MainPage() {
               <span className="kpi-title">Типов ошибок</span>
               <span className="kpi-value info">{report.total_issues}</span>
             </div>
+          </div>
+          
+          <div>
+            <DataDistribution report={report} />
+            {/* график  */}
+          </div>
+
+          <div>
+            <Recommendations issues={report?.issues} />
+            {/* Рекомендации по исправлению ошибок */}
           </div>
 
           <h3>Найденные проблемы</h3>

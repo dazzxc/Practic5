@@ -98,8 +98,8 @@ h1 {
   font-weight: bold;
 }
 
-.kpi-value.danger { color: #ff4c4c; border-color: #ff4c4c; }
-.kpi-value.warning { color: #ffb84c; }
+.kpi-value.danger { color: #D9444A; border-color: #ff4c4c; }
+.kpi-value.warning { color: #D7DF55; }
 .kpi-value.info { color: #4c9aff; }
 
 /* Таблица */
@@ -154,7 +154,7 @@ h1 {
 }
 
 .page-subtitle {
-  color: #ACACAC;
+  color: #A29AC3;
   margin-bottom: 30px;
 }
 
