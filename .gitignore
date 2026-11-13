@@ -243,3 +243,8 @@ Practic/dist/
 # Отчеты
 dq_report.json
 result.json
+
+# Node.js (React)
+node_modules/
+Practic/node_modules/
+dist/

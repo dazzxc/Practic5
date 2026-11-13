@@ -8,19 +8,19 @@ from app.schemas.report import Report
 from app.schemas.profile import DataProfile
 from app.schemas.common import Issue
 from app.services.dataset_registry import get_dataset
+from app.services.report_registry import save_report
 
-# 1. Прокладываем путь к папке qa_checks (она лежит на 3 уровня выше)
+# Прокладываем путь к папке qa_checks
 current_dir = Path(__file__).resolve().parent
 qa_checks_path = current_dir.parents[2] / "qa_checks" / "qa_checks"
 sys.path.append(str(qa_checks_path))
 
-# 2. Импортируем движок
 try:
     from checks import check_file
 except ImportError as e:
-    raise RuntimeError(f"Не удалось импортировать check_file. Ошибка: {e}. Проверь пути.")
+    raise RuntimeError(f"Не удалось импортировать check_file. Ошибка: {e}")
 
-# 3. Конфигурация (взята из run.py Владимира)
+# Базовый конфиг (используется, если фронтенд ничего не передал)
 DEFAULT_CONFIG = {
     "key_columns": ["id"],
     "invalid_rules": {
@@ -47,13 +47,14 @@ def run_data_analysis(request: AnalysisRequest) -> Report:
     if not file_path.exists():
         raise HTTPException(status_code=404, detail="Dataset file does not exist")
 
-    # ЗАПУСКАЕМ МОЗГ (Движок Владимира)
+    # ВЫБИРАЕМ КОНФИГ: если фронтенд прислал свой - используем его, иначе дефолтный
+    config_to_use = request.config if request.config else DEFAULT_CONFIG
+
     try:
-        raw_result = check_file(str(file_path), config=DEFAULT_CONFIG)
+        raw_result = check_file(str(file_path), config=config_to_use)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Ошибка при анализе: {str(e)}")
 
-    # Перекладываем результат в Pydantic-схемы коллег
     missing_count = 0
     duplicates_count = 0
     mapped_issues = []
@@ -82,7 +83,7 @@ def run_data_analysis(request: AnalysisRequest) -> Report:
         duplicates=duplicates_count
     )
 
-    return Report(
+    report = Report(
         report_id=str(uuid.uuid4()),
         status="completed",
         profile=profile,
@@ -90,3 +91,6 @@ def run_data_analysis(request: AnalysisRequest) -> Report:
         total_issues=len(mapped_issues),
         recommendations=["Исправьте найденные ошибки для повышения качества данных."]
     )
+    
+    save_report(report.report_id, report.model_dump()) 
+    return report
