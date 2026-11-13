@@ -21,22 +21,34 @@
 
 Для работы потребуется установленный **Python 3.10+** и **Node.js 18+**.
 
-### Шаг 1: Запуск Backend (FastAPI)
-Откройте терминал в корне проекта и выполните:
+### Запуск Backend (FastAPI)
+🐍 Терминал 1: Бэкенд (Python)
+Убедись, что ты в корневой папке проекта (Practic5). Если нет, выполни:
 
-```bash
-# 1. Переходим в папку бэкенда
+powershell
+cd C:\Users\user\Documents\GitHub\Practic5
+Запусти сервер напрямую через Python из виртуального окружения. Эта команда работает всегда, потому что она не требует активации окружения (скрипты активации заблокированы).
+
+powershell
 cd backend-python
+..\.venv\Scripts\python.exe -m uvicorn app.main:app --reload
+Дождись строки Application startup complete. Не закрывай этот терминал и не вводи в него больше ничего.
 
-# 2. Создаем и активируем виртуальное окружение (если еще не создано)
-python -m venv venv
-# Для Windows:
-venv\Scripts\activate
-# Для Mac/Linux:
-source venv/bin/activate
+⚛️ Терминал 2: Фронтенд (React)
+Открой новый терминал (нажми +).
 
-# 3. Устанавливаем зависимости
-pip install -r ../requirements.txt
+Перейди в папку с фронтендом:
 
-# 4. Запускаем сервер
-uvicorn app.main:app --reload
+powershell
+cd C:\Users\user\Documents\GitHub\Practic5\Practic
+Если ты давно не устанавливал зависимости (или скачал проект заново), выполни:
+
+powershell
+npm install
+(Если npm ругается на политику безопасности, используй npm.cmd install)
+
+Запусти сервер разработки:
+
+powershell
+npm run dev
+(Если и здесь ошибка, используй npm.cmd run dev)
