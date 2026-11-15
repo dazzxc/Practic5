@@ -1,7 +1,47 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import "./MainPage.css";
-import DataDistribution from "../components/DataDistribution";
-import Recommendations from "../components/Recommendations";
+import ReportView from "../components/ReportView";
+
+const SCROLL_DURATION = 1200; // длительность прокрутки в миллисекундах (больше - медленнее)
+const SCROLL_OFFSET = 40;     // отступ сверху над заголовком "Отчет готов!"
+
+// Ищет, что именно прокручивается: сама страница или блок с контентом
+function getScrollContainer(element) {
+  let parent = element.parentElement;
+  while (parent) {
+    const overflowY = getComputedStyle(parent).overflowY;
+    if ((overflowY === "auto" || overflowY === "scroll") && parent.scrollHeight > parent.clientHeight) {
+      return parent;
+    }
+    parent = parent.parentElement;
+  }
+  return document.scrollingElement || document.documentElement;
+}
+
+// Мягкая кривая: медленно разгоняется, быстро едет в середине, плавно тормозит
+function easeInOutCubic(t) {
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
+
+// Плавно прокручивает страницу до элемента
+function smoothScrollTo(element) {
+  const container = getScrollContainer(element);
+  const isPage = container === document.scrollingElement || container === document.documentElement;
+  const containerTop = isPage ? 0 : container.getBoundingClientRect().top;
+
+  const start = container.scrollTop;
+  const target = start + element.getBoundingClientRect().top - containerTop - SCROLL_OFFSET;
+  const distance = target - start;
+  const startTime = performance.now();
+
+  function step(now) {
+    const progress = Math.min((now - startTime) / SCROLL_DURATION, 1);
+    container.scrollTop = start + distance * easeInOutCubic(progress);
+    if (progress < 1) requestAnimationFrame(step);
+  }
+
+  requestAnimationFrame(step);
+}
 
 function MainPage() {
   const [file, setFile] = useState(null);
@@ -13,6 +53,16 @@ function MainPage() {
   const dragCounter = useRef(0); // NEW: чтобы dragleave не мигал на дочерних элементах
 
   const fileInputRef = useRef(null);
+  const reportRef = useRef(null); // блок "Отчет готов!" - к нему прокручиваем страницу
+
+  // Когда отчёт появился, плавно прокручиваем страницу до заголовка "Отчет готов!"
+  useEffect(() => {
+    if (report && reportRef.current) {
+      // Небольшая пауза, чтобы блок успел появиться, потом мягкая прокрутка
+      const timer = setTimeout(() => smoothScrollTo(reportRef.current), 200);
+      return () => clearTimeout(timer);
+    }
+  }, [report]);
 
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -155,63 +205,18 @@ function MainPage() {
       
       {/* Наш блок с результатами (появляется после анализа) */}
       {report && (
-        <div className="report-dashboard" style={{ marginTop: "40px", animation: "fadeIn 0.5s ease-in-out" }}>
+        <div
+          className="report-dashboard"
+          ref={reportRef}
+          style={{ marginTop: "40px", animation: "fadeIn 0.5s ease-in-out" }}
+        >
           <h2>Отчет готов!</h2>
           
-          <div className="kpi-grid">
-            <div className="kpi-card">
-              <span className="kpi-title">Всего строк</span>
-              <span className="kpi-value">{report.profile.rows_count.toLocaleString()}</span>
-            </div>
-            <div className="kpi-card">
-              <span className="kpi-title">Пропуски</span>
-              <span className="kpi-value danger">{report.profile.missing_values.toLocaleString()}</span>
-            </div>
-            <div className="kpi-card">
-              <span className="kpi-title">Дубликаты</span>
-              <span className="kpi-value warning">{report.profile.duplicates.toLocaleString()}</span>
-            </div>
-            <div className="kpi-card">
-              <span className="kpi-title">Типов ошибок</span>
-              <span className="kpi-value info">{report.total_issues}</span>
-            </div>
-          </div>
-          
-          <div>
-            <DataDistribution report={report} />
-            {/* график  */}
-          </div>
-
-          <div>
-            <Recommendations issues={report?.issues} />
-            {/* Рекомендации по исправлению ошибок */}
-          </div>
-
-          <h3>Найденные проблемы</h3>
-          <table className="issues-table">
-            <thead>
-              <tr>
-                <th>Тип</th>
-                <th>Колонка</th>
-                <th>Описание</th>
-                <th>Количество</th>
-              </tr>
-            </thead>
-            <tbody>
-              {report.issues.map((issue, index) => (
-                <tr key={index}>
-                  <td><span className="badge">{issue.type}</span></td>
-                  <td>{issue.column || "Вся строка"}</td>
-                  <td>{issue.description}</td>
-                  <td className="count-cell">{issue.count.toLocaleString()}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <ReportView report={report} />
         </div>
       )}
     </section>
   );
 }
 
-export default MainPage;
+export default MainPage;

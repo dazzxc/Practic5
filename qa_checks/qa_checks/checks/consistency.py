@@ -8,16 +8,19 @@
 
 import pandas as pd
 
-from checks.issue import make_issue, to_dates
+from checks.issue import make_issue, to_dates, to_number
 
 
-def check_dates_order(df, start_column, end_column, date_format=None):
-    """Ищет строки, где дата окончания раньше даты начала."""
+def check_dates_order(df, start_column, end_column, date_format=None, end_format=None):
+    """
+    Ищет строки, где дата окончания раньше даты начала.
+    end_format - если у даты окончания другой формат (по умолчанию такой же, как у начала).
+    """
     if start_column not in df.columns or end_column not in df.columns:
         return []
 
     start = to_dates(df[start_column], date_format)
-    end = to_dates(df[end_column], date_format)
+    end = to_dates(df[end_column], end_format or date_format)
 
     # Сравниваем только там, где обе даты правильные
     wrong = start.notna() & end.notna() & (end < start)
@@ -35,9 +38,9 @@ def check_total(df, price_column, quantity_column, total_column):
         if col not in df.columns:
             return []
 
-    price = pd.to_numeric(df[price_column], errors="coerce")
-    quantity = pd.to_numeric(df[quantity_column], errors="coerce")
-    total = pd.to_numeric(df[total_column], errors="coerce")
+    price = to_number(df[price_column])
+    quantity = to_number(df[quantity_column])
+    total = to_number(df[total_column])
 
     expected = price * quantity
     # Сравниваем с маленьким допуском (0.01), чтобы копейки при округлении не считались ошибкой
@@ -62,7 +65,9 @@ def check_consistency(df, rules):
     issues = []
     for r in rules:
         if r["rule"] == "dates_order":
-            issues += check_dates_order(df, r["start"], r["end"], r.get("format"))
+            start_format = r.get("start_format", r.get("format"))
+            end_format = r.get("end_format", r.get("format"))
+            issues += check_dates_order(df, r["start"], r["end"], start_format, end_format)
         elif r["rule"] == "total":
             issues += check_total(df, r["price"], r["quantity"], r["total"])
     return issues

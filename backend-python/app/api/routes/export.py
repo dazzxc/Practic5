@@ -27,13 +27,16 @@ async def export_excel(report_data: dict):
         # 1. Лист со сводкой (Профиль)
         profile = report_data.get("profile", {})
         summary_data = {
-            "Метрика": ["Имя файла", "Всего строк", "Колонок", "Пропуски", "Дубликаты", "Типов ошибок"],
+            "Метрика": ["Имя файла", "Всего строк", "Колонок", "Пропуски", "Дубликаты",
+                        "Некорректные значения", "Несогласованности", "Типов ошибок"],
             "Значение": [
                 profile.get("file_name", "N/A"),
                 profile.get("rows_count", 0),
                 profile.get("columns_count", 0),
                 profile.get("missing_values", 0),
                 profile.get("duplicates", 0),
+                profile.get("invalid_values", 0),
+                profile.get("inconsistencies", 0),
                 report_data.get("total_issues", 0)
             ]
         }
@@ -43,15 +46,26 @@ async def export_excel(report_data: dict):
         issues = report_data.get("issues", [])
         if issues:
             df_issues = pd.DataFrame(issues)
+            # Группа ошибки по-русски (в старых отчётах поля category может не быть)
+            category_names = {
+                "missing": "Пропуски",
+                "duplicate": "Дубликаты",
+                "invalid": "Некорректные значения",
+                "inconsistency": "Несогласованности",
+            }
+            if "category" not in df_issues.columns:
+                df_issues["category"] = ""
+            df_issues["category"] = df_issues["category"].map(category_names).fillna("")
             # Переименуем колонки для красоты
             df_issues = df_issues.rename(columns={
+                "category": "Группа",
                 "type": "Тип ошибки",
                 "column": "Колонка",
                 "description": "Описание",
                 "count": "Количество"
             })
             # Оставим только нужные колонки
-            df_issues = df_issues[["Тип ошибки", "Колонка", "Описание", "Количество"]]
+            df_issues = df_issues[["Группа", "Тип ошибки", "Колонка", "Описание", "Количество"]]
         else:
             df_issues = pd.DataFrame({"Информация": ["Ошибок не найдено"]})
 
@@ -69,4 +83,4 @@ async def export_excel(report_data: dict):
             headers={"Content-Disposition": 'attachment; filename="data_quality_report.xlsx"'}
         )
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Ошибка генерации Excel: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Ошибка генерации Excel: {str(e)}")

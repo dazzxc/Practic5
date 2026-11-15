@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { formatDate } from "../utils/formatDate";
+import "./ReportPage.css";
 
 function ReportPage() {
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Запрашиваем историю с бэкенда
+    // Запрашиваем историю с бэкенда (новые отчёты - первыми)
     fetch("/api/history")
       .then(res => res.json())
       .then(data => {
@@ -21,7 +24,7 @@ function ReportPage() {
   return (
     <div className="page" style={{ padding: "40px", color: "white" }}>
       <h1 className="page-title">Отчёт по анализу</h1>
-      <p className="page-subtitle">Список проверенных объектов</p>
+      <p className="page-subtitle">Список проверенных объектов. Нажмите на отчёт, чтобы открыть его</p>
 
       {loading ? (
         <div style={{ textAlign: "center", color: "#ACACAC", marginTop: "50px" }}>
@@ -36,29 +39,24 @@ function ReportPage() {
         </div>
       ) : (
         <div style={{ marginTop: "30px", display: "flex", flexDirection: "column", gap: "15px" }}>
-          {reports.map((rep, index) => (
-            <div key={index} style={{ 
-              background: "#161826", 
-              padding: "20px", 
-              borderRadius: "8px", 
-              borderLeft: "4px solid #3734C7",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center"
-            }}>
+          {reports.map((rep) => (
+            <Link key={rep.report_id} to={`/reports/${rep.report_id}`} className="report-card">
               <div>
                 <h3 style={{ margin: "0 0 10px 0", fontSize: "20px" }}>{rep.profile.file_name}</h3>
                 <p style={{ margin: 0, color: "#ACACAC" }}>
-                  Строк: {rep.profile.rows_count.toLocaleString()} | 
-                  Ошибок: <span style={{ color: "#ff4c4c", fontWeight: "bold" }}>{rep.total_issues}</span> | 
-                  Пропуски: {rep.profile.missing_values.toLocaleString()} | 
-                  Дубликаты: {rep.profile.duplicates.toLocaleString()}
+                  Строк: {rep.profile.rows_count.toLocaleString()} |
+                  Ошибок: <span style={{ color: "#ff4c4c", fontWeight: "bold" }}>{rep.total_issues}</span> |
+                  Пропуски: {rep.profile.missing_values.toLocaleString()} |
+                  Дубликаты: {rep.profile.duplicates.toLocaleString()} |
+                  Некорректные: {(rep.profile.invalid_values || 0).toLocaleString()} |
+                  Несогласованности: {(rep.profile.inconsistencies || 0).toLocaleString()}
                 </p>
               </div>
-              <div style={{ color: "#555", fontSize: "12px", textAlign: "right" }}>
-                ID: {rep.report_id.slice(0, 8)}...
+              <div className="report-card-side">
+                {rep.created_at && <span className="report-card-date">{formatDate(rep.created_at)}</span>}
+                <span className="report-card-open">Открыть →</span>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       )}

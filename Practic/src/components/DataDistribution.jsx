@@ -1,30 +1,13 @@
 
 import "./DataDistribution.css";
+import { CATEGORIES, CATEGORY_ORDER, countByCategory } from "../utils/issueCategories";
 
-const ERROR_TYPES = [
-  {
-    type: "missing",
-    label: "Пропуски",
-    
-    color: "#D9444A",
-  },
-  {
-    type: "duplicate_row",
-    label: "Дубликаты",
-    color: "#D7DF55",
-    
-  },
-  {
-    type: "invalid_value",
-    label: "Некорректные значения",
-    color: "#169BD5",
-  },
-  {
-    type: "inconsistency",
-    label: "Несогласованности",
-    color: "#E17A21",
-  },
-];
+// Названия и цвета групп ошибок - общие для всего приложения
+const ERROR_TYPES = CATEGORY_ORDER.map((category) => ({
+  type: category,
+  label: CATEGORIES[category].label,
+  color: CATEGORIES[category].color,
+}));
 
 const CORRECT_COLOR = "#54B65F";
 
@@ -36,46 +19,29 @@ function DataDistribution({ report }) {
     (profile?.rows_count || 0) *
     (profile?.columns_count || 0);
 
-  const missingValues = profile?.missing_values || 0;
+  // Сколько ошибок в каждой группе
+  const counts = countByCategory(issues);
 
-  //  процент заполненных ячеек
+  // Все найденные ошибки (пропуски, дубли, некорректные значения, несогласованности).
+  // Это приблизительная оценка: считаем, что каждая ошибка портит одну ячейку.
+  const allErrors = Object.values(counts).reduce((sum, value) => sum + value, 0);
+
+  //  процент корректных ячеек
   const correctPercentage =
     totalCells > 0
       ? Math.max(
           0,
           Math.min(
             100,
-            ((totalCells - missingValues) / totalCells) * 100
+            ((totalCells - allErrors) / totalCells) * 100
           )
         )
       : 0;
 
-  // Группируем ошибки по типам
-  const groupedIssues = issues.reduce((result, issue) => {
-    const type = issue.type;
-    const count = Number(issue.count) || 0;
-
-    if (!result[type]) {
-      const errorType = ERROR_TYPES.find(
-        (item) => item.type === type
-      );
-
-      result[type] = {
-        type,
-        label: errorType?.label || type,
-        color: errorType?.color || "#A29AC3",
-        count: 0,
-      };
-    }
-
-    result[type].count += count;
-
-    return result;
-  }, {});
-
-  const distribution = Object.values(groupedIssues).filter(
-    (item) => item.count > 0
-  );
+  // Группы ошибок, которые реально встретились
+  const distribution = ERROR_TYPES
+    .map((item) => ({ ...item, count: counts[item.type] }))
+    .filter((item) => item.count > 0);
 
   const totalErrors = distribution.reduce(
     (sum, item) => sum + item.count,

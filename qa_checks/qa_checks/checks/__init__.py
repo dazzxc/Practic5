@@ -6,16 +6,20 @@
 
 2) run_all_checks(df, config) - проверяет маленькую таблицу, которая уже в памяти.
 
+Если config не передан (None), правила подбираются АВТОМАТИЧЕСКИ
+по первой части файла (см. auto_rules.py). Так проверки работают для любого файла.
+
 Как работает check_file:
     читаем 15 000 строк -> проверяем -> запоминаем ошибки -> выкидываем строки из памяти
     читаем следующие 15 000 строк -> ...
     в конце складываем ошибки из всех частей в один список.
 """
 
+from checks.auto_rules import suggest_rules
 from checks.consistency import check_consistency
 from checks.duplicates import DuplicateChecker
 from checks.invalid import check_invalid
-from checks.issue import get_severity
+from checks.issue import CATEGORIES, get_category, get_severity
 from checks.missing import check_missing
 from checks.reader import DEFAULT_CHUNK_SIZE, read_in_chunks
 
@@ -61,21 +65,36 @@ def check_file(path, config=None, chunk_size=DEFAULT_CHUNK_SIZE, on_progress=Non
     Проверяет файл любого размера.
 
     path        - путь к .csv, .xlsx или .json
-    config      - настройки проверок (см. run.py)
+    config      - настройки проверок (см. run.py).
+                  None - подобрать правила автоматически по первой части файла.
     chunk_size  - сколько строк читать за раз
     on_progress - необязательная функция, которую вызываем после каждого чанка
                   с числом уже проверенных строк (пригодится для прогресс-бара).
 
-    Возвращает словарь: {"total_rows": ..., "columns": [...], "issues": [...]}
+    Возвращает словарь:
+    {
+        "total_rows": ...,
+        "columns": [...],
+        "issues": [...],
+        "summary": {"missing": ..., "duplicate": ..., "invalid": ..., "inconsistency": ...},
+        "config": {...},       # какие правила реально применялись
+        "auto_rules": True/False,
+    }
     """
-    config = config or {}
+    auto = config is None
     collector = IssueCollector()
-    duplicates = DuplicateChecker(config.get("key_columns"))
+    duplicates = None  # создадим, когда будут известны ключевые колонки
 
     total_rows = 0
     columns = []
 
     for chunk in read_in_chunks(path, chunk_size):
+        # По первой части файла подбираем правила (если их не дали)
+        if duplicates is None:
+            if auto:
+                config = suggest_rules(chunk)
+            duplicates = DuplicateChecker(config.get("key_columns"))
+
         # В JSON у разных записей могут быть разные поля.
         # Если в этой части появилась новая колонка, то во ВСЕХ прошлых строках
         # её не было - это тоже пропуски, их надо посчитать.
@@ -99,10 +118,29 @@ def check_file(path, config=None, chunk_size=DEFAULT_CHUNK_SIZE, on_progress=Non
         if on_progress:
             on_progress(total_rows)
 
+    if duplicates is None:  # файл пустой
+        config = config or {}
+        duplicates = DuplicateChecker()
+
     issues = collector.get_issues(total_rows) + duplicates.get_issues(total_rows)
     issues.sort(key=_issue_order)
 
-    return {"total_rows": total_rows, "columns": columns, "issues": issues}
+    return {
+        "total_rows": total_rows,
+        "columns": columns,
+        "issues": issues,
+        "summary": make_summary(issues),
+        "config": config,
+        "auto_rules": auto,
+    }
+
+
+def make_summary(issues):
+    """Сколько ошибок в каждой из 4 групп: пропуски, дубли, некорректные, несогласованности."""
+    summary = {category: 0 for category in set(CATEGORIES.values())}
+    for issue in issues:
+        summary[issue["category"]] += issue["count"]
+    return summary
 
 
 def _missing_in_previous_rows(new_columns, rows_before):
@@ -111,6 +149,7 @@ def _missing_in_previous_rows(new_columns, rows_before):
     for column in new_columns:
         issues.append({
             "type": "missing",
+            "category": get_category("missing"),
             "column": column,
             "count": rows_before,
             "percent": 0,      # пересчитается в конце
@@ -123,7 +162,8 @@ def _missing_in_previous_rows(new_columns, rows_before):
 
 def run_all_checks(df, config=None):
     """Проверка маленькой таблицы, которая уже целиком в памяти."""
-    config = config or {}
+    if config is None:
+        config = suggest_rules(df)
     collector = IssueCollector()
     duplicates = DuplicateChecker(config.get("key_columns"))
 

@@ -15,7 +15,7 @@ rules = {
 
 import pandas as pd
 
-from checks.issue import make_issue, has_value, to_dates
+from checks.issue import make_issue, has_value, to_dates, to_number
 
 # Простой шаблон email: что-то@что-то.что-то
 EMAIL_PATTERN = r"^[^@\s]+@[^@\s]+\.[^@\s]+$"
@@ -28,7 +28,7 @@ def check_number(df, column, rule):
     filled = has_value(df[column])
 
     # Превращаем в числа. Если не получилось (например "abc"), будет NaN
-    numbers = pd.to_numeric(df[column], errors="coerce")
+    numbers = to_number(df[column])
 
     # 1) Не число
     not_number = filled & numbers.isna()
@@ -88,8 +88,10 @@ def check_allowed(df, column, allowed):
 
     if not bad_rows:
         return []
+    # Длинный список в сообщении обрезаем, чтобы текст оставался читаемым
+    shown = ", ".join(allowed_str[:5]) + (", ..." if len(allowed_str) > 5 else "")
     return [make_issue("not_allowed", column, bad_rows, len(df),
-                       f"В колонке '{column}' есть значения не из списка {allowed}")]
+                       f"В колонке '{column}' есть недопустимые значения (разрешены: {shown})")]
 
 
 def check_invalid(df, rules):

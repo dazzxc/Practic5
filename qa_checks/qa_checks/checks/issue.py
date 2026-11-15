@@ -5,6 +5,25 @@
 чтобы Человек 5 (отчёты) и Человек 7 (дашборд) могли их легко прочитать.
 """
 
+# Каждый тип проблемы относится к одной из 4 больших групп.
+# Фронтенд группирует ошибки именно по этим группам.
+CATEGORIES = {
+    "missing": "missing",                 # пропуски
+    "duplicate_row": "duplicate",         # дубликаты
+    "duplicate_key": "duplicate",
+    "wrong_type": "invalid",              # некорректные значения
+    "out_of_range": "invalid",
+    "wrong_format": "invalid",
+    "wrong_date": "invalid",
+    "not_allowed": "invalid",
+    "inconsistent": "inconsistency",      # несогласованности
+}
+
+
+def get_category(issue_type):
+    """По типу проблемы возвращает её группу."""
+    return CATEGORIES.get(issue_type, "invalid")
+
 
 def get_severity(percent):
     """Определяет, насколько серьёзна проблема, по проценту плохих строк."""
@@ -34,6 +53,7 @@ def make_issue(issue_type, column, bad_rows, total_rows, message):
 
     return {
         "type": issue_type,
+        "category": get_category(issue_type),
         "column": column,
         "count": count,
         "percent": percent,
@@ -41,6 +61,19 @@ def make_issue(issue_type, column, bad_rows, total_rows, message):
         "message": message,
         "sample_rows": bad_rows[:5],  # первые 5 примеров, больше не нужно
     }
+
+
+def to_number(series):
+    """
+    Превращает колонку в числа. Если не получилось (например "abc"), будет NaN.
+    Понимает запятую как дробную часть и пробелы между разрядами: "1 234,5" -> 1234.5
+    """
+    import pandas as pd
+
+    text = series.astype("string").str.strip()
+    text = text.str.replace(" ", "", regex=False).str.replace("\u00a0", "", regex=False)
+    text = text.str.replace(",", ".", regex=False)
+    return pd.to_numeric(text, errors="coerce")
 
 
 def to_dates(series, date_format=None):

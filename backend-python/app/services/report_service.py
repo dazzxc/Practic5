@@ -1,10 +1,12 @@
 from fastapi import HTTPException
 
 from app.schemas.report import Report
+from app.services.report_registry import get_report
 
 
 def generate_report(report_id: str) -> Report:
-    raise HTTPException(
-        status_code=501,
-        detail=f"Report generation module is not connected yet: {report_id}"
-    )
+    """Возвращает сохранённый отчёт по его id (для страницы прошлого отчёта)."""
+    report = get_report(report_id)
+    if report is None:
+        raise HTTPException(status_code=404, detail="Report not found")
+    return Report(**report)

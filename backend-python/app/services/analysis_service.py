@@ -1,5 +1,6 @@
 import sys
 import uuid
+from datetime import datetime
 from pathlib import Path
 from fastapi import HTTPException
 
@@ -20,21 +21,17 @@ try:
 except ImportError as e:
     raise RuntimeError(f"Не удалось импортировать check_file. Ошибка: {e}")
 
-# Базовый конфиг (используется, если фронтенд ничего не передал)
-DEFAULT_CONFIG = {
-    "key_columns": ["id"],
-    "invalid_rules": {
-        "age": {"type": "number", "min": 0, "max": 120},
-        "email": {"type": "email"},
-        "start_date": {"type": "date", "format": "%d.%m.%Y"},
-        "end_date": {"type": "date", "format": "%d.%m.%Y"},
-        "gender": {"allowed": ["М", "Ж"]},
-    },
-    "consistency_rules": [
-        {"rule": "dates_order", "start": "start_date", "end": "end_date", "format": "%d.%m.%Y"},
-        {"rule": "total", "price": "price", "quantity": "quantity", "total": "total"},
-    ],
+# Если фронтенд не прислал свои правила, передаём config=None:
+# движок сам подберёт правила под колонки загруженного файла (checks/auto_rules.py).
+
+# Рекомендации по каждой группе ошибок
+RECOMMENDATIONS = {
+    "missing": "Заполните пустые ячейки корректными значениями или удалите неполные строки.",
+    "duplicate": "Удалите повторяющиеся строки и проверьте уникальность ключевых полей (id).",
+    "invalid": "Исправьте значения неверного типа, формата или вне допустимого диапазона.",
+    "inconsistency": "Проверьте связанные поля: даты окончания и начала, суммы и их составляющие.",
 }
+
 
 def run_data_analysis(request: AnalysisRequest) -> Report:
     dataset = get_dataset(request.dataset_id)
@@ -47,41 +44,48 @@ def run_data_analysis(request: AnalysisRequest) -> Report:
     if not file_path.exists():
         raise HTTPException(status_code=404, detail="Dataset file does not exist")
 
-    # ВЫБИРАЕМ КОНФИГ: если фронтенд прислал свой - используем его, иначе дефолтный
-    config_to_use = request.config if request.config else DEFAULT_CONFIG
+    # Если фронтенд прислал свои правила - используем их, иначе движок подберёт сам
+    config_to_use = request.config if request.config else None
 
     try:
         raw_result = check_file(str(file_path), config=config_to_use)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Ошибка при анализе: {str(e)}")
 
-    missing_count = 0
-    duplicates_count = 0
     mapped_issues = []
-
     for raw_issue in raw_result["issues"]:
+        category = raw_issue.get("category", "invalid")
         mapped_issues.append(Issue(
             type=raw_issue["type"],
+            category=category,
             column=raw_issue.get("column"),
             description=raw_issue.get("message", "Описание отсутствует"),
             count=raw_issue["count"],
-            recommendation="Рекомендуется проверить эти строки"
+            percent=raw_issue.get("percent", 0),
+            severity=raw_issue.get("severity", "low"),
+            sample_rows=[int(r) for r in raw_issue.get("sample_rows", [])],
+            recommendation=RECOMMENDATIONS.get(category, "Рекомендуется проверить эти строки"),
         ))
 
-        if raw_issue["type"] == "missing":
-            missing_count += raw_issue["count"]
-        elif raw_issue["type"] in ["duplicate_row", "duplicate_key"]:
-            duplicates_count += raw_issue["count"]
+    # Сколько ошибок в каждой из 4 групп
+    summary = raw_result.get("summary", {})
 
     profile = DataProfile(
         file_name=dataset["file_name"],
         file_type=dataset["file_type"],
         rows_count=raw_result["total_rows"],
         columns_count=len(raw_result["columns"]),
-        columns=raw_result["columns"],
-        missing_values=missing_count,
-        duplicates=duplicates_count
+        columns=[str(c) for c in raw_result["columns"]],
+        missing_values=summary.get("missing", 0),
+        duplicates=summary.get("duplicate", 0),
+        invalid_values=summary.get("invalid", 0),
+        inconsistencies=summary.get("inconsistency", 0),
     )
+
+    # Рекомендации только по тем группам, где есть ошибки
+    recommendations = [text for category, text in RECOMMENDATIONS.items() if summary.get(category)]
+    if not recommendations:
+        recommendations = ["Ошибок не найдено, данные в хорошем состоянии."]
 
     report = Report(
         report_id=str(uuid.uuid4()),
@@ -89,8 +93,11 @@ def run_data_analysis(request: AnalysisRequest) -> Report:
         profile=profile,
         issues=mapped_issues,
         total_issues=len(mapped_issues),
-        recommendations=["Исправьте найденные ошибки для повышения качества данных."]
+        recommendations=recommendations,
+        applied_rules=raw_result.get("config"),
+        auto_rules=raw_result.get("auto_rules", False),
+        created_at=datetime.now().isoformat(timespec="seconds"),
     )
-    
-    save_report(report.report_id, report.model_dump()) 
+
+    save_report(report.report_id, report.model_dump())
     return report
