@@ -189,7 +189,12 @@ function MainPage() {
           </h2>
 
           <p className="text-subtitle">
-            Или <span className="text-blue" onClick={() => fileInputRef.current.click()} style={{ cursor: "pointer", textDecoration: "underline" }}>выберите файл</span> на компьютере
+            {/* До выбора файла заголовок уже говорит "Перетащите файл сюда",
+                а после выбора там имя файла - поэтому напоминаем про перетаскивание здесь */}
+            {file ? "Перетащите другой файл или " : "Или "}
+            <span className="text-blue" onClick={() => fileInputRef.current.click()} style={{ cursor: "pointer", textDecoration: "underline" }}>
+              {file ? "выберите его" : "выберите файл"}
+            </span> на компьютере
           </p>
         </div>
 

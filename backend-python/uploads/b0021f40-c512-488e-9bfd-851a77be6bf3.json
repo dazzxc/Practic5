@@ -1,0 +1,152 @@
+[
+  {
+    "id": 1,
+    "name": "Аня",
+    "email": "anya@mail.ru",
+    "age": 25,
+    "gender": "Ж",
+    "start_date": "01.01.2024",
+    "end_date": "10.01.2024",
+    "price": 100,
+    "quantity": 2,
+    "total": 200,
+    "address": {
+      "city": "Москва"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Петя",
+    "email": "petya@mail.ru",
+    "age": 30,
+    "gender": "М",
+    "start_date": "05.02.2024",
+    "end_date": "15.02.2024",
+    "price": 50,
+    "quantity": 3,
+    "total": 150,
+    "address": {
+      "city": "Москва"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Иван",
+    "email": null,
+    "age": 40,
+    "gender": "М",
+    "start_date": "10.03.2024",
+    "end_date": "20.03.2024",
+    "price": 200,
+    "quantity": 1,
+    "total": 200,
+    "address": {
+      "city": "Москва"
+    }
+  },
+  {
+    "id": 4,
+    "name": "Оля",
+    "email": "olya-mail.ru",
+    "age": "abc",
+    "gender": "Ж",
+    "start_date": "01.04.2024",
+    "end_date": "05.04.2024",
+    "price": 10,
+    "quantity": 5,
+    "total": 50,
+    "address": {
+      "city": null
+    }
+  },
+  {
+    "id": 5,
+    "name": "Маша",
+    "email": "masha@mail.ru",
+    "age": -5,
+    "gender": "Ж",
+    "start_date": "32.13.2024",
+    "end_date": "01.05.2024",
+    "price": 30,
+    "quantity": 2,
+    "total": 60,
+    "address": {
+      "city": "Москва"
+    }
+  },
+  {
+    "id": 6,
+    "name": "Саша",
+    "email": "sasha@mail.ru",
+    "age": 300,
+    "gender": "X",
+    "start_date": "01.06.2024",
+    "end_date": "01.05.2024",
+    "price": 20,
+    "quantity": 4,
+    "total": 100,
+    "address": {
+      "city": "Москва"
+    }
+  },
+  {
+    "id": 7,
+    "name": "Коля",
+    "email": "kolya@mail.ru",
+    "age": 35,
+    "gender": "М",
+    "start_date": "01.07.2024",
+    "end_date": "10.07.2024",
+    "price": 15,
+    "quantity": 2,
+    "total": 30,
+    "address": {
+      "city": "Москва"
+    }
+  },
+  {
+    "id": 7,
+    "name": "Дима",
+    "email": "dima@mail.ru",
+    "age": 28,
+    "gender": "М",
+    "start_date": "01.08.2024",
+    "end_date": "12.08.2024",
+    "price": 40,
+    "quantity": 1,
+    "total": 40,
+    "address": {
+      "city": "Москва"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Петя",
+    "email": "petya@mail.ru",
+    "age": 30,
+    "gender": "М",
+    "start_date": "05.02.2024",
+    "end_date": "15.02.2024",
+    "price": 50,
+    "quantity": 3,
+    "total": 150,
+    "address": {
+      "city": "Москва"
+    }
+  },
+  {
+    "id": 10,
+    "name": null,
+    "email": "lena@mail.ru",
+    "age": 22,
+    "gender": "Ж",
+    "start_date": "01.09.2024",
+    "end_date": "11.09.2024",
+    "price": 25,
+    "quantity": 2,
+    "total": 50,
+    "address": {
+      "city": "Москва"
+    }
+  }
+]
