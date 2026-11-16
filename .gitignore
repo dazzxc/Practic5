@@ -241,6 +241,7 @@ Practic/node_modules/
 Practic/dist/
 
 # Отчеты
+backend-python/uploads/
 dq_report.json
 result.json
 
