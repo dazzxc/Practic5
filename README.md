@@ -69,8 +69,8 @@ cd backend-python
 python -m venv venv
 
 # Активируем окружение
-venv\Scripts\activate          # Windows
-# source venv/bin/activate     # Linux / macOS
+venv\Scripts\activate.bat          # Windows
+# source venv/bin/activate.bat    # Linux / macOS
 
 # Устанавливаем зависимости
 pip install -r ../requirements.txt
