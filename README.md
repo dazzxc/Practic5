@@ -90,6 +90,7 @@ npm install
 npm run dev -- --host
 ```
 ### Структура проекта
+```bash
 Practic5/
 ├── Practic/                  # Frontend (React + Vite)
 │   ├── src/
