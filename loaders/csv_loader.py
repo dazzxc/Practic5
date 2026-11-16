@@ -27,7 +27,7 @@ class CSVLoader(BaseLoader):
                 dialect = csv.Sniffer().sniff(sample, delimiters=',;\t|')
                 return dialect.delimiter
             except csv.Error:
-                return ','  # не поняли - пусть будет запятая
+                return ','  
 
     def load(self, file_path: str, chunksize: int = 10000) -> LoadResult:
         file_size = self._validate_file(file_path, expected_mime_prefix='text/')

@@ -25,7 +25,7 @@ class JSONLoader(BaseLoader):
     def load(self, file_path: str, chunksize: int = 10000) -> LoadResult:
         file_size = self._validate_file(file_path, expected_mime_prefix='application/')
 
-        # Обычно там utf-8, но на всякий случай проверяем
+        # проверка utf-8
         with open(file_path, 'rb') as f:
             raw_data = f.read(1024)
             encoding = chardet.detect(raw_data)['encoding'] or 'utf-8'
