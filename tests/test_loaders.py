@@ -35,7 +35,7 @@ def temp_invalid_file():
 def test_csv_loader_success(temp_csv_file):
     loader = CSVLoader(max_size_mb=1.0)
     result = loader.load(temp_csv_file)
-    
+
     assert isinstance(result.df, pd.DataFrame)
     assert result.metadata.row_count == 2
     assert result.metadata.column_count == 3
@@ -47,7 +47,7 @@ def test_csv_loader_success(temp_csv_file):
 def test_json_loader_success(temp_jsonl_file):
     loader = JSONLoader(max_size_mb=1.0)
     result = loader.load(temp_jsonl_file)
-    
+
     assert isinstance(result.df, pd.DataFrame)
     assert result.metadata.row_count == 2
     assert 'id' in result.df.columns
@@ -55,7 +55,7 @@ def test_json_loader_success(temp_jsonl_file):
 
 
 def test_size_limit_exceeded(temp_csv_file):
-    loader = CSVLoader(max_size_mb=0.0001)  # ~100 байт лимит
+    loader = CSVLoader(max_size_mb=0.0001)  # лимит около 100 байт
     with pytest.raises(ValueError, match="превышает лимит размера"):
         loader.load(temp_csv_file)
 

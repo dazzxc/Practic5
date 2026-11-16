@@ -4,7 +4,7 @@
     padding: 77px 10px;
     flex-shrink: 0;
 
-    /* Панель закреплена: при прокрутке страницы остаётся на месте */
+    /* Меню всегда на месте, даже когда листаешь страницу вниз */
     position: sticky;
     top: 0;
     height: 100vh;
@@ -16,7 +16,6 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-
 }
 
 .nav-item {
@@ -29,9 +28,6 @@
     text-decoration: none;
     font-size: 20px;
     transition: 0.2s;
-}
-
-.nav-item {
     background: #161826;
     color: #ACACAC;
 }
@@ -39,9 +35,9 @@
 .nav-item.active {
     background: #25246a;
     color: #ffffff;
-
 }
-.nav-item:hover{
+
+.nav-item:hover {
     background: #3734C7;
     color: #ffffff;
 }

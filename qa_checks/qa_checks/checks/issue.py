@@ -1,12 +1,9 @@
 """
-Общий формат описания проблемы (Issue).
-
-Все проверки возвращают проблемы в одном и том же виде,
-чтобы Человек 5 (отчёты) и Человек 7 (дашборд) могли их легко прочитать.
+Как выглядит одна найденная ошибка, плюс общие помощники для всех проверок.
+Все проверки отдают ошибки в одном формате, чтобы бэкенду и фронту было проще.
 """
 
-# Каждый тип проблемы относится к одной из 4 больших групп.
-# Фронтенд группирует ошибки именно по этим группам.
+# Каждый тип ошибки входит в одну из 4 групп, по ним фронт и группирует
 CATEGORIES = {
     "missing": "missing",                 # пропуски
     "duplicate_row": "duplicate",         # дубликаты
@@ -21,28 +18,28 @@ CATEGORIES = {
 
 
 def get_category(issue_type):
-    """По типу проблемы возвращает её группу."""
+    """Группа по типу ошибки."""
     return CATEGORIES.get(issue_type, "invalid")
 
 
 def get_severity(percent):
-    """Определяет, насколько серьёзна проблема, по проценту плохих строк."""
+    """Насколько всё плохо - по проценту строк с ошибкой."""
     if percent >= 20:
-        return "high"  # серьёзно
+        return "high"
     if percent >= 5:
-        return "medium"  # средне
-    return "low"  # не очень серьёзно
+        return "medium"
+    return "low"
 
 
 def make_issue(issue_type, column, bad_rows, total_rows, message):
     """
-    Создаёт описание одной проблемы.
+    Собирает описание одной ошибки.
 
-    issue_type - тип проблемы, например "missing" или "duplicate_row"
-    column     - в какой колонке проблема (None, если касается всей строки)
-    bad_rows   - список номеров строк с ошибкой
-    total_rows - сколько всего строк в таблице
-    message    - понятное человеку описание
+    issue_type - тип, например "missing" или "duplicate_row"
+    column     - колонка (None, если речь про всю строку)
+    bad_rows   - номера строк с ошибкой
+    total_rows - сколько всего строк
+    message    - текст для человека
     """
     count = len(bad_rows)
 
@@ -59,14 +56,14 @@ def make_issue(issue_type, column, bad_rows, total_rows, message):
         "percent": percent,
         "severity": get_severity(percent),
         "message": message,
-        "sample_rows": bad_rows[:5],  # первые 5 примеров, больше не нужно
+        "sample_rows": bad_rows[:5],  # хватит 5 примеров
     }
 
 
 def to_number(series):
     """
-    Превращает колонку в числа. Если не получилось (например "abc"), будет NaN.
-    Понимает запятую как дробную часть и пробелы между разрядами: "1 234,5" -> 1234.5
+    Колонка -> числа. Что не число (например "abc"), станет NaN.
+    Запятую и пробелы тоже понимает: "1 234,5" -> 1234.5
     """
     import pandas as pd
 
@@ -78,26 +75,24 @@ def to_number(series):
 
 def to_dates(series, date_format=None):
     """
-    Превращает колонку в даты. Если дата неправильная - будет NaT (пусто).
-
-    В CSV даты - это текст ("01.02.2024"), а в Excel - уже готовые даты.
-    Эта функция понимает оба варианта.
+    Колонка -> даты. Неправильная дата станет NaT.
+    В CSV даты приходят текстом ("01.02.2024"), а из Excel уже готовыми - понимаем оба случая.
     """
     import datetime
 
     import pandas as pd
 
-    # 1) Находим ячейки, где уже лежит готовая дата (так бывает в Excel)
+    # Где уже лежит готовая дата (так бывает в Excel)
     is_date = series.map(lambda v: isinstance(v, (datetime.date, pd.Timestamp)))
 
-    # 2) Текст разбираем сразу всей колонкой - это быстро
+    # Текст разбираем всей колонкой разом - так быстрее
     text = series.where(~is_date).astype("string").str.strip()
     if date_format:
         result = pd.to_datetime(text, format=date_format, errors="coerce")
     else:
         result = pd.to_datetime(text, errors="coerce", dayfirst=True)
 
-    # 3) Готовые даты подставляем как есть
+    # Готовые даты просто подставляем
     if is_date.any():
         result[is_date] = pd.to_datetime(series[is_date].astype("object"))
 
@@ -105,10 +100,7 @@ def to_dates(series, date_format=None):
 
 
 def has_value(series):
-    """
-    Возвращает True для ячеек, где что-то есть,
-    и False для пустых (None, NaN, пустая строка, одни пробелы).
-    """
+    """True, если в ячейке что-то есть. Пусто - это None, NaN, "" и одни пробелы."""
     not_nan = series.notna()
     not_blank = series.astype(str).str.strip() != ""
     return not_nan & not_blank

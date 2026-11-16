@@ -7,21 +7,22 @@ from PyQt6.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout,
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont, QColor
 
-# Импорты для графиков
+# Графики
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 
-# Импортируем наши модули
 from .data_loader import DataLoader
 from .quality_engine import DataQualityEngine
 from .report_gen import ReportGenerator
 
-# Класс для холста графика
+
+# Поле для графика matplotlib
 class MplCanvas(FigureCanvas):
     def __init__(self, parent=None, width=5, height=4, dpi=100):
         fig = Figure(figsize=(width, height), dpi=dpi)
         self.axes = fig.add_subplot(111)
         super(MplCanvas, self).__init__(fig)
+
 
 class DataQualityApp(QMainWindow):
     def __init__(self):
@@ -43,16 +44,16 @@ class DataQualityApp(QMainWindow):
         self.setCentralWidget(central_widget)
         main_layout = QVBoxLayout(central_widget)
 
-        # --- ВЕРХНЯЯ ПАНЕЛЬ (ЗАГОЛОВОК И ВЫБОР ФАЙЛА) ---
+        # Верх: заголовок и выбор файла
         header_layout = QHBoxLayout()
-        
+
         title_label = QLabel("Сервис аудита качества данных")
         title_label.setFont(self.title_font)
         header_layout.addWidget(title_label)
-        
+
         header_layout.addStretch()
 
-        self.btn_select = QPushButton("📁 Выбрать файл")
+        self.btn_select = QPushButton("Выбрать файл")
         self.btn_select.clicked.connect(self.select_file)
         header_layout.addWidget(self.btn_select)
 
@@ -60,7 +61,7 @@ class DataQualityApp(QMainWindow):
         self.file_label.setStyleSheet("color: gray; font-style: italic;")
         header_layout.addWidget(self.file_label)
 
-        self.btn_run = QPushButton("🚀 Запустить аудит")
+        self.btn_run = QPushButton("Запустить аудит")
         self.btn_run.setStyleSheet("background-color: #2b579a; color: white; font-weight: bold; padding: 5px 15px;")
         self.btn_run.setEnabled(False)
         self.btn_run.clicked.connect(self.run_analysis)
@@ -68,34 +69,32 @@ class DataQualityApp(QMainWindow):
 
         main_layout.addLayout(header_layout)
 
-        # --- ЦЕНТРАЛЬНАЯ ЧАСТЬ (ВКЛАДКИ) ---
+        # Середина: вкладки
         self.tabs = QTabWidget()
         main_layout.addWidget(self.tabs)
 
-        # Вкладка 1: Сводка и График
         self.tab_summary = QWidget()
         self.setup_summary_tab()
-        self.tabs.addTab(self.tab_summary, "📊 Сводка и Графики")
+        self.tabs.addTab(self.tab_summary, "Сводка и график")
 
-        # Вкладка 2: Детали ошибок
         self.tab_issues = QWidget()
         self.setup_issues_tab()
-        self.tabs.addTab(self.tab_issues, "⚠️ Найденные ошибки")
+        self.tabs.addTab(self.tab_issues, "Найденные ошибки")
 
-        # --- НИЖНЯЯ ПАНЕЛЬ (СТАТУС И ЭКСПОРТ) ---
+        # Низ: статус и сохранение
         footer_layout = QHBoxLayout()
-        
+
         self.status_label = QLabel("Готов к работе")
         footer_layout.addWidget(self.status_label)
-        
+
         footer_layout.addStretch()
 
-        self.btn_export_json = QPushButton("💾 Сохранить JSON")
+        self.btn_export_json = QPushButton("Сохранить JSON")
         self.btn_export_json.setEnabled(False)
         self.btn_export_json.clicked.connect(lambda: self.export_report("json"))
         footer_layout.addWidget(self.btn_export_json)
 
-        self.btn_export_excel = QPushButton("📈 Сохранить Excel")
+        self.btn_export_excel = QPushButton("Сохранить Excel")
         self.btn_export_excel.setEnabled(False)
         self.btn_export_excel.clicked.connect(lambda: self.export_report("excel"))
         footer_layout.addWidget(self.btn_export_excel)
@@ -103,32 +102,29 @@ class DataQualityApp(QMainWindow):
         main_layout.addLayout(footer_layout)
 
     def setup_summary_tab(self):
-        # Главный горизонтальный лейаут (слева карточки, справа график)
+        # Слева карточки, справа график
         main_layout = QHBoxLayout(self.tab_summary)
-        
-        # --- ЛЕВАЯ ЧАСТЬ (КАРТОЧКИ) ---
+
         left_layout = QVBoxLayout()
         grid = QGridLayout()
-        
+
         self.lbl_total_rows = self.create_metric_card("Всего строк", "0")
         grid.addWidget(self.lbl_total_rows, 0, 0)
-        
-        # ИЗМЕНЕНО НАЗВАНИЕ НА "ТИПОВ ОШИБОК"
+
         self.lbl_total_errors = self.create_metric_card("Типов ошибок", "0")
         grid.addWidget(self.lbl_total_errors, 0, 1)
-        
+
         self.lbl_quality_score = self.create_metric_card("Quality Score", "0%")
         grid.addWidget(self.lbl_quality_score, 1, 0)
-        
+
         self.lbl_completeness = self.create_metric_card("Completeness", "0%")
         grid.addWidget(self.lbl_completeness, 1, 1)
 
         left_layout.addLayout(grid)
         left_layout.addStretch()
-        
-        # --- ПРАВАЯ ЧАСТЬ (ГРАФИК) ---
+
         right_layout = QVBoxLayout()
-        
+
         chart_title = QLabel("Распределение ошибок по типам")
         chart_title.setFont(QFont("Segoe UI", 12, QFont.Weight.Bold))
         chart_title.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -137,7 +133,6 @@ class DataQualityApp(QMainWindow):
         self.canvas = MplCanvas(self, width=5, height=4, dpi=100)
         right_layout.addWidget(self.canvas)
 
-        # Добавляем обе части в главный лейаут вкладки
         main_layout.addLayout(left_layout, stretch=1)
         main_layout.addLayout(right_layout, stretch=1)
 
@@ -155,23 +150,23 @@ class DataQualityApp(QMainWindow):
 
     def setup_issues_tab(self):
         layout = QVBoxLayout(self.tab_issues)
-        
+
         self.table = QTableWidget()
         self.table.setColumnCount(5)
         self.table.setHorizontalHeaderLabels(["Тип", "Колонка", "Критичность", "Описание", "Кол-во"])
-        
+
         header = self.table.horizontalHeader()
         header.setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
         header.setSectionResizeMode(1, QHeaderView.ResizeMode.ResizeToContents)
         header.setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
         header.setSectionResizeMode(3, QHeaderView.ResizeMode.Stretch)
         header.setSectionResizeMode(4, QHeaderView.ResizeMode.ResizeToContents)
-        
+
         self.table.setWordWrap(True)
         self.table.verticalHeader().setSectionResizeMode(QHeaderView.ResizeMode.ResizeToContents)
         self.table.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
         self.table.setAlternatingRowColors(True)
-        
+
         layout.addWidget(self.table)
 
     def select_file(self):
@@ -192,45 +187,44 @@ class DataQualityApp(QMainWindow):
         self.status_label.setText("Анализ данных... Пожалуйста, подождите.")
         self.btn_run.setEnabled(False)
         self.btn_select.setEnabled(False)
-        
+
         try:
-            # Проверяем расширение файла
             if self.file_path.endswith('.json'):
                 df = DataLoader.load_json(self.file_path)
             else:
                 df = DataLoader.load_csv(self.file_path)
-                
+
             engine = DataQualityEngine(df)
             self.current_report = engine.run_all()
-            
+
             self.update_ui_with_report(self.current_report)
-            
-            self.status_label.setText("✅ Анализ успешно завершен!")
+
+            self.status_label.setText("Готово!")
             self.tabs.setCurrentIndex(0)
-            
+
             self.btn_export_json.setEnabled(True)
             self.btn_export_excel.setEnabled(True)
 
         except Exception as e:
-            self.status_label.setText("❌ Ошибка при обработке")
+            self.status_label.setText("Ошибка при обработке")
             QMessageBox.critical(self, "Ошибка", f"Произошла ошибка:\n{str(e)}")
         finally:
             self.btn_run.setEnabled(True)
             self.btn_select.setEnabled(True)
 
     def update_ui_with_report(self, report):
-        # 1. Обновляем карточки
+        # Карточки
         self.lbl_total_rows.findChild(QLabel).setText(str(report.total_rows))
         self.lbl_total_errors.findChild(QLabel).setText(str(int(report.metrics['total_errors_found'])))
         self.lbl_quality_score.findChild(QLabel).setText(f"{report.metrics['quality_score']}%")
         self.lbl_completeness.findChild(QLabel).setText(f"{report.metrics['completeness_score']}%")
 
-        # 2. Обновляем таблицу
+        # Таблица
         self.table.setRowCount(len(report.issues))
         for row, issue in enumerate(report.issues):
             self.table.setItem(row, 0, QTableWidgetItem(issue.check_type))
             self.table.setItem(row, 1, QTableWidgetItem(issue.column))
-            
+
             severity_item = QTableWidgetItem(issue.severity)
             if issue.severity == 'high':
                 severity_item.setBackground(QColor("#ffcccc"))
@@ -239,49 +233,47 @@ class DataQualityApp(QMainWindow):
             else:
                 severity_item.setBackground(QColor("#e5ffcc"))
             self.table.setItem(row, 2, severity_item)
-            
+
             desc_item = QTableWidgetItem(issue.message)
             desc_item.setToolTip(issue.message)
             self.table.setItem(row, 3, desc_item)
-            
+
             self.table.setItem(row, 4, QTableWidgetItem(str(issue.count)))
 
-        # 3. Рисуем график
+        # График
         self.canvas.axes.clear()
-        
+
         if not report.issues:
-            self.canvas.axes.text(0.5, 0.5, "Ошибок не найдено!\nДанные идеальны.", 
+            self.canvas.axes.text(0.5, 0.5, "Ошибок не найдено!", 
                                   ha='center', va='center', fontsize=14, color='green')
             self.canvas.axes.axis('off')
         else:
-            # Собираем данные для графика: {Тип ошибки: Количество}
+            # {тип ошибки: сколько}
             issue_counts = {}
             for issue in report.issues:
                 issue_counts[issue.check_type] = issue_counts.get(issue.check_type, 0) + issue.count
-            
-            # Красивые названия для графика
+
+            # Русские подписи
             labels_map = {
                 "missing_values": "Пропуски",
                 "duplicates": "Дубликаты",
                 "date_inconsistency": "Ошибки дат",
                 "invalid_value": "Неверные значения"
             }
-            
+
             labels = [labels_map.get(k, k) for k in issue_counts.keys()]
             counts = list(issue_counts.values())
-            
-            # Цвета столбцов
+
             colors = ['#ff9999', '#66b3ff', '#99ff99', '#ffcc99']
-            
+
             bars = self.canvas.axes.bar(labels, counts, color=colors[:len(labels)])
-            
-            # Подписываем значения над столбцами
+
+            # Числа над столбцами
             for bar in bars:
                 yval = bar.get_height()
                 self.canvas.axes.text(bar.get_x() + bar.get_width()/2, yval, int(yval), 
                                       ha='center', va='bottom', fontsize=10, fontweight='bold')
-            
-            # Стилизация
+
             self.canvas.axes.set_ylabel("Количество (шт.)")
             self.canvas.axes.spines['top'].set_visible(False)
             self.canvas.axes.spines['right'].set_visible(False)
@@ -292,7 +284,7 @@ class DataQualityApp(QMainWindow):
     def export_report(self, format_type):
         if not self.current_report:
             return
-            
+
         if format_type == "json":
             file_path, _ = QFileDialog.getSaveFileName(self, "Сохранить JSON", "dq_report.json", "JSON (*.json)")
             if file_path:
@@ -303,6 +295,7 @@ class DataQualityApp(QMainWindow):
             if file_path:
                 ReportGenerator.save_excel(self.current_report, file_path)
                 self.status_label.setText(f"Excel сохранен: {os.path.basename(file_path)}")
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

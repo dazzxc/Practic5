@@ -1,6 +1,5 @@
-// Группы ошибок. Движок проверок возвращает у каждой ошибки поле "category"
-// (missing / duplicate / invalid / inconsistency) и подробный "type".
-// Здесь в одном месте хранятся названия, цвета и тексты для всех компонентов.
+// Всё про группы ошибок в одном месте: названия, цвета и тексты советов.
+// У каждой ошибки от бэкенда есть "category" (одна из 4 групп) и более точный "type".
 
 export const CATEGORIES = {
   missing: {
@@ -29,10 +28,10 @@ export const CATEGORIES = {
   },
 };
 
-// Порядок вывода групп
+// В каком порядке показываем группы
 export const CATEGORY_ORDER = ["missing", "duplicate", "invalid", "inconsistency"];
 
-// Подробные типы ошибок -> группа (на случай старых отчётов без поля category)
+// Если в старом отчёте нет category, находим группу по type
 const TYPE_TO_CATEGORY = {
   missing: "missing",
   duplicate_row: "duplicate",
@@ -45,7 +44,7 @@ const TYPE_TO_CATEGORY = {
   inconsistent: "inconsistency",
 };
 
-// Понятные названия подробных типов для таблицы
+// Названия типов для таблицы
 export const TYPE_LABELS = {
   missing: "Пропуск",
   duplicate_row: "Дубль строки",
@@ -62,7 +61,7 @@ export function getCategory(issue) {
   return issue.category || TYPE_TO_CATEGORY[issue.type] || "invalid";
 }
 
-// Складывает количество ошибок по группам: { missing: 10, duplicate: 3, ... }
+// Сколько ошибок в каждой группе: { missing: 10, duplicate: 3, ... }
 export function countByCategory(issues = []) {
   const result = { missing: 0, duplicate: 0, invalid: 0, inconsistency: 0 };
   issues.forEach((issue) => {

@@ -1,8 +1,7 @@
 """
-Тесты чтения по частям.
+Тесты чтения кусками.
 
-Главная идея: результат должен быть ОДИНАКОВЫМ,
-читаем ли мы файл целиком или маленькими кусочками по 3 строки.
+Результат должен быть одинаковым, читаем ли мы файл целиком или по 3 строки.
 """
 
 import datetime
@@ -44,7 +43,7 @@ def test_chunks_give_same_result_as_whole_file():
 
 
 def test_duplicate_in_different_chunks_is_found():
-    # Строка 1 и её копия (строка 8) попадают в РАЗНЫЕ чанки по 3 строки
+    # Строка 1 и её копия (строка 8) попадают в разные куски по 3 строки
     result = check_file(CLIENTS, CONFIG, chunk_size=3)
     dup = [i for i in result["issues"] if i["type"] == "duplicate_row"][0]
 
@@ -52,7 +51,7 @@ def test_duplicate_in_different_chunks_is_found():
 
 
 def test_row_numbers_are_global():
-    # Пустое имя в строке 9 (последний чанк) - номер должен быть 9, а не 0
+    # Пустое имя в строке 9 (последний кусок) - номер должен быть 9, а не 0
     result = check_file(CLIENTS, CONFIG, chunk_size=3)
     missing_name = [i for i in result["issues"]
                     if i["type"] == "missing" and i["column"] == "name"][0]

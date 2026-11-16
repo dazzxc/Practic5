@@ -2,10 +2,10 @@ import { useState, useRef, useEffect } from "react";
 import "./MainPage.css";
 import ReportView from "../components/ReportView";
 
-const SCROLL_DURATION = 1200; // длительность прокрутки в миллисекундах (больше - медленнее)
-const SCROLL_OFFSET = 40;     // отступ сверху над заголовком "Отчет готов!"
+const SCROLL_DURATION = 1200; // сколько длится прокрутка, мс (больше - медленнее)
+const SCROLL_OFFSET = 40;     // отступ над заголовком "Отчет готов!"
 
-// Ищет, что именно прокручивается: сама страница или блок с контентом
+// Ищем, что именно скроллится: вся страница или какой-то блок внутри
 function getScrollContainer(element) {
   let parent = element.parentElement;
   while (parent) {
@@ -18,12 +18,12 @@ function getScrollContainer(element) {
   return document.scrollingElement || document.documentElement;
 }
 
-// Мягкая кривая: медленно разгоняется, быстро едет в середине, плавно тормозит
+// Плавно разгоняемся и плавно тормозим
 function easeInOutCubic(t) {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 }
 
-// Плавно прокручивает страницу до элемента
+// Плавно едем вниз до нужного блока
 function smoothScrollTo(element) {
   const container = getScrollContainer(element);
   const isPage = container === document.scrollingElement || container === document.documentElement;
@@ -50,15 +50,16 @@ function MainPage() {
   const [report, setReport] = useState(null);
   const [error, setError] = useState("");
   const [isDragging, setIsDragging] = useState(false);
-  const dragCounter = useRef(0); // NEW: чтобы dragleave не мигал на дочерних элементах
+  // Считаем входы/выходы курсора с файлом, иначе рамка мигает над вложенными элементами
+  const dragCounter = useRef(0);
 
   const fileInputRef = useRef(null);
-  const reportRef = useRef(null); // блок "Отчет готов!" - к нему прокручиваем страницу
+  const reportRef = useRef(null); // сюда прокручиваем после проверки
 
-  // Когда отчёт появился, плавно прокручиваем страницу до заголовка "Отчет готов!"
+  // Отчёт пришёл - листаем к нему
   useEffect(() => {
     if (report && reportRef.current) {
-      // Небольшая пауза, чтобы блок успел появиться, потом мягкая прокрутка
+      // Ждём чуть-чуть, чтобы блок успел отрисоваться
       const timer = setTimeout(() => smoothScrollTo(reportRef.current), 200);
       return () => clearTimeout(timer);
     }
@@ -72,7 +73,7 @@ function MainPage() {
     }
   };
 
-  // drag & drop handlers
+  // Перетаскивание файла мышкой
   const handleDragEnter = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -157,7 +158,7 @@ function MainPage() {
   return (
     <section className="page">
       <h1 className="page-title">Анализ качества данных</h1>
-      <p className="page-subtitle"> Загрузите CSV, Excel или JSON файл, чтобы проверить его качество </p>
+      <p className="page-subtitle">Загрузите CSV, Excel или JSON файл, чтобы проверить его качество</p>
 
       <div
         className="upload-card"
@@ -189,8 +190,7 @@ function MainPage() {
           </h2>
 
           <p className="text-subtitle">
-            {/* До выбора файла заголовок уже говорит "Перетащите файл сюда",
-                а после выбора там имя файла - поэтому напоминаем про перетаскивание здесь */}
+            {/* После выбора в заголовке имя файла, поэтому про перетаскивание пишем тут */}
             {file ? "Перетащите другой файл или " : "Или "}
             <span className="text-blue" onClick={() => fileInputRef.current.click()} style={{ cursor: "pointer", textDecoration: "underline" }}>
               {file ? "выберите его" : "выберите файл"}
@@ -208,7 +208,7 @@ function MainPage() {
         {error && <p style={{ color: "#ff4c4c", marginTop: "15px" }}>{error}</p>}
       </div>
       
-      {/* Наш блок с результатами (появляется после анализа) */}
+      {/* Результат проверки */}
       {report && (
         <div
           className="report-dashboard"

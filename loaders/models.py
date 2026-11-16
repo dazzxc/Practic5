@@ -4,7 +4,7 @@ import pandas as pd
 
 @dataclass
 class LoadMetadata:
-    """Метаданные загруженного файла"""
+    """Что узнали о файле при загрузке."""
     file_name: str
     mime_type: str
     encoding: str | None
@@ -19,6 +19,6 @@ class LoadMetadata:
 
 @dataclass
 class LoadResult:
-    """Результат загрузки"""
+    """Таблица + сведения о файле."""
     df: pd.DataFrame
     metadata: LoadMetadata

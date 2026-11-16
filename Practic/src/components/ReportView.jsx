@@ -3,8 +3,8 @@ import DataDistribution from "./DataDistribution";
 import Recommendations from "./Recommendations";
 import { CATEGORIES, TYPE_LABELS, getCategory } from "../utils/issueCategories";
 
-// Содержимое отчёта: карточки с цифрами, диаграмма, рекомендации и таблица проблем.
-// Используется и на главной странице (после проверки), и на странице прошлого отчёта.
+// Сам отчёт: карточки, диаграмма, советы и таблица.
+// Один и тот же на главной и на странице старого отчёта.
 function ReportView({ report }) {
   return (
     <>
@@ -38,16 +38,10 @@ function ReportView({ report }) {
           <span className="kpi-value info">{report.total_issues}</span>
         </div>
       </div>
-      
-      <div>
-        <DataDistribution report={report} />
-        {/* график  */}
-      </div>
 
-      <div>
-        <Recommendations issues={report?.issues} />
-        {/* Рекомендации по исправлению ошибок */}
-      </div>
+      <DataDistribution report={report} />
+
+      <Recommendations issues={report.issues} />
 
       <h3>Найденные проблемы</h3>
       <table className="issues-table">

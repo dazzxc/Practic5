@@ -8,7 +8,7 @@ function ReportPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Запрашиваем историю с бэкенда (новые отчёты - первыми)
+    // Берём историю с бэкенда, свежие отчёты приходят первыми
     fetch("/api/history")
       .then(res => res.json())
       .then(data => {

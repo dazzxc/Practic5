@@ -4,7 +4,7 @@ from typing import Optional
 
 class Issue(BaseModel):
     type: str
-    # Группа ошибки: missing / duplicate / invalid / inconsistency
+    # Группа: missing / duplicate / invalid / inconsistency
     category: str = "invalid"
     column: Optional[str] = None
     description: str

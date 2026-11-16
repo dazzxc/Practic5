@@ -8,7 +8,7 @@ router = APIRouter()
 
 @router.post("/export/json")
 async def export_json(report_data: dict):
-    """Отдает отчет в виде JSON файла."""
+    """Отдаёт отчёт файлом .json."""
     try:
         json_str = json.dumps(report_data, ensure_ascii=False, indent=2)
         return Response(
@@ -22,9 +22,9 @@ async def export_json(report_data: dict):
 
 @router.post("/export/excel")
 async def export_excel(report_data: dict):
-    """Отдает отчет в виде красивого Excel файла."""
+    """Отдаёт отчёт файлом .xlsx: лист со сводкой и лист с ошибками."""
     try:
-        # 1. Лист со сводкой (Профиль)
+        # Лист 1: сводка
         profile = report_data.get("profile", {})
         summary_data = {
             "Метрика": ["Имя файла", "Всего строк", "Колонок", "Пропуски", "Дубликаты",
@@ -42,11 +42,11 @@ async def export_excel(report_data: dict):
         }
         df_summary = pd.DataFrame(summary_data)
 
-        # 2. Лист с ошибками
+        # Лист 2: ошибки
         issues = report_data.get("issues", [])
         if issues:
             df_issues = pd.DataFrame(issues)
-            # Группа ошибки по-русски (в старых отчётах поля category может не быть)
+            # Название группы по-русски (в старых отчётах поля category нет)
             category_names = {
                 "missing": "Пропуски",
                 "duplicate": "Дубликаты",
@@ -56,7 +56,7 @@ async def export_excel(report_data: dict):
             if "category" not in df_issues.columns:
                 df_issues["category"] = ""
             df_issues["category"] = df_issues["category"].map(category_names).fillna("")
-            # Переименуем колонки для красоты
+            # Русские названия колонок
             df_issues = df_issues.rename(columns={
                 "category": "Группа",
                 "type": "Тип ошибки",
@@ -64,23 +64,22 @@ async def export_excel(report_data: dict):
                 "description": "Описание",
                 "count": "Количество"
             })
-            # Оставим только нужные колонки
             df_issues = df_issues[["Группа", "Тип ошибки", "Колонка", "Описание", "Количество"]]
         else:
             df_issues = pd.DataFrame({"Информация": ["Ошибок не найдено"]})
 
-        # 3. Записываем всё в один Excel файл с двумя листами
+        # Собираем оба листа в один файл
         output = io.BytesIO()
         with pd.ExcelWriter(output, engine='openpyxl') as writer:
             df_summary.to_excel(writer, sheet_name='Сводка', index=False)
             df_issues.to_excel(writer, sheet_name='Ошибки', index=False)
-        
+
         output.seek(0)
-        
+
         return StreamingResponse(
             output,
             media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             headers={"Content-Disposition": 'attachment; filename="data_quality_report.xlsx"'}
         )
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Ошибка генерации Excel: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Ошибка генерации Excel: {str(e)}")

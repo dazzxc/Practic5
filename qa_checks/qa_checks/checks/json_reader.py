@@ -1,9 +1,9 @@
 """
-Чтение JSON ПО ЧАСТЯМ (чанками).
+Чтение JSON кусками.
 
-Поддерживаются 3 вида JSON:
+Понимаем 3 вида JSON:
 
-1) Список объектов - самый частый вариант:
+1) Список объектов (так чаще всего):
    [
      {"id": 1, "name": "Аня"},
      {"id": 2, "name": "Петя"}
@@ -16,12 +16,11 @@
 3) Обёртка - список лежит внутри объекта:
    {"data": [ {"id": 1}, {"id": 2} ]}
 
-Вложенные объекты раскладываются в колонки через точку:
+Вложенные объекты становятся колонками через точку:
    {"address": {"city": "Москва"}}  ->  колонка "address.city"
 
-Обычный json.load() читает файл целиком - на большом файле не хватит памяти.
-Поэтому для вариантов 1 и 3 используем библиотеку ijson: она читает файл
-постепенно и отдаёт объекты по одному.
+json.load() грузит весь файл сразу, на большом файле не хватит памяти.
+Поэтому для 1 и 3 берём ijson: он читает понемногу и отдаёт по одному объекту.
 """
 
 import json
@@ -48,16 +47,16 @@ def flatten(obj, prefix=""):
 
 
 def _to_dataframe(records, start):
-    """Превращает список объектов в DataFrame со сквозными номерами строк."""
+    """Объекты -> DataFrame со сквозными номерами строк."""
     rows = [flatten(r) if isinstance(r, dict) else {"value": r} for r in records]
-    # dtype=object - чтобы pandas не превращал 7 в 7.0, если где-то пусто
+    # dtype=object, чтобы 7 не превратилось в 7.0, если где-то пусто
     df = pd.DataFrame(rows, dtype=object)
     df.index = range(start, start + len(df))
     return df
 
 
 def _in_chunks(objects, chunk_size):
-    """Собирает объекты в пачки по chunk_size и отдаёт их как DataFrame."""
+    """Складываем объекты в пачки по chunk_size."""
     buffer = []
     start = 0
     for obj in objects:
@@ -71,7 +70,7 @@ def _in_chunks(objects, chunk_size):
 
 
 def _first_char(path):
-    """Возвращает первый символ файла, не считая пробелов и BOM."""
+    """Первый символ файла без пробелов и BOM."""
     with open(path, encoding="utf-8-sig") as f:
         while True:
             ch = f.read(1)
@@ -97,12 +96,12 @@ def _looks_like_json_lines(path):
 
 
 def _read_json_lines(path):
-    """Читает JSON Lines построчно."""
+    """JSON Lines построчно."""
     with open(path, encoding="utf-8-sig") as f:
         for line_number, line in enumerate(f, start=1):
             line = line.strip()
             if not line:
-                continue  # пустые строки пропускаем
+                continue
             try:
                 yield json.loads(line)
             except json.JSONDecodeError as e:
@@ -125,17 +124,17 @@ def _find_list_key(path):
 
 
 def _read_with_ijson(path, prefix):
-    """Отдаёт объекты по одному, не загружая весь файл."""
+    """По одному объекту, не загружая весь файл."""
     import ijson
 
     with open(path, "rb") as f:
-        # use_float=True - дробные числа будут обычными float, а не Decimal
+        # use_float=True, чтобы дроби были обычными float, а не Decimal
         for obj in ijson.items(f, prefix, use_float=True):
             yield obj
 
 
 def read_json_chunks(path, chunk_size):
-    """Главная функция: сама понимает, какой это вид JSON, и читает его по частям."""
+    """Понимаем, какой это JSON, и читаем кусками."""
     first = _first_char(path)
 
     if first == "[":
@@ -150,7 +149,7 @@ def read_json_chunks(path, chunk_size):
             # Вид 3: обёртка {"data": [...]}
             key = _find_list_key(path)
             if key is None:
-                # Внутри нет списка - значит это одна запись
+                # Списка внутри нет - значит, это одна запись
                 objects = _read_with_ijson(path, "")
             else:
                 objects = _read_with_ijson(path, f"{key}.item")

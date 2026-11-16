@@ -1,5 +1,5 @@
 """
-Создаёт набор небольших демо-файлов для показа на защите.
+Делает небольшие демо-файлы для защиты.
 
 Запуск (из папки qa_checks/qa_checks):
     python make_demo_files.py
@@ -22,7 +22,7 @@ import random
 
 from openpyxl import Workbook
 
-random.seed(2026)  # одинаковый результат при каждом запуске
+random.seed(2026)  # чтобы файлы каждый раз получались одинаковые
 
 FIRST_NAMES = ["Анна", "Иван", "Мария", "Пётр", "Ольга", "Дмитрий", "Елена", "Сергей",
                "Наталья", "Алексей", "Татьяна", "Михаил", "Юлия", "Андрей", "Светлана"]
@@ -44,7 +44,7 @@ def latin_login(i):
 
 
 def pick_rows(total, count, exclude=()):
-    """Случайные номера строк для ошибок (не повторяются и не попадают в exclude)."""
+    """Случайные строки под ошибки (без повторов и без exclude)."""
     candidates = [i for i in range(total) if i not in exclude]
     return set(random.sample(candidates, count))
 

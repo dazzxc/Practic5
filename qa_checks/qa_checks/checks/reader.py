@@ -1,39 +1,37 @@
 """
-Чтение файла ПО ЧАСТЯМ (чанками).
+Чтение файла кусками.
 
-Зачем: файл на 10 миллионов строк не влезет в память целиком.
-Поэтому читаем, например, по 15 000 строк, проверяем их и выкидываем из памяти.
+Файл на 10 млн строк в память целиком не влезет, поэтому читаем по 15 000 строк.
+Умеем .csv, .xlsx и .json/.jsonl (JSON - в json_reader.py). Старый .xls не умеем,
+его надо пересохранить в .xlsx.
 
-Поддерживаются: .csv, .xlsx и .json / .jsonl (JSON читается в json_reader.py)
-(старый формат .xls не поддерживается - его надо пересохранить в .xlsx)
-
-ВАЖНО: номера строк (index) сквозные. Если в первом чанке строки 0..99999,
-то во втором будут 100000..199999. Так в отчёте будут правильные номера строк.
+Номера строк сквозные: в первом куске 0..14999, во втором 15000..29999 и так далее.
+Так в отчёте будут настоящие номера строк.
 """
 
 import os
 
 import pandas as pd
 
-DEFAULT_CHUNK_SIZE = 15_000  # сколько строк читать за один раз (хороший баланс скорости и памяти)
+DEFAULT_CHUNK_SIZE = 15_000  # строк за раз: и быстро, и памяти немного
 
 
 def detect_encoding(path):
-    """Пробует прочитать начало файла в UTF-8, если не вышло - значит Windows-1251."""
+    """Пробуем прочитать начало как UTF-8. Не вышло - значит Windows-1251."""
     with open(path, "rb") as f:
         sample = f.read(1_000_000)  # первый 1 МБ
     try:
         sample.decode("utf-8-sig")
         return "utf-8-sig"
     except UnicodeDecodeError as e:
-        # Ошибка могла быть просто из-за того, что мы обрезали букву на границе 1 МБ
+        # Может, мы просто разрезали букву на границе 1 МБ - это не считается
         if e.start >= len(sample) - 3:
             return "utf-8-sig"
         return "cp1251"
 
 
 def detect_separator(path, encoding):
-    """Смотрит на первую строку и выбирает самый частый разделитель."""
+    """Какой разделитель чаще всего в первой строке, тот и берём."""
     with open(path, encoding=encoding, errors="replace") as f:
         first_line = f.readline()
     candidates = [",", ";", "\t", "|"]
@@ -41,12 +39,12 @@ def detect_separator(path, encoding):
 
 
 def read_csv_chunks(path, chunk_size=DEFAULT_CHUNK_SIZE):
-    """Читает CSV по частям. Сам определяет кодировку и разделитель."""
+    """CSV кусками. Кодировку и разделитель определяем сами."""
     encoding = detect_encoding(path)
     separator = detect_separator(path, encoding)
 
-    # dtype=str - всё читаем как текст, чтобы "abc" в числовой колонке не ломал чтение.
-    # Значения вроде "NA", "null", "NaN" pandas сам считает пропусками - для нас это правильно.
+    # dtype=str - читаем всё как текст, чтобы "abc" в колонке с числами ничего не сломал.
+    # "NA", "null", "NaN" pandas сам считает пустыми - нам так и надо.
     reader = pd.read_csv(path, dtype=str, chunksize=chunk_size,
                          encoding=encoding, sep=separator)
     for chunk in reader:
@@ -55,10 +53,9 @@ def read_csv_chunks(path, chunk_size=DEFAULT_CHUNK_SIZE):
 
 def read_excel_chunks(path, chunk_size=DEFAULT_CHUNK_SIZE, sheet_name=None):
     """
-    Читает .xlsx по частям.
-
-    pandas.read_excel не умеет читать по частям, поэтому используем openpyxl
-    в режиме read_only - он читает файл построчно и не грузит его в память целиком.
+    .xlsx кусками.
+    pandas так не умеет, поэтому берём openpyxl в режиме read_only - он идёт по строкам
+    и не грузит весь файл в память.
     """
     from openpyxl import load_workbook
 
@@ -66,15 +63,15 @@ def read_excel_chunks(path, chunk_size=DEFAULT_CHUNK_SIZE, sheet_name=None):
     sheet = workbook[sheet_name] if sheet_name else workbook.active
 
     rows = sheet.iter_rows(values_only=True)
-    header = next(rows, None)  # первая строка - названия колонок
+    header = next(rows, None)  # первая строка - заголовки
     if header is None:
         workbook.close()
         return
 
     header = [str(h) if h is not None else f"column_{i}" for i, h in enumerate(header)]
 
-    buffer = []    # сюда копим строки, пока не наберётся chunk_size
-    start = 0      # номер первой строки текущего чанка
+    buffer = []  # копим строки, пока не наберётся chunk_size
+    start = 0    # номер первой строки в текущем куске
 
     for row in rows:
         buffer.append(row)
@@ -83,15 +80,15 @@ def read_excel_chunks(path, chunk_size=DEFAULT_CHUNK_SIZE, sheet_name=None):
             start += len(buffer)
             buffer = []
 
-    if buffer:  # остаток в конце файла
+    if buffer:  # хвост файла
         yield _make_chunk(buffer, header, start)
 
     workbook.close()
 
 
 def _make_chunk(rows, header, start):
-    """Превращает список строк в DataFrame со сквозными номерами строк."""
-    # Если в строке ячеек меньше, чем колонок, - дополняем пустыми
+    """Строки -> DataFrame со сквозными номерами."""
+    # Если ячеек меньше, чем колонок, добиваем пустыми
     width = len(header)
     rows = [list(r[:width]) + [None] * (width - len(r)) for r in rows]
     df = pd.DataFrame(rows, columns=header, dtype=object)
@@ -100,7 +97,7 @@ def _make_chunk(rows, header, start):
 
 
 def read_in_chunks(path, chunk_size=DEFAULT_CHUNK_SIZE):
-    """Выбирает нужный способ чтения по расширению файла."""
+    """Выбираем, как читать, по расширению файла."""
     extension = os.path.splitext(path)[1].lower()
 
     if extension in (".csv", ".txt"):

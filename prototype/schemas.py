@@ -1,5 +1,6 @@
 from pydantic import BaseModel
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any
+
 
 class Issue(BaseModel):
     check_type: str
@@ -8,6 +9,7 @@ class Issue(BaseModel):
     message: str
     count: int
     sample: List[Dict[str, Any]]
+
 
 class QualityReport(BaseModel):
     timestamp: str

@@ -1,7 +1,7 @@
 import pandas as pd
 from datetime import datetime
 from .schemas import Issue, QualityReport
-from typing import List
+
 
 class DataQualityEngine:
     def __init__(self, df: pd.DataFrame):
@@ -38,15 +38,15 @@ class DataQualityEngine:
                 sample=[{k: (None if pd.isna(v) else v) for k, v in r.items()} for r in samples]
             ))
 
-    # НОВАЯ ПРОВЕРКА: Несогласованность дат
+    # Дата завершения не может быть раньше даты создания
     def check_date_consistency(self):
-        # Проверяем, есть ли нужные колонки в файле (чтобы не падало на других данных)
+        # Только если такие колонки вообще есть
         if 'created_at' in self.df.columns and 'completed_at' in self.df.columns:
-            # Переводим в формат datetime, ошибки парсинга превращаем в NaT (Not a Time)
+            # Кривые даты станут NaT
             created = pd.to_datetime(self.df['created_at'], errors='coerce')
             completed = pd.to_datetime(self.df['completed_at'], errors='coerce')
 
-            # Ищем строки, где дата завершения МЕНЬШЕ даты создания, игнорируя пустые значения
+            # Пустые даты не считаем
             invalid_mask = (completed < created) & created.notna() & completed.notna()
             invalid_count = invalid_mask.sum()
 
@@ -62,13 +62,11 @@ class DataQualityEngine:
                     sample=clean_samples
                 ))
 
-    # НОВАЯ ПРОВЕРКА: Некорректные значения (отрицательные суммы)
+    # Сумма не может быть отрицательной
     def check_invalid_values(self):
         if 'amount' in self.df.columns:
-            # Переводим в числа, если есть текст - станет NaN
+            # Текст станет NaN
             amounts = pd.to_numeric(self.df['amount'], errors='coerce')
-            
-            # Ищем отрицательные значения
             negative_mask = amounts < 0
             negative_count = negative_mask.sum()
 
@@ -85,19 +83,17 @@ class DataQualityEngine:
                 ))
 
     def run_all(self) -> QualityReport:
-        # Запускаем все проверки
         self.check_missing()
         self.check_duplicates()
         self.check_date_consistency()
         self.check_invalid_values()
 
-        # Считаем метрики
+        # Полнота: доля заполненных ячеек
         total_cells = self.total_rows * len(self.df.columns)
         total_missing = self.df.isna().sum().sum()
         completeness = ((total_cells - total_missing) / total_cells) * 100 if total_cells > 0 else 100
 
-        # Улучшенная формула качества (Quality Score)
-        # Начинаем со 100 баллов и вычитаем штрафы в зависимости от критичности (severity)
+        # Оценка качества: начинаем со 100 и снимаем баллы за каждую ошибку
         penalty = 0
         for issue in self.issues:
             if issue.severity == 'high':

@@ -31,6 +31,8 @@
 .recommendation-content {
   flex: 1;
   padding: 16px 20px;
+  color: #a29ac3;
+  font-size: 14px;
 }
 
 .recommendation-header {
@@ -42,19 +44,6 @@
   justify-content: space-between;
   margin-bottom: 8px;
 }
-
-.recommendation-content {
-  margin: 0;
-  color: #a29ac3;
-  font-size: 14px;
-}
-
-.recommendation-columns {
-  display: block;
-  margin-top: 8px;
-  font-size: 13px;
-}
-
 
 .recommendation-success {
   align-items: center;

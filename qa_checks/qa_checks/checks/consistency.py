@@ -1,20 +1,17 @@
 """
 Проверка 4: несогласованности между колонками.
 
-Два простых правила:
-1. Дата окончания не может быть раньше даты начала.
-2. Сумма должна быть равна цене, умноженной на количество.
+1. Дата конца не раньше даты начала.
+2. Итог = цена × количество.
 """
-
-import pandas as pd
 
 from checks.issue import make_issue, to_dates, to_number
 
 
 def check_dates_order(df, start_column, end_column, date_format=None, end_format=None):
     """
-    Ищет строки, где дата окончания раньше даты начала.
-    end_format - если у даты окончания другой формат (по умолчанию такой же, как у начала).
+    Строки, где конец раньше начала.
+    end_format - если у даты конца свой формат (иначе берём как у начала).
     """
     if start_column not in df.columns or end_column not in df.columns:
         return []
@@ -22,7 +19,7 @@ def check_dates_order(df, start_column, end_column, date_format=None, end_format
     start = to_dates(df[start_column], date_format)
     end = to_dates(df[end_column], end_format or date_format)
 
-    # Сравниваем только там, где обе даты правильные
+    # Сравниваем, только если обе даты нормальные
     wrong = start.notna() & end.notna() & (end < start)
     bad_rows = df.index[wrong].tolist()
 
@@ -33,7 +30,7 @@ def check_dates_order(df, start_column, end_column, date_format=None, end_format
 
 
 def check_total(df, price_column, quantity_column, total_column):
-    """Ищет строки, где сумма не равна цене, умноженной на количество."""
+    """Строки, где итог не равен цене × количество."""
     for col in (price_column, quantity_column, total_column):
         if col not in df.columns:
             return []
@@ -43,7 +40,7 @@ def check_total(df, price_column, quantity_column, total_column):
     total = to_number(df[total_column])
 
     expected = price * quantity
-    # Сравниваем с маленьким допуском (0.01), чтобы копейки при округлении не считались ошибкой
+    # Допуск 0.01, чтобы копейки от округления не считались ошибкой
     wrong = expected.notna() & total.notna() & ((expected - total).abs() > 0.01)
     bad_rows = df.index[wrong].tolist()
 
@@ -55,7 +52,7 @@ def check_total(df, price_column, quantity_column, total_column):
 
 def check_consistency(df, rules):
     """
-    Запускает правила из списка. Пример:
+    Гоняем правила из списка, например:
 
     rules = [
         {"rule": "dates_order", "start": "start_date", "end": "end_date"},

@@ -11,7 +11,9 @@ cd /d "%~dp0"
 
 if not exist "backend-python\venv\Scripts\python.exe" (
     echo [ОШИБКА] Не найден venv в backend-python\venv
-    echo Создай его: python -m venv backend-python\venv
+    echo Создай его и поставь библиотеки, из папки Practic5:
+    echo   python -m venv backend-python\venv
+    echo   backend-python\venv\Scripts\python -m pip install -r requirements.txt
     pause
     exit /b 1
 )

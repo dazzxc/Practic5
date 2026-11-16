@@ -4,7 +4,7 @@ import ReportView from "../components/ReportView";
 import { formatDate } from "../utils/formatDate";
 import "./ReportPage.css";
 
-// Страница одного прошлого отчёта: /reports/<id>
+// Страница одного старого отчёта: /reports/<id>
 function ReportDetailPage() {
   const { reportId } = useParams();
   const [report, setReport] = useState(null);

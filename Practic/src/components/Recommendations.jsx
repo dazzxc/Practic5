@@ -2,7 +2,7 @@ import "./Recommendations.css";
 import { CATEGORIES, CATEGORY_ORDER, countByCategory } from "../utils/issueCategories";
 
 function Recommendations({ issues = [] }) {
-  // Сколько ошибок в каждой группе (пропуски, дубли, некорректные, несогласованности)
+  // Показываем совет только для тех групп, где есть ошибки
   const counts = countByCategory(issues);
 
   const recommendations = CATEGORY_ORDER
@@ -11,23 +11,21 @@ function Recommendations({ issues = [] }) {
 
   return (
     <section className="recommendations-section">
-      <h2 className="recommendations-title"> Рекомендации по исправлению </h2>
+      <h2 className="recommendations-title">Рекомендации по исправлению</h2>
 
       {recommendations.length === 0 ? (
-      //если нет ошибок
         <div className="recommendation-success">
           <div className="success-icon">✓</div>
 
           <div>
             <h3>Ошибки не обнаружены</h3>
-            <p> Данные успешно прошли проверку, исправления не требуются!</p>
+            <p>Данные успешно прошли проверку, исправления не требуются!</p>
           </div>
         </div>
       ) : (
         <div className="recommendations-list">
-        {/* если есть ошибки */}
           {recommendations.map((item) => (
-            <div className="recommendation-card" key={item.category} >
+            <div className="recommendation-card" key={item.category}>
               <div
                 className="recommendation-indicator"
                 style={{ backgroundColor: item.color }}

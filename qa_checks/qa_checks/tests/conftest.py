@@ -1,4 +1,4 @@
-# Этот файл нужен, чтобы pytest видел папку checks/
+# Чтобы pytest видел папку checks/
 import os
 import sys
 

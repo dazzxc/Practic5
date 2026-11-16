@@ -1,4 +1,6 @@
 import json
+import os
+
 import chardet
 import magic
 import pandas as pd
@@ -11,7 +13,7 @@ class JSONLoader(BaseLoader):
         super().__init__(max_size_mb=max_size_mb)
 
     def _is_jsonl(self, file_path: str, encoding: str = 'utf-8') -> bool:
-        """Проверка, является ли файл JSON Lines (по первой строке)"""
+        """JSON Lines или нет - смотрим по первой строке."""
         with open(file_path, 'r', encoding=encoding) as f:
             first_line = f.readline().strip()
             try:
@@ -22,8 +24,8 @@ class JSONLoader(BaseLoader):
 
     def load(self, file_path: str, chunksize: int = 10000) -> LoadResult:
         file_size = self._validate_file(file_path, expected_mime_prefix='application/')
-        
-        # Определяем кодировку (для JSON чаще всего utf-8, но проверим)
+
+        # Обычно там utf-8, но на всякий случай проверяем
         with open(file_path, 'rb') as f:
             raw_data = f.read(1024)
             encoding = chardet.detect(raw_data)['encoding'] or 'utf-8'
@@ -33,7 +35,7 @@ class JSONLoader(BaseLoader):
 
         try:
             if is_jsonl:
-                # Чтение JSONL чанками
+                # JSON Lines читаем кусками
                 chunks: list[pd.DataFrame] = []
                 with open(file_path, 'r', encoding=encoding) as f:
                     current_chunk: list[dict] = []
@@ -46,7 +48,7 @@ class JSONLoader(BaseLoader):
                         chunks.append(pd.DataFrame(current_chunk))
                 df = pd.concat(chunks, ignore_index=True) if chunks else pd.DataFrame()
             else:
-                # Чтение обычного JSON (массив объектов или один объект)
+                # Обычный JSON: список объектов или один объект
                 with open(file_path, 'r', encoding=encoding) as f:
                     data = json.load(f)
                     if isinstance(data, list):
@@ -59,9 +61,9 @@ class JSONLoader(BaseLoader):
             raise ValueError(f"Ошибка парсинга JSON: {e}")
 
         schema = {col: str(dtype) for col, dtype in df.dtypes.items()}
-        
+
         metadata = LoadMetadata(
-            file_name=file_path.split('/')[-1],
+            file_name=os.path.basename(file_path),
             mime_type=magic.from_file(file_path, mime=True),
             encoding=encoding,
             delimiter=None,
@@ -72,5 +74,5 @@ class JSONLoader(BaseLoader):
             is_chunked=is_jsonl and len(df) > chunksize,
             warnings=warnings
         )
-        
+
         return LoadResult(df=df, metadata=metadata)

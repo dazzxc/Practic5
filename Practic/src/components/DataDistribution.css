@@ -129,11 +129,6 @@
   color: #AFAFD6;
 }
 
-.distribution-empty {
-  color: #A29AC3;
-  font-size: 14px;
-}
-
 @media (max-width: 1100px) {
   .distribution-section {
     grid-template-columns: 1fr;

@@ -1,11 +1,10 @@
 """
-Ручной запуск: проверяет файл (CSV, Excel или JSON) по частям и печатает результат.
-Правила подбираются автоматически (см. checks/auto_rules.py).
+Проверить файл из консоли, без сайта. Правила подбираются сами.
 
-Запуск:                 python run.py
-Свой файл:              python run.py путь/к/файлу.csv
-Свой размер чанка:      python run.py путь/к/файлу.xlsx 50000
-Свои правила вручную:   python run.py путь/к/файлу.csv 15000 manual
+python run.py                                 - тестовый clients.csv
+python run.py путь/к/файлу.csv                - свой файл
+python run.py путь/к/файлу.xlsx 50000         - свой размер куска
+python run.py путь/к/файлу.csv 15000 manual   - правила из MANUAL_CONFIG ниже
 """
 
 import json
@@ -20,8 +19,7 @@ chunk_size = int(sys.argv[2]) if len(sys.argv) > 2 else DEFAULT_CHUNK_SIZE
 
 use_manual = len(sys.argv) > 3 and sys.argv[3] == "manual"
 
-# Пример правил, заданных вручную (подходят для clients.csv и big.csv).
-# Используются только с флагом manual, иначе правила подбираются сами.
+# Пример правил вручную (под clients.csv и big.csv), работают только с флагом manual
 MANUAL_CONFIG = {
     "key_columns": ["id"],
     "invalid_rules": {
@@ -43,7 +41,7 @@ def show_progress(rows_done):
 
 
 started = time.time()
-config = MANUAL_CONFIG if use_manual else None  # None = подобрать правила автоматически
+config = MANUAL_CONFIG if use_manual else None  # None - подобрать самим
 result = check_file(file_path, config, chunk_size=chunk_size, on_progress=show_progress)
 seconds = round(time.time() - started, 1)
 
@@ -61,4 +59,4 @@ for issue in result["issues"]:
 with open("result.json", "w", encoding="utf-8") as f:
     json.dump(result, f, ensure_ascii=False, indent=2, default=str)
 
-print("\nПолный результат сохранён в result.json")
+print("\nВсё целиком сохранено в result.json")

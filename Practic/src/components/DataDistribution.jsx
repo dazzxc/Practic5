@@ -1,8 +1,7 @@
-
 import "./DataDistribution.css";
 import { CATEGORIES, CATEGORY_ORDER, countByCategory } from "../utils/issueCategories";
 
-// Названия и цвета групп ошибок - общие для всего приложения
+// Группы ошибок с названиями и цветами (берём из общего файла)
 const ERROR_TYPES = CATEGORY_ORDER.map((category) => ({
   type: category,
   label: CATEGORIES[category].label,
@@ -22,11 +21,10 @@ function DataDistribution({ report }) {
   // Сколько ошибок в каждой группе
   const counts = countByCategory(issues);
 
-  // Все найденные ошибки (пропуски, дубли, некорректные значения, несогласованности).
-  // Это приблизительная оценка: считаем, что каждая ошибка портит одну ячейку.
+  // Грубая оценка: считаем, что каждая ошибка портит одну ячейку
   const allErrors = Object.values(counts).reduce((sum, value) => sum + value, 0);
 
-  //  процент корректных ячеек
+  // Процент нормальных ячеек
   const correctPercentage =
     totalCells > 0
       ? Math.max(
@@ -38,7 +36,7 @@ function DataDistribution({ report }) {
         )
       : 0;
 
-  // Группы ошибок, которые реально встретились
+  // Оставляем только те группы, где что-то нашлось
   const distribution = ERROR_TYPES
     .map((item) => ({ ...item, count: counts[item.type] }))
     .filter((item) => item.count > 0);

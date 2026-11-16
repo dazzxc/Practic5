@@ -11,7 +11,7 @@ from app.schemas.common import Issue
 from app.services.dataset_registry import get_dataset
 from app.services.report_registry import save_report
 
-# Прокладываем путь к папке qa_checks
+# Подключаем движок проверок из папки qa_checks
 current_dir = Path(__file__).resolve().parent
 qa_checks_path = current_dir.parents[2] / "qa_checks" / "qa_checks"
 sys.path.append(str(qa_checks_path))
@@ -21,10 +21,7 @@ try:
 except ImportError as e:
     raise RuntimeError(f"Не удалось импортировать check_file. Ошибка: {e}")
 
-# Если фронтенд не прислал свои правила, передаём config=None:
-# движок сам подберёт правила под колонки загруженного файла (checks/auto_rules.py).
-
-# Рекомендации по каждой группе ошибок
+# Совет для каждой группы ошибок
 RECOMMENDATIONS = {
     "missing": "Заполните пустые ячейки корректными значениями или удалите неполные строки.",
     "duplicate": "Удалите повторяющиеся строки и проверьте уникальность ключевых полей (id).",
@@ -44,7 +41,7 @@ def run_data_analysis(request: AnalysisRequest) -> Report:
     if not file_path.exists():
         raise HTTPException(status_code=404, detail="Dataset file does not exist")
 
-    # Если фронтенд прислал свои правила - используем их, иначе движок подберёт сам
+    # Нет своих правил - движок подберёт их сам под колонки файла
     config_to_use = request.config if request.config else None
 
     try:
@@ -67,7 +64,7 @@ def run_data_analysis(request: AnalysisRequest) -> Report:
             recommendation=RECOMMENDATIONS.get(category, "Рекомендуется проверить эти строки"),
         ))
 
-    # Сколько ошибок в каждой из 4 групп
+    # Сколько ошибок в каждой группе
     summary = raw_result.get("summary", {})
 
     profile = DataProfile(
@@ -82,7 +79,7 @@ def run_data_analysis(request: AnalysisRequest) -> Report:
         inconsistencies=summary.get("inconsistency", 0),
     )
 
-    # Рекомендации только по тем группам, где есть ошибки
+    # Советы только по тем группам, где что-то нашлось
     recommendations = [text for category, text in RECOMMENDATIONS.items() if summary.get(category)]
     if not recommendations:
         recommendations = ["Ошибок не найдено, данные в хорошем состоянии."]

@@ -1,33 +1,22 @@
-СТАДИЯ 1: ОБЯЗАТЕЛЬНАЯ УСТАНОВКА ВСЕХ БИБЛИОТЕК-ЗАВИСИМОСТЕЙ
+Как запустить прототип
 
-Если Windows блокирует активацию виртуального окружения (ошибка Execution Policies),
-используйте прямые команды установки и запуска без активации.
+Это первая версия программы, обычное окно на PyQt (без сайта).
 
-Выполните в терминале из КОРНЯ проекта (папка Practic5) по очереди:
+1. Установка (один раз). В терминале из папки Practic5:
 
-Создаем виртуальное окружение:
-python -m venv .venv
+   python -m venv .venv
+   .venv\Scripts\python.exe -m pip install -r prototype/requirements.txt
 
-Устанавливаем все библиотеки напрямую в созданное окружение (один раз, дальше этот шаг можно пропускать):
-.venv\Scripts\python.exe -m pip install -r prototype/requirements.txt
+   На Mac/Linux вместо .venv\Scripts\python.exe пишите .venv/bin/python
+   Если Windows не даёт активировать окружение - не страшно, команды выше работают и без активации.
 
-(Примечание для пользователей Mac/Linux: используйте .venv/bin/python -m pip install -r prototype/requirements.txt)
+2. Запуск, тоже из папки Practic5:
 
-СТАДИЯ 2: ЗАПУСК ПРОТОТИПА
+   Окно:    .venv\Scripts\python.exe -m prototype.gui
+   Консоль: .venv\Scripts\python.exe -m prototype.main
 
-Запуск выполняется также через изолированный интерпретатор.
+3. Что получится
 
-Вариант А: Запуск современного графического интерфейса (GUI)
-.venv\Scripts\python.exe -m prototype.gui
-
-Вариант Б: Запуск консольной версии (CLI)
-.venv\Scripts\python.exe -m prototype.main
-
-СТАДИЯ 3: РЕЗУЛЬТАТЫ РАБОТЫ
-
-После завершения анализа (в GUI или CLI) в корневой папке проекта
-будут сгенерированы два файла:
-
-dq_report.json (машинно-читаемый отчет для передачи на фронтенд/API)
-
-dq_report.xlsx (красивый бизнес-отчет для аналитиков)
+   После проверки в папке Practic5 появятся два файла:
+   dq_report.json - отчёт для программ (фронтенда, API)
+   dq_report.xlsx - отчёт, который удобно открыть в Excel

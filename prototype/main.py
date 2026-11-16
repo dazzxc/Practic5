@@ -1,52 +1,50 @@
 import os
-import pandas as pd
+
 from .data_loader import DataLoader
 from .quality_engine import DataQualityEngine
 from .report_gen import ReportGenerator
 
+
 def run_prototype():
     print("\n" + "="*50)
-    print("🚀 СЕРВИС АУДИТА КАЧЕСТВА ДАННЫХ (DATA QUALITY СONSOLE)")
+    print("Проверка качества данных (консольная версия)")
     print("="*50)
-    
-    # Запрашиваем путь к файлу у пользователя
-    file_path = input("👉 Введите путь к вашему CSV-файлу (например, data.csv): ").strip()
-    
-    # Очищаем кавычки, если пользователь просто перетащил файл в терминал
+
+    file_path = input("Путь к CSV-файлу (например, data.csv): ").strip()
+
+    # Если файл перетащили в терминал, путь будет в кавычках - убираем их
     file_path = file_path.strip("'\"")
 
     if not os.path.exists(file_path):
-        print(f"❌ Ошибка: Файл по пути '{file_path}' не найден!")
-        print("Пожалуйста, проверьте правильность пути и повторите попытку.")
+        print(f"Файл не найден: {file_path}")
+        print("Проверьте путь и попробуйте ещё раз.")
         return
 
     if not file_path.endswith('.csv'):
-        print("❌ Ошибка: На данном этапе поддерживаются только файлы формата .csv")
+        print("Пока умеем только .csv")
         return
 
     try:
-        # Шаг 1: Загрузка данных
         df = DataLoader.load_csv(file_path)
-        print(f"✅ Файл успешно загружен. Размерность: {len(df)} строк, {len(df.columns)} колонок.")
-        
-        # Шаг 2: Анализ качества (универсальный, для любых колонок)
-        print("🔍 Запуск сканирования на пропуски и дубликаты...")
+        print(f"Загружено: {len(df)} строк, {len(df.columns)} колонок")
+
+        print("Проверяем...")
         engine = DataQualityEngine(df)
         report = engine.run_all()
-        
-        # Шаг 3: Сохранение отчетов
-        print("📊 Компиляция аналитических отчетов...")
+
+        print("Сохраняем отчёты...")
         ReportGenerator.save_json(report, "dq_report.json")
         ReportGenerator.save_excel(report, "dq_report.xlsx")
-        
+
         print("="*50)
-        print("🎉 АНАЛИЗ ЗАВЕРШЕН УСПЕШНО!")
-        print(f"📁 JSON-лог сохранен в: {os.path.abspath('dq_report.json')}")
-        print(f"📁 Бизнес-отчет сохранен в: {os.path.abspath('dq_report.xlsx')}")
+        print("Готово!")
+        print(f"JSON: {os.path.abspath('dq_report.json')}")
+        print(f"Excel: {os.path.abspath('dq_report.xlsx')}")
         print("="*50 + "\n")
 
     except Exception as e:
-        print(f"❌ Произошла критическая ошибка при обработке файла: {e}")
+        print(f"Что-то пошло не так: {e}")
+
 
 if __name__ == "__main__":
     run_prototype()

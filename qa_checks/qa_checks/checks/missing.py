@@ -1,23 +1,18 @@
-"""
-Проверка 1: пропуски.
-
-Ищет пустые ячейки в каждой колонке:
-None, NaN и пустые строки ("" или "   ").
-"""
+"""Проверка 1: пропуски - пустые ячейки в каждой колонке."""
 
 from checks.issue import make_issue, has_value
 
 
 def check_missing(df):
-    """Возвращает список проблем: по одной на каждую колонку с пропусками."""
+    """По одной ошибке на каждую колонку, где есть пустые ячейки."""
     issues = []
     total = len(df)
 
     for column in df.columns:
-        is_empty = ~has_value(df[column])  # True там, где пусто
+        is_empty = ~has_value(df[column])
         bad_rows = df.index[is_empty].tolist()
 
-        if bad_rows:  # если пропуски есть
+        if bad_rows:
             issues.append(make_issue(
                 issue_type="missing",
                 column=column,

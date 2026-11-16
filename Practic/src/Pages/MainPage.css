@@ -1,72 +1,4 @@
-.main-page {
-  padding: 40px;
-  color: #ffffff;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-h1 {
-  margin-bottom: 30px;
-  font-size: 32px;
-}
-
-/* Стили загрузки */
-.upload-card {
-  background: #161826;
-  padding: 30px;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  border: 2px dashed #3734C7;
-  margin-bottom: 30px;
-}
-
-.file-input {
-  display: none;
-}
-
-.file-label {
-  padding: 15px 30px;
-  background: #25246a;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.2s;
-  font-weight: bold;
-}
-
-.file-label:hover {
-  background: #3734C7;
-}
-
-.analyze-btn {
-  background: #3734C7;
-  color: white;
-  border: none;
-  padding: 12px 40px;
-  font-size: 18px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.2s;
-  font-weight: bold;
-}
-
-.analyze-btn:disabled {
-  background: #555;
-  cursor: not-allowed;
-}
-
-.error-msg {
-  color: #ff4c4c;
-  background: rgba(255, 76, 76, 0.1);
-  padding: 15px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-}
-
-/* Стили результатов */
+/* Отчёт */
 .report-dashboard {
   animation: fadeIn 0.5s ease-in-out;
 }
@@ -98,7 +30,7 @@ h1 {
   font-weight: bold;
 }
 
-.kpi-value.danger { color: #D9444A; border-color: #ff4c4c; }
+.kpi-value.danger { color: #D9444A; }
 .kpi-value.warning { color: #D7DF55; }
 .kpi-value.info { color: #4c9aff; }
 
@@ -140,7 +72,7 @@ h1 {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Стили для верстки Pomidor-maker */
+/* Страница и загрузка файла */
 .page {
   padding: 40px;
   color: #ffffff;
@@ -167,6 +99,8 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 20px;
+  margin-bottom: 30px;
   text-align: center;
 }
 
