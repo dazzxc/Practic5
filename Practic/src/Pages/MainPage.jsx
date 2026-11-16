@@ -1,44 +1,227 @@
-//<<<<<<< HEAD
-import { useState } from 'react'
-//=======
+import { useState, useRef, useEffect } from "react";
 import "./MainPage.css";
+import ReportView from "../components/ReportView";
 
-function MainPage() {  // главная страничка, пока что не доделанная 
-return (
+const SCROLL_DURATION = 1200; // длительность прокрутки в миллисекундах (больше - медленнее)
+const SCROLL_OFFSET = 40;     // отступ сверху над заголовком "Отчет готов!"
+
+// Ищет, что именно прокручивается: сама страница или блок с контентом
+function getScrollContainer(element) {
+  let parent = element.parentElement;
+  while (parent) {
+    const overflowY = getComputedStyle(parent).overflowY;
+    if ((overflowY === "auto" || overflowY === "scroll") && parent.scrollHeight > parent.clientHeight) {
+      return parent;
+    }
+    parent = parent.parentElement;
+  }
+  return document.scrollingElement || document.documentElement;
+}
+
+// Мягкая кривая: медленно разгоняется, быстро едет в середине, плавно тормозит
+function easeInOutCubic(t) {
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
+
+// Плавно прокручивает страницу до элемента
+function smoothScrollTo(element) {
+  const container = getScrollContainer(element);
+  const isPage = container === document.scrollingElement || container === document.documentElement;
+  const containerTop = isPage ? 0 : container.getBoundingClientRect().top;
+
+  const start = container.scrollTop;
+  const target = start + element.getBoundingClientRect().top - containerTop - SCROLL_OFFSET;
+  const distance = target - start;
+  const startTime = performance.now();
+
+  function step(now) {
+    const progress = Math.min((now - startTime) / SCROLL_DURATION, 1);
+    container.scrollTop = start + distance * easeInOutCubic(progress);
+    if (progress < 1) requestAnimationFrame(step);
+  }
+
+  requestAnimationFrame(step);
+}
+
+function MainPage() {
+  const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [statusText, setStatusText] = useState("");
+  const [report, setReport] = useState(null);
+  const [error, setError] = useState("");
+  const [isDragging, setIsDragging] = useState(false);
+  const dragCounter = useRef(0); // NEW: чтобы dragleave не мигал на дочерних элементах
+
+  const fileInputRef = useRef(null);
+  const reportRef = useRef(null); // блок "Отчет готов!" - к нему прокручиваем страницу
+
+  // Когда отчёт появился, плавно прокручиваем страницу до заголовка "Отчет готов!"
+  useEffect(() => {
+    if (report && reportRef.current) {
+      // Небольшая пауза, чтобы блок успел появиться, потом мягкая прокрутка
+      const timer = setTimeout(() => smoothScrollTo(reportRef.current), 200);
+      return () => clearTimeout(timer);
+    }
+  }, [report]);
+
+  const handleFileChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setFile(e.target.files[0]);
+      setError("");
+      setReport(null);
+    }
+  };
+
+  // drag & drop handlers
+  const handleDragEnter = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dragCounter.current += 1;
+    if (e.dataTransfer.items && e.dataTransfer.items.length > 0) {
+      setIsDragging(true);
+    }
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    e.dataTransfer.dropEffect = "copy";
+    if (!isDragging) setIsDragging(true);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dragCounter.current -= 1;
+    if (dragCounter.current <= 0) {
+      dragCounter.current = 0;
+      setIsDragging(false);
+    }
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dragCounter.current = 0;
+    setIsDragging(false);
+
+    const droppedFile = e.dataTransfer.files && e.dataTransfer.files[0];
+    if (droppedFile) {
+      setFile(droppedFile);
+      setError("");
+      setReport(null);
+    }
+  };
+
+  const handleAnalyze = async () => {
+    if (!file) {
+      setError("Пожалуйста, выберите файл для анализа.");
+      return;
+    }
+
+    setLoading(true);
+    setError("");
+    
+    try {
+      setStatusText("Загрузка файла на сервер...");
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const uploadRes = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!uploadRes.ok) throw new Error("Ошибка при загрузке файла");
+      const uploadData = await uploadRes.json();
+
+      setStatusText("Анализ данных...");
+      const analyzeRes = await fetch("/api/run-check", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ dataset_id: uploadData.dataset_id }),
+      });
+
+      if (!analyzeRes.ok) throw new Error("Ошибка при анализе данных");
+      const reportData = await analyzeRes.json();
+
+      setReport(reportData);
+      setStatusText("");
+    } catch (err) {
+      setError(err.message || "Произошла ошибка");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
     <section className="page">
-    <h1 className="page-title">
-    Анализ качества данных
-    </h1>
+      <h1 className="page-title">Анализ качества данных</h1>
+      <p className="page-subtitle"> Загрузите CSV, Excel или JSON файл, чтобы проверить его качество </p>
 
-    <p className="page-subtitle"> Загрузите CSV или JSON файл, чтобы проверить его качество </p>
+      <div
+        className="upload-card"
+        onDragEnter={handleDragEnter}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+      >
+        <div
+          className="upload-area"
+          style={isDragging ? { borderColor: "#3734C7" } : undefined}
+        >
+          <input 
+            type="file" 
+            accept=".csv, .json, .xlsx" 
+            onChange={handleFileChange} 
+            ref={fileInputRef}
+            style={{ display: "none" }} 
+          />
+          
+          <div>
+            <svg width="132" height="132" viewBox="0 0 132 132" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M126.894 86.2629V113.35C126.894 116.943 125.467 120.387 122.927 122.927C120.387 125.467 116.943 126.894 113.35 126.894H18.5438C14.9518 126.894 11.5068 125.467 8.96689 122.927C6.42693 120.387 5 116.943 5 113.35V86.2629M99.8067 52.4033L65.9471 86.2629L32.0876 52.4033M65.9471 86.2629V5" strokeWidth="10" strokeLinecap="round" strokeLinejoin="round" stroke="#3734C7"/>
+            </svg>
+          </div>
 
-    <div className="upload-card">
-        <div className="upload-area">
-            <div className='icon-upload'>
-                <svg width="132" height="132" viewBox="0 0 132 132" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M126.894 86.2629V113.35C126.894 116.943 125.467 120.387 122.927 122.927C120.387 125.467 116.943 126.894 113.35 126.894H18.5438C14.9518 126.894 11.5068 125.467 8.96689 122.927C6.42693 120.387 5 116.943 5 113.35V86.2629M99.8067 52.4033L65.9471 86.2629L32.0876 52.4033M65.9471 86.2629V5" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" stroke="#3734C7"/>
-</svg>
-            </div>
+          <h2 className="text-title">
+            {file ? file.name : (isDragging ? "Отпустите файл здесь" : "Перетащите файл сюда")}
+          </h2>
 
-            <h2 className="text-title"> Перетащите файл сюда </h2>
-
-            <p className="text-subtitle"> 
-                Или <span class="text-blue">выберите файл</span> на компьютере 
-            </p>
+          <p className="text-subtitle">
+            {/* До выбора файла заголовок уже говорит "Перетащите файл сюда",
+                а после выбора там имя файла - поэтому напоминаем про перетаскивание здесь */}
+            {file ? "Перетащите другой файл или " : "Или "}
+            <span className="text-blue" onClick={() => fileInputRef.current.click()} style={{ cursor: "pointer", textDecoration: "underline" }}>
+              {file ? "выберите его" : "выберите файл"}
+            </span> на компьютере
+          </p>
         </div>
 
-        <button className="primary-button"> <svg className='icon-file-choose' width="25" height="23" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M2.47658 22.2892C1.79552 22.2892 1.21249 22.0164 0.727496 21.4708C0.242499 20.9252 0 20.2693 0 19.5031V2.78615C0 2.01996 0.242499 1.36406 0.727496 0.818433C1.21249 0.272811 1.79552 0 2.47658 0H9.90633L12.3829 2.78615H22.2892C22.9703 2.78615 23.5533 3.05897 24.0383 3.60459C24.5233 4.15021 24.7658 4.80612 24.7658 5.57231V19.5031C24.7658 20.2693 24.5233 20.9252 24.0383 21.4708C23.5533 22.0164 22.9703 22.2892 22.2892 22.2892H2.47658ZM2.47658 19.5031H22.2892V5.57231H11.3613L8.88474 2.78615H2.47658V19.5031Z" fill="white"/>
-</svg>
- Выбрать файл </button>  
-
-        {/* Иконку для кнопки поставить и чутка поправить расположение карточки !!!*/}
-
-    </div>
+        <button 
+          className="primary-button" 
+          onClick={file ? handleAnalyze : () => fileInputRef.current.click()}
+          disabled={loading}
+        >
+          {loading ? statusText : (file ? "Запустить аудит" : "Выбрать файл")}
+        </button>
+        {error && <p style={{ color: "#ff4c4c", marginTop: "15px" }}>{error}</p>}
+      </div>
+      
+      {/* Наш блок с результатами (появляется после анализа) */}
+      {report && (
+        <div
+          className="report-dashboard"
+          ref={reportRef}
+          style={{ marginTop: "40px", animation: "fadeIn 0.5s ease-in-out" }}
+        >
+          <h2>Отчет готов!</h2>
+          
+          <ReportView report={report} />
+        </div>
+      )}
     </section>
-
-);
+  );
 }
 
 export default MainPage;
-//>>>>>>> c0b3f880eab7eae5640ecb97f6752eec572cfe1e

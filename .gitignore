@@ -218,3 +218,34 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+dq_report.xlsx
+dq_report.xlsx
+dq_report.xlsx
+prototype/large_transactions_quality.csv
+prototype/large_users_quality.csv
+dq_report.json
+dq_report.json
+large_users_quality.csv
+dq_report.json
+dq_report.json
+dq_report.json
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+backend-python/uploads/  # Временные файлы пользователей
+
+# Node.js (для React)
+Practic/node_modules/
+Practic/dist/
+
+# Отчеты
+backend-python/uploads/
+dq_report.json
+result.json
+
+# Node.js (React)
+node_modules/
+Practic/node_modules/
+dist/

@@ -1,0 +1,38 @@
+# Виртуальное окружение (у каждого своё, весит много)
+venv/
+.venv/
+env/
+ENV/
+
+# Секреты — НИКОГДА не коммитим
+.env
+.env.local
+*.key
+*.pem
+
+# Python-мусор
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+
+# Тесты и кэш
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE и ОС
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Логи и временные файлы
+*.log
+*.sqlite
+*.db

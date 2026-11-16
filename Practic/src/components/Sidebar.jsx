@@ -13,9 +13,9 @@ function Sidebar() {     //это всё менюшка слева да
                     >
                             
                     <span className="nav-icon">
-                        <svg width="32" height="35" viewBox="0 0 32 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M11 33.1667V17.3333H20.5V33.1667M1.5 12.5833L15.75 1.5L30 12.5833V30C30 30.8399 29.6664 31.6453 29.0725 32.2392C28.4786 32.833 27.6732 33.1667 26.8333 33.1667H4.66667C3.82681 33.1667 3.02136 32.833 2.4275 32.2392C1.83363 31.6453 1.5 30.8399 1.5 30V12.5833Z" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke="white"/>
-</svg>
+                        <svg width="27" height="30" viewBox="0 0 27 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.5 28.1667V14.8333H17.5V28.1667M1.5 10.8333L13.5 1.5L25.5 10.8333V25.5C25.5 26.2072 25.219 26.8855 24.719 27.3856C24.2189 27.8857 23.5406 28.1667 22.8333 28.1667H4.16667C3.45942 28.1667 2.78115 27.8857 2.28105 27.3856C1.78095 26.8855 1.5 26.2072 1.5 25.5V10.8333Z" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke="white"/>
+                        </svg>
                     </span>
                     <span>Главная</span>
                 </NavLink>
@@ -26,10 +26,10 @@ function Sidebar() {     //это всё менюшка слева да
                     `nav-item ${isActive ? "active" : ""}`
                     }
                     >
-                    <span className="nav-icon"> 
-                        <svg width="29" height="35" viewBox="0 0 29 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M1.5 29.2083C1.5 28.1585 1.91704 27.1517 2.65937 26.4094C3.4017 25.667 4.40852 25.25 5.45833 25.25H26.8333M1.5 29.2083C1.5 30.2581 1.91704 31.265 2.65937 32.0073C3.4017 32.7496 4.40852 33.1667 5.45833 33.1667H26.8333V1.5H5.45833C4.40852 1.5 3.4017 1.91704 2.65937 2.65937C1.91704 3.4017 1.5 4.40852 1.5 5.45833V29.2083Z" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke="#B3B3B3"/>
-</svg>                   
+                    <span className="nav-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5.33325 26C5.33325 25.116 5.68444 24.2681 6.30956 23.643C6.93468 23.0179 7.78253 22.6667 8.66659 22.6667H26.6666M5.33325 26C5.33325 26.8841 5.68444 27.7319 6.30956 28.357C6.93468 28.9822 7.78253 29.3334 8.66659 29.3334H26.6666V2.66669H8.66659C7.78253 2.66669 6.93468 3.01788 6.30956 3.643C5.68444 4.26812 5.33325 5.11597 5.33325 6.00002V26Z" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke="#B3B3B3"/>
+                        </svg>
                     </span>
                     <span>Отчёты</span>
                 </NavLink>
