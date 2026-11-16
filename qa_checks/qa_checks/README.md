@@ -25,6 +25,18 @@ python make_big_file.py 500000 json        # создаст test_data/big.json �
 python run.py test_data/big.csv
 ```
 
+## Демо-файлы для защиты
+```
+python make_demo_files.py
+```
+Создаёт в `test_data/` небольшие файлы:
+- `demo_orders.xlsx` - заказы магазина (Excel), 502 строки;
+- `demo_employees.json` - сотрудники (JSON со вложенным адресом), 301 запись;
+- `demo_transactions_1c.csv` - выгрузка как из 1С (`;`, Windows-1251, русские колонки, запятая в дробях), 402 строки;
+- `demo_clean.csv` - чистый файл, ошибок быть не должно.
+
+В первых трёх заложены ошибки всех 4 видов.
+
 ## Автотесты
 ```
 pytest

@@ -1,0 +1,4517 @@
+[
+  {
+    "employee_id": 500,
+    "full_name": "Лебедев Анна",
+    "email": "employee0@company.ru",
+    "age": 40,
+    "gender": "М",
+    "department": "Склад",
+    "salary": 178000,
+    "hire_date": "2022-05-22",
+    "contract_end": "2025-09-01",
+    "address": {
+      "city": "Москва",
+      "zip": "185977"
+    }
+  },
+  {
+    "employee_id": 501,
+    "full_name": "Волков Татьяна",
+    "email": "employee1@company.ru",
+    "age": 55,
+    "gender": "М",
+    "department": "IT",
+    "salary": 243000,
+    "hire_date": "2024-01-14",
+    "contract_end": "2027-09-09",
+    "address": {
+      "city": "Казань",
+      "zip": "129893"
+    }
+  },
+  {
+    "employee_id": 502,
+    "full_name": "Соколов Алексей",
+    "email": "employee2@company.ru",
+    "age": 55,
+    "gender": "X",
+    "department": "IT",
+    "salary": 249000,
+    "hire_date": "2020-11-11",
+    "contract_end": "2023-10-14",
+    "address": {
+      "city": "Казань",
+      "zip": "185462"
+    }
+  },
+  {
+    "employee_id": 503,
+    "full_name": "Козлов Михаил",
+    "email": "employee3@company.ru",
+    "age": 50,
+    "gender": "М",
+    "department": "IT",
+    "salary": 51000,
+    "hire_date": "2019-09-23",
+    "contract_end": "2023-07-14",
+    "address": {
+      "city": "Москва",
+      "zip": "249188"
+    }
+  },
+  {
+    "employee_id": 504,
+    "full_name": "Новиков Мария",
+    "email": "employee4@company.ru",
+    "age": 48,
+    "gender": "М",
+    "department": "Склад",
+    "salary": 102000,
+    "hire_date": "2021-09-05",
+    "contract_end": "2023-06-01",
+    "address": {
+      "city": "Казань",
+      "zip": "171772"
+    }
+  },
+  {
+    "employee_id": 505,
+    "full_name": "Соколова Сергей",
+    "email": "employee5@company.ru",
+    "age": 38,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 152000,
+    "hire_date": "2020-06-01",
+    "contract_end": "2024-07-04",
+    "address": {
+      "city": "Москва",
+      "zip": "169921"
+    }
+  },
+  {
+    "employee_id": 506,
+    "full_name": "Петров Ольга",
+    "email": "employee6@company.ru",
+    "age": 64,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 170000,
+    "hire_date": "2019-10-13",
+    "contract_end": "2021-08-28",
+    "address": {
+      "city": "Казань",
+      "zip": "123358"
+    }
+  },
+  {
+    "employee_id": 507,
+    "full_name": "Волкова Мария",
+    "email": "employee7@company.ru",
+    "age": 30,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 71000,
+    "hire_date": "2023-05-04",
+    "contract_end": "2026-02-19",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "119868"
+    }
+  },
+  {
+    "employee_id": 508,
+    "full_name": "Волкова Сергей",
+    "email": "employee8@company.ru",
+    "age": 45,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 234000,
+    "hire_date": "2021-06-04",
+    "contract_end": "2024-06-07",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "140406"
+    }
+  },
+  {
+    "employee_id": 509,
+    "full_name": "Иванова Наталья",
+    "email": "employee9@company.ru",
+    "age": 63,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 179000,
+    "hire_date": "2021-07-25",
+    "contract_end": "2025-05-31",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "191067"
+    }
+  },
+  {
+    "employee_id": 510,
+    "full_name": "Новиков Андрей",
+    "email": "employee10@company.ru",
+    "age": 30,
+    "gender": "М",
+    "department": "HR",
+    "salary": 197000,
+    "hire_date": "2020-10-03",
+    "contract_end": "2021-12-01",
+    "address": {
+      "city": "Казань",
+      "zip": "224690"
+    }
+  },
+  {
+    "employee_id": 511,
+    "full_name": "Морозов Пётр",
+    "email": "employee11@company.ru",
+    "age": 25,
+    "gender": "М",
+    "department": "Склад",
+    "salary": 132000,
+    "hire_date": "2020-01-23",
+    "contract_end": "2023-11-09",
+    "address": {
+      "city": "Москва",
+      "zip": "201917"
+    }
+  },
+  {
+    "employee_id": 512,
+    "full_name": "Петров Алексей",
+    "email": "employee12@company.ru",
+    "age": 44,
+    "gender": "М",
+    "department": "Склад",
+    "salary": 143000,
+    "hire_date": "2021-09-27",
+    "contract_end": "2024-06-11",
+    "address": {
+      "city": "Калининград",
+      "zip": "217711"
+    }
+  },
+  {
+    "employee_id": 513,
+    "full_name": "Новикова Сергей",
+    "email": "employee13@company.ru",
+    "age": 47,
+    "gender": "Ж",
+    "department": "HR",
+    "salary": 193000,
+    "hire_date": "2020-11-15",
+    "contract_end": "2022-07-16",
+    "address": {
+      "city": "Казань",
+      "zip": "292980"
+    }
+  },
+  {
+    "employee_id": 514,
+    "full_name": "Фёдорова Михаил",
+    "email": "employee14@company.ru",
+    "age": 23,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 119000,
+    "hire_date": "2021-12-12",
+    "contract_end": "2021-11-12",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "201975"
+    }
+  },
+  {
+    "employee_id": 515,
+    "full_name": "Фёдорова Елена",
+    "email": "employee15@company.ru",
+    "age": 64,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 56000,
+    "hire_date": "2022-10-05",
+    "contract_end": "2024-10-08",
+    "address": {
+      "city": "Казань",
+      "zip": "276288"
+    }
+  },
+  {
+    "employee_id": 516,
+    "full_name": "Козлов Ольга",
+    "email": "employee16@company.ru",
+    "age": 49,
+    "gender": "М",
+    "department": "Продажи",
+    "salary": 70000,
+    "hire_date": "2021-05-26",
+    "contract_end": "2024-03-30",
+    "address": {
+      "city": "Калининград",
+      "zip": "229114"
+    }
+  },
+  {
+    "employee_id": 517,
+    "full_name": "Волкова Пётр",
+    "email": "нет почты",
+    "age": 60,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 162000,
+    "hire_date": "2020-07-30",
+    "contract_end": "2023-03-01",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "298593"
+    }
+  },
+  {
+    "employee_id": 518,
+    "full_name": "Лебедев Татьяна",
+    "email": "employee18@company.ru",
+    "age": 44,
+    "gender": "М",
+    "department": "IT",
+    "salary": 48000,
+    "hire_date": "2024-11-16",
+    "contract_end": "2027-08-03",
+    "address": {
+      "city": "Калининград",
+      "zip": "203402"
+    }
+  },
+  {
+    "employee_id": 519,
+    "full_name": "Новиков Иван",
+    "email": "employee19@company.ru",
+    "age": 27,
+    "gender": "М",
+    "department": "HR",
+    "salary": 105000,
+    "hire_date": "2024-09-24",
+    "contract_end": "2026-11-30",
+    "address": {
+      "city": "Москва",
+      "zip": "224884"
+    }
+  },
+  {
+    "employee_id": 520,
+    "full_name": "Иванов Ольга",
+    "email": "employee20@company.ru",
+    "age": 20,
+    "gender": "М",
+    "department": "Продажи",
+    "salary": 192000,
+    "hire_date": "2021-04-25",
+    "contract_end": "2022-12-10",
+    "address": {
+      "city": "Калининград",
+      "zip": "156857"
+    }
+  },
+  {
+    "employee_id": 521,
+    "full_name": "Петров Татьяна",
+    "email": null,
+    "age": 52,
+    "gender": "М",
+    "department": "Склад",
+    "salary": 50000,
+    "hire_date": "2021-11-08",
+    "contract_end": "2025-06-21",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "285457"
+    }
+  },
+  {
+    "employee_id": 522,
+    "full_name": "Попова Татьяна",
+    "email": null,
+    "age": 32,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 161000,
+    "hire_date": "2023-06-03",
+    "contract_end": "2025-09-17",
+    "address": {
+      "city": "Казань",
+      "zip": "298256"
+    }
+  },
+  {
+    "employee_id": 523,
+    "full_name": "Соколова Юлия",
+    "email": "employee23@company.ru",
+    "age": 31,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 220000,
+    "hire_date": "2020-01-11",
+    "contract_end": "2021-12-01",
+    "address": {
+      "city": "Калининград",
+      "zip": "191702"
+    }
+  },
+  {
+    "employee_id": 524,
+    "full_name": "Фёдорова Татьяна",
+    "email": "employee24@company.ru",
+    "age": 47,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 73000,
+    "hire_date": "2025-01-01",
+    "contract_end": "2028-06-19",
+    "address": {
+      "city": "Калининград",
+      "zip": "297281"
+    }
+  },
+  {
+    "employee_id": 525,
+    "full_name": "Смирнова Елена",
+    "email": "employee25@company.ru",
+    "age": 22,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 66000,
+    "hire_date": "2023-08-11",
+    "contract_end": "2025-05-22",
+    "address": {
+      "city": "Москва",
+      "zip": "272136"
+    }
+  },
+  {
+    "employee_id": 526,
+    "full_name": "Лебедев Мария",
+    "email": "employee26@company.ru",
+    "age": 48,
+    "gender": "М",
+    "department": "HR",
+    "salary": 163000,
+    "hire_date": "2021-09-16",
+    "contract_end": "2023-11-16",
+    "address": {
+      "city": "Казань",
+      "zip": "217109"
+    }
+  },
+  {
+    "employee_id": 527,
+    "full_name": "Лебедева Елена",
+    "email": "employee27@company.ru",
+    "age": 59,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 63000,
+    "hire_date": "2024-07-30",
+    "contract_end": "2027-09-11",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "272135"
+    }
+  },
+  {
+    "employee_id": 528,
+    "full_name": "Кузнецова Елена",
+    "email": "employee28@company.ru",
+    "age": 37,
+    "gender": "Ж",
+    "department": "HR",
+    "salary": 190000,
+    "hire_date": "2019-12-03",
+    "contract_end": "2021-06-23",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "234243"
+    }
+  },
+  {
+    "employee_id": 529,
+    "full_name": "Иванова Андрей",
+    "email": "employee29@company.ru",
+    "age": 58,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 235000,
+    "hire_date": "2022-12-29",
+    "contract_end": "2026-08-19",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "281022"
+    }
+  },
+  {
+    "employee_id": 530,
+    "full_name": "Попова Елена",
+    "email": "employee30@company.ru",
+    "age": 30,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 122000,
+    "hire_date": "2022-12-14",
+    "contract_end": "2025-12-16",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "268242"
+    }
+  },
+  {
+    "employee_id": 531,
+    "full_name": "Иванов Сергей",
+    "email": "employee31@company.ru",
+    "age": 27,
+    "gender": "М",
+    "department": "HR",
+    "salary": 124000,
+    "hire_date": "2020-12-12",
+    "contract_end": "2020-11-12",
+    "address": {
+      "city": "Москва",
+      "zip": "230292"
+    }
+  },
+  {
+    "employee_id": 532,
+    "full_name": "Лебедев Алексей",
+    "email": "employee32@company.ru",
+    "age": 42,
+    "gender": "М",
+    "department": "Продажи",
+    "salary": 54000,
+    "hire_date": "2023-12-17",
+    "contract_end": "2026-08-29",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "256632"
+    }
+  },
+  {
+    "employee_id": 533,
+    "full_name": "Попова Анна",
+    "email": "employee33@company.ru",
+    "age": 29,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 87000,
+    "hire_date": "2021-03-11",
+    "contract_end": "2022-10-01",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "211081"
+    }
+  },
+  {
+    "employee_id": 534,
+    "full_name": "Козлов Пётр",
+    "email": "employee34@company.ru",
+    "age": 54,
+    "gender": "М",
+    "department": "Склад",
+    "salary": 125000,
+    "hire_date": "2021-12-21",
+    "contract_end": "2024-03-06",
+    "address": {
+      "city": "Калининград",
+      "zip": "129047"
+    }
+  },
+  {
+    "employee_id": 535,
+    "full_name": "Попов Анна",
+    "email": "employee35@company.ru",
+    "age": 53,
+    "gender": "М",
+    "department": "Склад",
+    "salary": 149000,
+    "hire_date": "2022-03-02",
+    "contract_end": "2023-08-25",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "161594"
+    }
+  },
+  {
+    "employee_id": 536,
+    "full_name": "Соколова Ольга",
+    "email": "employee36@company.ru",
+    "age": 58,
+    "gender": "Ж",
+    "department": "HR",
+    "salary": 169000,
+    "hire_date": "2019-10-10",
+    "contract_end": "2021-05-14",
+    "address": {
+      "city": "Казань",
+      "zip": "144152"
+    }
+  },
+  {
+    "employee_id": 537,
+    "full_name": "Лебедев Мария",
+    "email": "employee37@company.ru",
+    "age": 38,
+    "gender": "М",
+    "department": "HR",
+    "salary": 91000,
+    "hire_date": "2023-06-16",
+    "contract_end": "2025-02-05",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "217109"
+    }
+  },
+  {
+    "employee_id": 538,
+    "full_name": "Козлов Светлана",
+    "email": "employee38@company.ru",
+    "age": 52,
+    "gender": "М",
+    "department": "Склад",
+    "salary": 121000,
+    "hire_date": "2022-08-15",
+    "contract_end": "2025-07-07",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "169102"
+    }
+  },
+  {
+    "employee_id": 539,
+    "full_name": "Новиков Михаил",
+    "email": "employee39@company.ru",
+    "age": 60,
+    "gender": "М",
+    "department": "Продажи",
+    "salary": 222000,
+    "hire_date": "2023-03-26",
+    "contract_end": "2026-01-14",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "134866"
+    }
+  },
+  {
+    "employee_id": 540,
+    "full_name": "Волков Светлана",
+    "email": "employee40@company.ru",
+    "age": 21,
+    "gender": "М",
+    "department": "Продажи",
+    "salary": 104000,
+    "hire_date": "2021-06-12",
+    "contract_end": "2024-04-12",
+    "address": {
+      "city": "Москва",
+      "zip": "251200"
+    }
+  },
+  {
+    "employee_id": 541,
+    "full_name": "Лебедева Анна",
+    "email": "employee41@company.ru",
+    "age": 37,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 118000,
+    "hire_date": "2024-02-04",
+    "contract_end": "2026-04-04",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "123312"
+    }
+  },
+  {
+    "employee_id": 542,
+    "full_name": "Смирнова Иван",
+    "email": "employee42@company.ru",
+    "age": 45,
+    "gender": "Ж",
+    "department": "HR",
+    "salary": 94000,
+    "hire_date": "2023-12-24",
+    "contract_end": "2026-11-16",
+    "address": {
+      "city": "Казань",
+      "zip": "234928"
+    }
+  },
+  {
+    "employee_id": 543,
+    "full_name": "Фёдоров Мария",
+    "email": "employee43@company.ru",
+    "age": 24,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 111000,
+    "hire_date": "2021-12-19",
+    "contract_end": "2025-10-21",
+    "address": {
+      "city": "Москва",
+      "zip": "114669"
+    }
+  },
+  {
+    "employee_id": 544,
+    "full_name": "Соколов Мария",
+    "email": "employee44@company.ru",
+    "age": 38,
+    "gender": "М",
+    "department": "Склад",
+    "salary": 176000,
+    "hire_date": "2024-02-05",
+    "contract_end": "2027-08-15",
+    "address": {
+      "city": "Калининград",
+      "zip": "152983"
+    }
+  },
+  {
+    "employee_id": 545,
+    "full_name": "Иванов Анна",
+    "email": "employee45@company.ru",
+    "age": 31,
+    "gender": "М",
+    "department": "HR",
+    "salary": 170000,
+    "hire_date": "2021-07-01",
+    "contract_end": "2025-01-15",
+    "address": {
+      "city": "Калининград",
+      "zip": "218355"
+    }
+  },
+  {
+    "employee_id": 546,
+    "full_name": "Новикова Сергей",
+    "email": "employee46@company.ru",
+    "age": 54,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 54000,
+    "hire_date": "2022-07-06",
+    "contract_end": "2023-12-04",
+    "address": {
+      "city": "Москва",
+      "zip": "232310"
+    }
+  },
+  {
+    "employee_id": 547,
+    "full_name": "Иванов Пётр",
+    "email": "employee47@company.ru",
+    "age": 28,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 201000,
+    "hire_date": "2020-04-12",
+    "contract_end": "2022-06-06",
+    "address": {
+      "city": "Москва",
+      "zip": "212838"
+    }
+  },
+  {
+    "employee_id": 548,
+    "full_name": "Попова Сергей",
+    "email": "employee48@company.ru",
+    "age": 51,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 77000,
+    "hire_date": "2024-09-24",
+    "contract_end": "2027-01-20",
+    "address": {
+      "city": "Казань",
+      "zip": "212338"
+    }
+  },
+  {
+    "employee_id": 549,
+    "full_name": "Новиков Сергей",
+    "email": "employee49@company.ru",
+    "age": 61,
+    "gender": "М",
+    "department": "IT",
+    "salary": 54000,
+    "hire_date": "2023-07-04",
+    "contract_end": "2026-01-01",
+    "address": {
+      "city": "Калининград",
+      "zip": "165135"
+    }
+  },
+  {
+    "employee_id": 550,
+    "full_name": "Петров Иван",
+    "email": "employee50@company.ru",
+    "age": 53,
+    "gender": "М",
+    "department": "HR",
+    "salary": 69000,
+    "hire_date": "2021-10-10",
+    "contract_end": "2024-03-31",
+    "address": {
+      "city": "Калининград",
+      "zip": "151974"
+    }
+  },
+  {
+    "employee_id": 551,
+    "full_name": "Козлов Юлия",
+    "email": "employee51@company.ru",
+    "age": 21,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 68000,
+    "hire_date": "2021-10-04",
+    "contract_end": "2023-08-30",
+    "address": {
+      "city": "Москва",
+      "zip": "147984"
+    }
+  },
+  {
+    "employee_id": 552,
+    "full_name": "Фёдоров Елена",
+    "email": "employee52@company.ru",
+    "age": 47,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 82000,
+    "hire_date": "2021-08-26",
+    "contract_end": "2022-09-15",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "185441"
+    }
+  },
+  {
+    "employee_id": 553,
+    "full_name": "Морозова Юлия",
+    "email": "employee53@company.ru",
+    "age": 34,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 185000,
+    "hire_date": "2023-01-28",
+    "contract_end": "2024-10-23",
+    "address": {
+      "city": "Калининград",
+      "zip": "105569"
+    }
+  },
+  {
+    "employee_id": 554,
+    "full_name": "Волкова Юлия",
+    "email": "employee54@company.ru",
+    "age": 23,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 109000,
+    "hire_date": "2023-09-19",
+    "contract_end": "2027-01-04",
+    "address": {
+      "city": "Калининград",
+      "zip": "216902"
+    }
+  },
+  {
+    "employee_id": 555,
+    "full_name": "Петрова Светлана",
+    "email": "employee55@company.ru",
+    "age": 47,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 224000,
+    "hire_date": "2020-03-30",
+    "contract_end": "2021-12-30",
+    "address": {
+      "city": "Калининград",
+      "zip": "250284"
+    }
+  },
+  {
+    "employee_id": 556,
+    "full_name": "Кузнецов Татьяна",
+    "email": "employee56@company.ru",
+    "age": 55,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 76000,
+    "hire_date": "2023-04-04",
+    "contract_end": "2025-10-10",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "284603"
+    }
+  },
+  {
+    "employee_id": 557,
+    "full_name": "Волкова Андрей",
+    "email": "employee57@company.ru",
+    "age": 31,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 98000,
+    "hire_date": "2024-07-21",
+    "contract_end": "2026-06-30",
+    "address": {
+      "city": "Калининград",
+      "zip": "268724"
+    }
+  },
+  {
+    "employee_id": 558,
+    "full_name": "Волков Сергей",
+    "email": "employee58@company.ru",
+    "age": 26,
+    "gender": "М",
+    "department": "Склад",
+    "salary": 247000,
+    "hire_date": "2020-04-16",
+    "contract_end": "2022-05-06",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "251788"
+    }
+  },
+  {
+    "employee_id": 559,
+    "full_name": "Новиков Иван",
+    "email": "employee59@company.ru",
+    "age": 22,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 88000,
+    "hire_date": "2021-05-14",
+    "contract_end": "2024-01-06",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "259822"
+    }
+  },
+  {
+    "employee_id": 560,
+    "full_name": "Попов Мария",
+    "email": "employee60@company.ru",
+    "age": 27,
+    "gender": "М",
+    "department": "Продажи",
+    "salary": 108000,
+    "hire_date": "2021-03-19",
+    "contract_end": "2022-11-21",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "183176"
+    }
+  },
+  {
+    "employee_id": 561,
+    "full_name": "Фёдорова Мария",
+    "email": "employee61@company.ru",
+    "age": 26,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 247000,
+    "hire_date": "2022-03-04",
+    "contract_end": "2026-04-02",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "287486"
+    }
+  },
+  {
+    "employee_id": 562,
+    "full_name": "Козлова Юлия",
+    "email": "employee62@company.ru",
+    "age": 56,
+    "gender": "Ж",
+    "department": "HR",
+    "salary": 196000,
+    "hire_date": "2023-09-07",
+    "contract_end": "2026-11-29",
+    "address": {
+      "city": "Москва",
+      "zip": "260290"
+    }
+  },
+  {
+    "employee_id": 563,
+    "full_name": "Кузнецова Алексей",
+    "email": "employee63@company.ru",
+    "age": 41,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 81000,
+    "hire_date": "2019-10-28",
+    "contract_end": "2021-06-25",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "126689"
+    }
+  },
+  {
+    "employee_id": 564,
+    "full_name": "Петров Наталья",
+    "email": "employee64@company.ru",
+    "age": 51,
+    "gender": "М",
+    "department": "IT",
+    "salary": 186000,
+    "hire_date": "2021-10-30",
+    "contract_end": "2024-08-29",
+    "address": {
+      "city": "Калининград",
+      "zip": "109202"
+    }
+  },
+  {
+    "employee_id": 565,
+    "full_name": "Фёдоров Светлана",
+    "email": "employee65@company.ru",
+    "age": 46,
+    "gender": "М",
+    "department": "Склад",
+    "salary": 91000,
+    "hire_date": "2021-04-28",
+    "contract_end": "2022-11-30",
+    "address": {
+      "city": "Казань",
+      "zip": "128952"
+    }
+  },
+  {
+    "employee_id": 566,
+    "full_name": "Смирнов Иван",
+    "email": "employee66@company.ru",
+    "age": 27,
+    "gender": "М",
+    "department": "Склад",
+    "salary": 185000,
+    "hire_date": "2023-04-30",
+    "contract_end": "2025-10-24",
+    "address": {
+      "city": "Калининград",
+      "zip": "191846"
+    }
+  },
+  {
+    "employee_id": 567,
+    "full_name": "Новикова Михаил",
+    "email": "employee67@company.ru",
+    "age": 36,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 204000,
+    "hire_date": "2023-01-13",
+    "contract_end": "2025-11-19",
+    "address": {
+      "city": "Казань",
+      "zip": "114099"
+    }
+  },
+  {
+    "employee_id": 568,
+    "full_name": "Попов Анна",
+    "email": "employee68@company.ru",
+    "age": 59,
+    "gender": "М",
+    "department": "HR",
+    "salary": 101000,
+    "hire_date": "2024-02-21",
+    "contract_end": "2026-10-31",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "267168"
+    }
+  },
+  {
+    "employee_id": 569,
+    "full_name": "Морозова Андрей",
+    "email": null,
+    "age": 60,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 196000,
+    "hire_date": "2019-11-20",
+    "contract_end": "2020-11-25",
+    "address": {
+      "city": "Казань",
+      "zip": "106450"
+    }
+  },
+  {
+    "employee_id": 570,
+    "full_name": "Попов Наталья",
+    "email": "employee70@company.ru",
+    "age": 36,
+    "gender": "М",
+    "department": "HR",
+    "salary": 249000,
+    "hire_date": "2022-03-18",
+    "contract_end": "2023-12-04",
+    "address": {
+      "city": "Москва",
+      "zip": "176690"
+    }
+  },
+  {
+    "employee_id": 571,
+    "full_name": "Попов Михаил",
+    "email": "employee71@company.ru",
+    "age": 57,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 179000,
+    "hire_date": "2023-07-28",
+    "contract_end": "2024-09-11",
+    "address": {
+      "city": "Калининград",
+      "zip": "277138"
+    }
+  },
+  {
+    "employee_id": 572,
+    "full_name": "Соколов Михаил",
+    "email": "employee72@company.ru",
+    "age": 22,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 189000,
+    "hire_date": "2024-06-27",
+    "contract_end": "2026-01-25",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "201920"
+    }
+  },
+  {
+    "employee_id": 573,
+    "full_name": "Смирнова Анна",
+    "email": "employee73@company.ru",
+    "age": 35,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 147000,
+    "hire_date": "2019-11-09",
+    "contract_end": "2023-10-23",
+    "address": {
+      "city": "Калининград",
+      "zip": "140579"
+    }
+  },
+  {
+    "employee_id": 574,
+    "full_name": "Кузнецов Анна",
+    "email": "employee74@company.ru",
+    "age": 49,
+    "gender": "М",
+    "department": "Склад",
+    "salary": 118000,
+    "hire_date": "2021-04-09",
+    "contract_end": "2022-10-29",
+    "address": {
+      "city": "Калининград",
+      "zip": "133251"
+    }
+  },
+  {
+    "employee_id": 575,
+    "full_name": "Морозова Андрей",
+    "email": "employee75@company.ru",
+    "age": 49,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 130000,
+    "hire_date": "2022-03-08",
+    "contract_end": "2024-06-22",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "200468"
+    }
+  },
+  {
+    "employee_id": 576,
+    "full_name": "Лебедева Татьяна",
+    "email": null,
+    "age": 23,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 73000,
+    "hire_date": "2020-05-05",
+    "contract_end": "2021-11-17",
+    "address": {
+      "city": "Москва",
+      "zip": "245028"
+    }
+  },
+  {
+    "employee_id": 577,
+    "full_name": "Соколова Пётр",
+    "email": "employee77@company.ru",
+    "age": 22,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 48000,
+    "hire_date": "2024-11-27",
+    "contract_end": "2025-12-21",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "269165"
+    }
+  },
+  {
+    "employee_id": 578,
+    "full_name": "Соколов Пётр",
+    "email": "employee78@company.ru",
+    "age": 51,
+    "gender": "М",
+    "department": "HR",
+    "salary": 70000,
+    "hire_date": "2023-05-24",
+    "contract_end": "2024-06-18",
+    "address": {
+      "city": "Москва",
+      "zip": "218603"
+    }
+  },
+  {
+    "employee_id": 579,
+    "full_name": "Козлов Юлия",
+    "email": "employee79@company.ru",
+    "age": 49,
+    "gender": "М",
+    "department": "IT",
+    "salary": 78000,
+    "hire_date": "2020-03-21",
+    "contract_end": "2022-11-30",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "183562"
+    }
+  },
+  {
+    "employee_id": 580,
+    "full_name": "Морозова Юлия",
+    "email": "employee80@company.ru",
+    "age": 23,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 140000,
+    "hire_date": "2024-06-03",
+    "contract_end": "2026-03-19",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "287188"
+    }
+  },
+  {
+    "employee_id": 581,
+    "full_name": "Волков Юлия",
+    "email": "employee81@company.ru",
+    "age": 32,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 95000,
+    "hire_date": "2020-01-08",
+    "contract_end": "2021-03-10",
+    "address": {
+      "city": "Москва",
+      "zip": "280923"
+    }
+  },
+  {
+    "employee_id": 582,
+    "full_name": "Лебедев Михаил",
+    "email": "нет почты",
+    "age": 37,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 206000,
+    "hire_date": "2021-01-10",
+    "contract_end": "2022-09-04",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "211050"
+    }
+  },
+  {
+    "employee_id": 583,
+    "full_name": "Волкова Елена",
+    "email": "employee83@company.ru",
+    "age": 22,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 145000,
+    "hire_date": "2020-09-06",
+    "contract_end": "2022-05-04",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "146213"
+    }
+  },
+  {
+    "employee_id": 584,
+    "full_name": "Морозова Юлия",
+    "email": "employee84@company.ru",
+    "age": 44,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 223000,
+    "hire_date": "2023-08-02",
+    "contract_end": "2026-12-02",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "276144"
+    }
+  },
+  {
+    "employee_id": 585,
+    "full_name": "Морозова Дмитрий",
+    "email": "employee85@company.ru",
+    "age": 60,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 162000,
+    "hire_date": "2022-10-17",
+    "contract_end": "2025-05-01",
+    "address": {
+      "city": "Казань",
+      "zip": "177264"
+    }
+  },
+  {
+    "employee_id": 586,
+    "full_name": "Смирнов Михаил",
+    "email": "employee86@company.ru",
+    "age": 22,
+    "gender": "М",
+    "department": "Склад",
+    "salary": 164000,
+    "hire_date": "2020-02-24",
+    "contract_end": "2021-11-12",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "183744"
+    }
+  },
+  {
+    "employee_id": 587,
+    "full_name": "Соколова Дмитрий",
+    "email": "employee87@company.ru",
+    "age": 63,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 198000,
+    "hire_date": "2023-12-28",
+    "contract_end": "2025-04-25",
+    "address": {
+      "city": "Москва",
+      "zip": "298556"
+    }
+  },
+  {
+    "employee_id": 588,
+    "full_name": "Иванов Пётр",
+    "email": "employee88@company.ru",
+    "age": 38,
+    "gender": "М",
+    "department": "Продажи",
+    "salary": 114000,
+    "hire_date": "2024-10-02",
+    "contract_end": "2026-12-24",
+    "address": {
+      "city": "Калининград",
+      "zip": "139556"
+    }
+  },
+  {
+    "employee_id": 589,
+    "full_name": "Соколова Сергей",
+    "email": null,
+    "age": 49,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 95000,
+    "hire_date": "2019-10-07",
+    "contract_end": "2022-04-13",
+    "address": {
+      "city": "Калининград",
+      "zip": "104493"
+    }
+  },
+  {
+    "employee_id": 590,
+    "full_name": "Петрова Михаил",
+    "email": "employee90@company.ru",
+    "age": 33,
+    "gender": "Ж",
+    "department": "HR",
+    "salary": 71000,
+    "hire_date": "2024-13-40",
+    "contract_end": "2024-02-06",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "205928"
+    }
+  },
+  {
+    "employee_id": 591,
+    "full_name": "Фёдорова Иван",
+    "email": "employee91@company.ru",
+    "age": 22,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 231000,
+    "hire_date": "2023-09-02",
+    "contract_end": "2026-03-12",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "109332"
+    }
+  },
+  {
+    "employee_id": 592,
+    "full_name": "Соколова Мария",
+    "email": "employee92@company.ru",
+    "age": 29,
+    "gender": "Ж",
+    "department": "HR",
+    "salary": 210000,
+    "hire_date": "2020-02-02",
+    "contract_end": "2021-03-28",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "288795"
+    }
+  },
+  {
+    "employee_id": 593,
+    "full_name": "Лебедева Михаил",
+    "email": "employee93@company.ru",
+    "age": 59,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 105000,
+    "hire_date": "2023-01-19",
+    "contract_end": "2026-03-04",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "175308"
+    }
+  },
+  {
+    "employee_id": 594,
+    "full_name": "Попова Андрей",
+    "email": "employee94@company.ru",
+    "age": 29,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 173000,
+    "hire_date": "2021-12-10",
+    "contract_end": "2024-10-29",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "272263"
+    }
+  },
+  {
+    "employee_id": 595,
+    "full_name": "Смирнова Пётр",
+    "email": "employee95@company.ru",
+    "age": 23,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 72000,
+    "hire_date": "2020-02-21",
+    "contract_end": "2023-07-17",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "299089"
+    }
+  },
+  {
+    "employee_id": 596,
+    "full_name": "Лебедев Елена",
+    "email": "employee96@company.ru",
+    "age": 41,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 131000,
+    "hire_date": "2022-02-09",
+    "contract_end": "2023-12-02",
+    "address": {
+      "city": "Казань",
+      "zip": "186507"
+    }
+  },
+  {
+    "employee_id": 597,
+    "full_name": "Фёдоров Анна",
+    "email": "employee97@company.ru",
+    "age": 34,
+    "gender": "М",
+    "department": "IT",
+    "salary": 211000,
+    "hire_date": "2021-12-28",
+    "contract_end": "2025-05-19",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "273953"
+    }
+  },
+  {
+    "employee_id": 598,
+    "full_name": "Соколова Наталья",
+    "email": "employee98@company.ru",
+    "age": 45,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 186000,
+    "hire_date": "2020-08-11",
+    "contract_end": "2022-05-14",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "224433"
+    }
+  },
+  {
+    "employee_id": 599,
+    "full_name": "Новикова Андрей",
+    "email": "employee99@company.ru",
+    "age": 54,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 118000,
+    "hire_date": "2021-05-19",
+    "contract_end": "2023-02-15",
+    "address": {
+      "city": "Казань",
+      "zip": "188174"
+    }
+  },
+  {
+    "employee_id": 600,
+    "full_name": "Лебедева Юлия",
+    "email": "employee100@company.ru",
+    "age": 63,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 242000,
+    "hire_date": "2019-10-06",
+    "contract_end": "2022-03-08",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "208992"
+    }
+  },
+  {
+    "employee_id": 601,
+    "full_name": "Смирнов Сергей",
+    "email": "employee101@company.ru",
+    "age": 29,
+    "gender": "М",
+    "department": "HR",
+    "salary": 143000,
+    "hire_date": "2020-09-17",
+    "contract_end": "2022-02-18",
+    "address": {
+      "city": null,
+      "zip": "127099"
+    }
+  },
+  {
+    "employee_id": 602,
+    "full_name": "Новикова Татьяна",
+    "email": "employee102@company.ru",
+    "age": 51,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 56000,
+    "hire_date": "2021-04-13",
+    "contract_end": "2023-10-03",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "167531"
+    }
+  },
+  {
+    "employee_id": 603,
+    "full_name": "Новиков Ольга",
+    "email": "employee103@company.ru",
+    "age": 51,
+    "gender": "М",
+    "department": "HR",
+    "salary": 140000,
+    "hire_date": "2022-05-28",
+    "contract_end": "2025-04-17",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "144786"
+    }
+  },
+  {
+    "employee_id": 604,
+    "full_name": "Новиков Светлана",
+    "email": "employee104@company.ru",
+    "age": 32,
+    "gender": "М",
+    "department": "HR",
+    "salary": 130000,
+    "hire_date": "2021-05-23",
+    "contract_end": "2025-04-07",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "151401"
+    }
+  },
+  {
+    "employee_id": 605,
+    "full_name": "Смирнов Елена",
+    "email": "employee105@company.ru",
+    "age": 59,
+    "gender": "М",
+    "department": "IT",
+    "salary": 71000,
+    "hire_date": "2024-06-10",
+    "contract_end": "2025-09-25",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "189281"
+    }
+  },
+  {
+    "employee_id": 606,
+    "full_name": "Волков Сергей",
+    "email": "employee106@company.ru",
+    "age": 57,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 228000,
+    "hire_date": "2019-12-01",
+    "contract_end": "2019-11-01",
+    "address": {
+      "city": "Казань",
+      "zip": "227337"
+    }
+  },
+  {
+    "employee_id": 607,
+    "full_name": "Смирнова Светлана",
+    "email": "employee107@company.ru",
+    "age": 46,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 68000,
+    "hire_date": "2019-12-29",
+    "contract_end": "2022-07-04",
+    "address": {
+      "city": "Калининград",
+      "zip": "289838"
+    }
+  },
+  {
+    "employee_id": 608,
+    "full_name": "Петрова Ольга",
+    "email": "employee108@company.ru",
+    "age": 33,
+    "gender": "Ж",
+    "department": "HR",
+    "salary": 232000,
+    "hire_date": "2020-11-02",
+    "contract_end": "2023-08-14",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "249555"
+    }
+  },
+  {
+    "employee_id": 609,
+    "full_name": "Соколова Ольга",
+    "email": "employee109@company.ru",
+    "age": 61,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 83000,
+    "hire_date": "2025-01-01",
+    "contract_end": "2026-03-07",
+    "address": {
+      "city": "Калининград",
+      "zip": "185064"
+    }
+  },
+  {
+    "employee_id": 610,
+    "full_name": "Новикова Дмитрий",
+    "email": "employee110@company.ru",
+    "age": 52,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 113000,
+    "hire_date": "2024-13-40",
+    "contract_end": "2024-08-23",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "157598"
+    }
+  },
+  {
+    "employee_id": 611,
+    "full_name": "Петрова Татьяна",
+    "email": "employee111@company.ru",
+    "age": 31,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 179000,
+    "hire_date": "2021-11-02",
+    "contract_end": "2024-12-19",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "200021"
+    }
+  },
+  {
+    "employee_id": 612,
+    "full_name": "Фёдорова Михаил",
+    "email": "employee112@company.ru",
+    "age": 40,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 161000,
+    "hire_date": "2022-11-05",
+    "contract_end": "2024-04-09",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "194605"
+    }
+  },
+  {
+    "employee_id": 613,
+    "full_name": "Фёдоров Алексей",
+    "email": "employee113@company.ru",
+    "age": 35,
+    "gender": "М",
+    "department": "Склад",
+    "salary": 249000,
+    "hire_date": "2021-04-04",
+    "contract_end": "2025-04-27",
+    "address": {
+      "city": "Казань",
+      "zip": "161335"
+    }
+  },
+  {
+    "employee_id": 614,
+    "full_name": "Фёдорова Сергей",
+    "email": "employee114@company.ru",
+    "age": 54,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 57000,
+    "hire_date": "2023-09-03",
+    "contract_end": "2027-01-19",
+    "address": {
+      "city": "Калининград",
+      "zip": "130912"
+    }
+  },
+  {
+    "employee_id": 615,
+    "full_name": "Кузнецова Дмитрий",
+    "email": "employee115@company.ru",
+    "age": 56,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 124000,
+    "hire_date": "2023-02-18",
+    "contract_end": "2026-12-31",
+    "address": {
+      "city": "Калининград",
+      "zip": "138781"
+    }
+  },
+  {
+    "employee_id": 616,
+    "full_name": "Фёдорова Иван",
+    "email": "employee116@company.ru",
+    "age": 63,
+    "gender": "Ж",
+    "department": "HR",
+    "salary": 186000,
+    "hire_date": "2022-06-27",
+    "contract_end": "2023-12-14",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "108017"
+    }
+  },
+  {
+    "employee_id": 617,
+    "full_name": "Волкова Иван",
+    "email": "employee117@company.ru",
+    "age": 59,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 67000,
+    "hire_date": "2021-01-10",
+    "contract_end": "2022-08-12",
+    "address": {
+      "city": "Москва",
+      "zip": "103348"
+    }
+  },
+  {
+    "employee_id": 618,
+    "full_name": "Фёдорова Светлана",
+    "email": "employee118@company.ru",
+    "age": 37,
+    "gender": "Ж",
+    "department": "HR",
+    "salary": "по договорённости",
+    "hire_date": "2020-05-10",
+    "contract_end": "2021-08-06",
+    "address": {
+      "city": "Казань",
+      "zip": "185434"
+    }
+  },
+  {
+    "employee_id": 619,
+    "full_name": "Попов Светлана",
+    "email": "employee119@company.ru",
+    "age": 29,
+    "gender": "М",
+    "department": "HR",
+    "salary": 107000,
+    "hire_date": "2023-08-12",
+    "contract_end": "2024-10-08",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "248345"
+    }
+  },
+  {
+    "employee_id": 620,
+    "full_name": "Попов Анна",
+    "email": "employee120@company.ru",
+    "age": 55,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 124000,
+    "hire_date": "2020-01-09",
+    "contract_end": "2021-04-17",
+    "address": {
+      "city": null,
+      "zip": "228139"
+    }
+  },
+  {
+    "employee_id": 621,
+    "full_name": "Попова Светлана",
+    "email": "employee121@company.ru",
+    "age": 62,
+    "gender": "Ж",
+    "department": "HR",
+    "salary": 143000,
+    "hire_date": "2021-02-13",
+    "contract_end": "2022-03-24",
+    "address": {
+      "city": "Казань",
+      "zip": "120713"
+    }
+  },
+  {
+    "employee_id": 622,
+    "full_name": "Попова Сергей",
+    "email": "employee122@company.ru",
+    "age": 52,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 72000,
+    "hire_date": "2021-10-03",
+    "contract_end": "2025-09-06",
+    "address": {
+      "city": "Калининград",
+      "zip": "194361"
+    }
+  },
+  {
+    "employee_id": 623,
+    "full_name": "Фёдоров Михаил",
+    "email": "employee123@company.ru",
+    "age": 64,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 114000,
+    "hire_date": "2023-05-28",
+    "contract_end": "2026-03-16",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "101929"
+    }
+  },
+  {
+    "employee_id": 624,
+    "full_name": "Соколов Ольга",
+    "email": "employee124@company.ru",
+    "age": 25,
+    "gender": "М",
+    "department": "IT",
+    "salary": 66000,
+    "hire_date": "2021-03-24",
+    "contract_end": "2022-10-09",
+    "address": {
+      "city": "Казань",
+      "zip": "266869"
+    }
+  },
+  {
+    "employee_id": 625,
+    "full_name": "Иванова Дмитрий",
+    "email": "employee125@company.ru",
+    "age": 37,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 181000,
+    "hire_date": "2021-08-06",
+    "contract_end": "2023-06-20",
+    "address": {
+      "city": "Москва",
+      "zip": "173856"
+    }
+  },
+  {
+    "employee_id": 626,
+    "full_name": "Волков Ольга",
+    "email": "employee126@company.ru",
+    "age": 46,
+    "gender": "М",
+    "department": "HR",
+    "salary": 169000,
+    "hire_date": "2019-09-30",
+    "contract_end": "2020-10-28",
+    "address": {
+      "city": "Москва",
+      "zip": "295611"
+    }
+  },
+  {
+    "employee_id": 627,
+    "full_name": "Смирнов Иван",
+    "email": "employee127@company.ru",
+    "age": 63,
+    "gender": "М",
+    "department": "Продажи",
+    "salary": 167000,
+    "hire_date": "2021-04-17",
+    "contract_end": "2025-04-13",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "221448"
+    }
+  },
+  {
+    "employee_id": 628,
+    "full_name": "Новикова Юлия",
+    "email": "employee128@company.ru",
+    "age": 36,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 90000,
+    "hire_date": "2021-08-19",
+    "contract_end": "2024-11-14",
+    "address": {
+      "city": "Казань",
+      "zip": "129485"
+    }
+  },
+  {
+    "employee_id": 629,
+    "full_name": "Новикова Иван",
+    "email": "employee129@company.ru",
+    "age": 60,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 177000,
+    "hire_date": "2020-12-23",
+    "contract_end": "2024-01-27",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "212561"
+    }
+  },
+  {
+    "employee_id": 630,
+    "full_name": "Кузнецов Сергей",
+    "email": "employee130@company.ru",
+    "age": 37,
+    "gender": "М",
+    "department": "HR",
+    "salary": 204000,
+    "hire_date": "2019-10-11",
+    "contract_end": "2021-04-02",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "228161"
+    }
+  },
+  {
+    "employee_id": 631,
+    "full_name": "Петрова Анна",
+    "email": "employee131@company.ru",
+    "age": 42,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 150000,
+    "hire_date": "2019-10-03",
+    "contract_end": "2022-07-31",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "245354"
+    }
+  },
+  {
+    "employee_id": 632,
+    "full_name": "Соколова Ольга",
+    "email": null,
+    "age": 63,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 66000,
+    "hire_date": "2022-08-03",
+    "contract_end": "2025-07-10",
+    "address": {
+      "city": "Казань",
+      "zip": "152068"
+    }
+  },
+  {
+    "employee_id": 633,
+    "full_name": "Новикова Пётр",
+    "email": "employee133@company.ru",
+    "age": 29,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 178000,
+    "hire_date": "2020-02-13",
+    "contract_end": "2022-12-13",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "244353"
+    }
+  },
+  {
+    "employee_id": 634,
+    "full_name": "Смирнов Елена",
+    "email": "employee134@company.ru",
+    "age": 35,
+    "gender": "М",
+    "department": "Продажи",
+    "salary": 161000,
+    "hire_date": "2022-12-21",
+    "contract_end": "2026-03-31",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "263171"
+    }
+  },
+  {
+    "employee_id": 635,
+    "full_name": "Иванова Анна",
+    "email": "employee135@company.ru",
+    "age": 61,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 111000,
+    "hire_date": "2021-01-17",
+    "contract_end": "2024-11-30",
+    "address": {
+      "city": "Казань",
+      "zip": "294596"
+    }
+  },
+  {
+    "employee_id": 636,
+    "full_name": "Волков Ольга",
+    "email": "employee136@company.ru",
+    "age": 24,
+    "gender": "М",
+    "department": "Продажи",
+    "salary": 239000,
+    "hire_date": "2020-07-17",
+    "contract_end": "2020-06-17",
+    "address": {
+      "city": "Калининград",
+      "zip": "163813"
+    }
+  },
+  {
+    "employee_id": 637,
+    "full_name": "Кузнецов Андрей",
+    "email": "employee137@company.ru",
+    "age": 51,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 149000,
+    "hire_date": "2020-07-15",
+    "contract_end": "2024-05-05",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "169660"
+    }
+  },
+  {
+    "employee_id": 638,
+    "full_name": "Морозов Пётр",
+    "email": "employee138@company.ru",
+    "age": 31,
+    "gender": "М",
+    "department": "Склад",
+    "salary": 66000,
+    "hire_date": "2019-09-23",
+    "contract_end": "2021-07-18",
+    "address": {
+      "city": "Казань",
+      "zip": "142993"
+    }
+  },
+  {
+    "employee_id": 639,
+    "full_name": "Кузнецова Татьяна",
+    "email": "нет почты",
+    "age": 30,
+    "gender": "Ж",
+    "department": "HR",
+    "salary": 177000,
+    "hire_date": "2024-04-12",
+    "contract_end": "2027-06-25",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "264566"
+    }
+  },
+  {
+    "employee_id": 640,
+    "full_name": "Козлова Пётр",
+    "email": "employee140@company.ru",
+    "age": 212,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 112000,
+    "hire_date": "2019-09-22",
+    "contract_end": "2021-06-15",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "225546"
+    }
+  },
+  {
+    "employee_id": 641,
+    "full_name": "Соколов Андрей",
+    "email": "employee141@company.ru",
+    "age": 40,
+    "gender": "М",
+    "department": "Продажи",
+    "salary": "по договорённости",
+    "hire_date": "2022-04-09",
+    "contract_end": "2023-05-19",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "122943"
+    }
+  },
+  {
+    "employee_id": 642,
+    "full_name": "Иванова Пётр",
+    "email": "employee142@company.ru",
+    "age": 59,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 190000,
+    "hire_date": "2022-04-22",
+    "contract_end": "2024-02-11",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "251353"
+    }
+  },
+  {
+    "employee_id": 642,
+    "full_name": "Петров Светлана",
+    "email": "employee143@company.ru",
+    "age": 24,
+    "gender": "М",
+    "department": "Склад",
+    "salary": 55000,
+    "hire_date": "2020-08-31",
+    "contract_end": "2021-12-07",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "193280"
+    }
+  },
+  {
+    "employee_id": 644,
+    "full_name": "Попова Татьяна",
+    "email": "employee144@company.ru",
+    "age": 51,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 192000,
+    "hire_date": "2024-03-25",
+    "contract_end": "2027-08-05",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "209366"
+    }
+  },
+  {
+    "employee_id": 645,
+    "full_name": "Петров Алексей",
+    "email": "employee145@company.ru",
+    "age": 60,
+    "gender": "М",
+    "department": "HR",
+    "salary": 133000,
+    "hire_date": "2021-01-09",
+    "contract_end": "2022-01-16",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "155056"
+    }
+  },
+  {
+    "employee_id": 646,
+    "full_name": "Волкова Светлана",
+    "email": "employee146@company.ru",
+    "age": 33,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 117000,
+    "hire_date": "2020-07-04",
+    "contract_end": "2021-08-11",
+    "address": {
+      "city": "Калининград",
+      "zip": "179303"
+    }
+  },
+  {
+    "employee_id": 647,
+    "full_name": "Новиков Татьяна",
+    "email": "employee147@company.ru",
+    "age": 34,
+    "gender": "М",
+    "department": "Продажи",
+    "salary": 204000,
+    "hire_date": "2022-01-21",
+    "contract_end": "2024-01-01",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "288515"
+    }
+  },
+  {
+    "employee_id": 648,
+    "full_name": "Лебедева Иван",
+    "email": "employee148@company.ru",
+    "age": 30,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 248000,
+    "hire_date": "2020-09-13",
+    "contract_end": "2022-07-10",
+    "address": {
+      "city": "Казань",
+      "zip": "276236"
+    }
+  },
+  {
+    "employee_id": 649,
+    "full_name": "Морозова Елена",
+    "email": "employee149@company.ru",
+    "age": 31,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 57000,
+    "hire_date": "2020-07-07",
+    "contract_end": "2022-01-12",
+    "address": {
+      "city": "Москва",
+      "zip": "228696"
+    }
+  },
+  {
+    "employee_id": 650,
+    "full_name": "Фёдорова Андрей",
+    "email": "employee150@company.ru",
+    "age": 37,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 153000,
+    "hire_date": "2023-04-14",
+    "contract_end": "2026-05-09",
+    "address": {
+      "city": "Москва",
+      "zip": "144378"
+    }
+  },
+  {
+    "employee_id": 651,
+    "full_name": "Морозов Дмитрий",
+    "email": "employee151@company.ru",
+    "age": 51,
+    "gender": "М",
+    "department": "HR",
+    "salary": 59000,
+    "hire_date": "2020-05-30",
+    "contract_end": "2024-05-10",
+    "address": {
+      "city": "Москва",
+      "zip": "221204"
+    }
+  },
+  {
+    "employee_id": 652,
+    "full_name": "Лебедев Иван",
+    "email": "employee152@company.ru",
+    "age": 52,
+    "gender": "М",
+    "department": "Продажи",
+    "salary": 70000,
+    "hire_date": "2020-07-05",
+    "contract_end": "2023-06-04",
+    "address": {
+      "city": "Калининград",
+      "zip": "167938"
+    }
+  },
+  {
+    "employee_id": 653,
+    "full_name": "Иванова Наталья",
+    "email": "employee153@company.ru",
+    "age": 21,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 233000,
+    "hire_date": "2023-08-23",
+    "contract_end": "2025-08-14",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "269218"
+    }
+  },
+  {
+    "employee_id": 654,
+    "full_name": "Кузнецов Светлана",
+    "email": "employee154@company.ru",
+    "age": 64,
+    "gender": "М",
+    "department": "Продажи",
+    "salary": 125000,
+    "hire_date": "2020-07-29",
+    "contract_end": "2023-12-06",
+    "address": {
+      "city": "Калининград",
+      "zip": "100825"
+    }
+  },
+  {
+    "employee_id": 655,
+    "full_name": "Попова Михаил",
+    "email": "employee155@company.ru",
+    "age": 36,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 83000,
+    "hire_date": "2020-10-05",
+    "contract_end": "2023-07-30",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "124753"
+    }
+  },
+  {
+    "employee_id": 656,
+    "full_name": "Иванов Михаил",
+    "email": "employee156@company.ru",
+    "age": 39,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 81000,
+    "hire_date": "2020-03-02",
+    "contract_end": "2022-09-12",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "142026"
+    }
+  },
+  {
+    "employee_id": 657,
+    "full_name": "Попов Дмитрий",
+    "email": "employee157@company.ru",
+    "age": 45,
+    "gender": "М",
+    "department": "Продажи",
+    "salary": 94000,
+    "hire_date": "2021-02-01",
+    "contract_end": "2023-02-20",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "239163"
+    }
+  },
+  {
+    "employee_id": 658,
+    "full_name": "Кузнецов Михаил",
+    "email": "employee158@company.ru",
+    "age": 30,
+    "gender": "М",
+    "department": "HR",
+    "salary": 101000,
+    "hire_date": "2023-01-26",
+    "contract_end": "2026-10-22",
+    "address": {
+      "city": "Казань",
+      "zip": "178706"
+    }
+  },
+  {
+    "employee_id": 659,
+    "full_name": "Иванова Иван",
+    "email": "employee159@company.ru",
+    "age": 31,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 173000,
+    "hire_date": "2024-03-16",
+    "contract_end": "2026-01-09",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "143913"
+    }
+  },
+  {
+    "employee_id": 660,
+    "full_name": "Морозова Анна",
+    "email": "employee160@company.ru",
+    "age": 49,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 49000,
+    "hire_date": "2022-08-18",
+    "contract_end": "2025-01-20",
+    "address": {
+      "city": "Казань",
+      "zip": "270345"
+    }
+  },
+  {
+    "employee_id": 661,
+    "full_name": "Смирнова Алексей",
+    "email": "employee161@company.ru",
+    "age": 22,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 132000,
+    "hire_date": "2020-10-19",
+    "contract_end": "2021-11-13",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "189409"
+    }
+  },
+  {
+    "employee_id": 662,
+    "full_name": "Волкова Сергей",
+    "email": "employee162@company.ru",
+    "age": 57,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 244000,
+    "hire_date": "2021-01-18",
+    "contract_end": "2025-02-08",
+    "address": {
+      "city": "Калининград",
+      "zip": "193483"
+    }
+  },
+  {
+    "employee_id": 663,
+    "full_name": "Кузнецова Наталья",
+    "email": "employee163@company.ru",
+    "age": 60,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 198000,
+    "hire_date": "2020-09-21",
+    "contract_end": "2021-11-16",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "181288"
+    }
+  },
+  {
+    "employee_id": 664,
+    "full_name": "Лебедев Светлана",
+    "email": "employee164@company.ru",
+    "age": 150,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 227000,
+    "hire_date": "2021-04-11",
+    "contract_end": "2023-06-22",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "103315"
+    }
+  },
+  {
+    "employee_id": 665,
+    "full_name": "Лебедева Татьяна",
+    "email": "employee165@company.ru",
+    "age": 35,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 110000,
+    "hire_date": "2021-08-15",
+    "contract_end": "2024-10-28",
+    "address": {
+      "city": "Москва",
+      "zip": "177558"
+    }
+  },
+  {
+    "employee_id": 666,
+    "full_name": "Петрова Андрей",
+    "email": "employee166@company.ru",
+    "age": 55,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 54000,
+    "hire_date": "2022-03-20",
+    "contract_end": "2024-09-14",
+    "address": {
+      "city": "Москва",
+      "zip": "261701"
+    }
+  },
+  {
+    "employee_id": 667,
+    "full_name": "Лебедева Светлана",
+    "email": "employee167@company.ru",
+    "age": 46,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 116000,
+    "hire_date": "2019-10-26",
+    "contract_end": "2021-08-06",
+    "address": {
+      "city": "Казань",
+      "zip": "231549"
+    }
+  },
+  {
+    "employee_id": 668,
+    "full_name": "Фёдоров Пётр",
+    "email": "employee168@company.ru",
+    "age": 42,
+    "gender": "М",
+    "department": "IT",
+    "salary": 72000,
+    "hire_date": "2022-04-22",
+    "contract_end": "2025-06-16",
+    "address": {
+      "city": "Москва",
+      "zip": "296850"
+    }
+  },
+  {
+    "employee_id": 669,
+    "full_name": "Соколова Иван",
+    "email": "employee169@company.ru",
+    "age": 27,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 58000,
+    "hire_date": "2022-10-04",
+    "contract_end": "2026-03-03",
+    "address": {
+      "city": "Москва",
+      "zip": "144205"
+    }
+  },
+  {
+    "employee_id": 670,
+    "full_name": "Кузнецов Иван",
+    "email": "employee170@company.ru",
+    "age": 24,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 111000,
+    "hire_date": "2020-09-17",
+    "contract_end": "2023-09-07",
+    "address": {
+      "city": "Калининград",
+      "zip": "263147"
+    }
+  },
+  {
+    "employee_id": 671,
+    "full_name": "Соколова Алексей",
+    "email": "employee171@company.ru",
+    "age": 58,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 70000,
+    "hire_date": "2023-08-07",
+    "contract_end": "2027-08-14",
+    "address": {
+      "city": "Москва",
+      "zip": "213987"
+    }
+  },
+  {
+    "employee_id": 672,
+    "full_name": "Козлова Пётр",
+    "email": "employee172@company.ru",
+    "age": 34,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 250000,
+    "hire_date": "2024-12-27",
+    "contract_end": "2029-01-28",
+    "address": {
+      "city": "Казань",
+      "zip": "260340"
+    }
+  },
+  {
+    "employee_id": 673,
+    "full_name": "Кузнецова Алексей",
+    "email": "employee173@company.ru",
+    "age": 64,
+    "gender": "Ж",
+    "department": "HR",
+    "salary": 120000,
+    "hire_date": "2020-06-14",
+    "contract_end": "2022-11-24",
+    "address": {
+      "city": "Калининград",
+      "zip": "199591"
+    }
+  },
+  {
+    "employee_id": 674,
+    "full_name": "Волкова Сергей",
+    "email": "employee174@company.ru",
+    "age": 20,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 47000,
+    "hire_date": "2020-11-07",
+    "contract_end": "2021-11-23",
+    "address": {
+      "city": "Казань",
+      "zip": "140249"
+    }
+  },
+  {
+    "employee_id": 675,
+    "full_name": "Петров Алексей",
+    "email": "employee175@company.ru",
+    "age": 26,
+    "gender": "М",
+    "department": "Продажи",
+    "salary": 70000,
+    "hire_date": "2020-09-04",
+    "contract_end": "2022-05-31",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "140745"
+    }
+  },
+  {
+    "employee_id": 676,
+    "full_name": "Иванова Михаил",
+    "email": "employee176@company.ru",
+    "age": 50,
+    "gender": "Ж",
+    "department": "HR",
+    "salary": 105000,
+    "hire_date": "2019-12-04",
+    "contract_end": "2021-10-11",
+    "address": {
+      "city": "Казань",
+      "zip": "268883"
+    }
+  },
+  {
+    "employee_id": 677,
+    "full_name": "Кузнецов Юлия",
+    "email": "employee177@company.ru",
+    "age": 45,
+    "gender": "М",
+    "department": "HR",
+    "salary": 161000,
+    "hire_date": "2023-06-30",
+    "contract_end": "2026-09-12",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "181504"
+    }
+  },
+  {
+    "employee_id": 678,
+    "full_name": "Козлов Елена",
+    "email": "employee178@company.ru",
+    "age": -3,
+    "gender": "М",
+    "department": "IT",
+    "salary": 124000,
+    "hire_date": "2023-12-27",
+    "contract_end": "2025-11-16",
+    "address": {
+      "city": "Москва",
+      "zip": "230601"
+    }
+  },
+  {
+    "employee_id": 679,
+    "full_name": "Волкова Алексей",
+    "email": "employee179@company.ru",
+    "age": 36,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 215000,
+    "hire_date": "2024-01-28",
+    "contract_end": "2027-03-09",
+    "address": {
+      "city": "Калининград",
+      "zip": "184023"
+    }
+  },
+  {
+    "employee_id": 680,
+    "full_name": "Смирнова Дмитрий",
+    "email": "employee180@company.ru",
+    "age": 37,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 145000,
+    "hire_date": "2022-05-16",
+    "contract_end": "2025-10-26",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "230293"
+    }
+  },
+  {
+    "employee_id": 681,
+    "full_name": "Лебедева Пётр",
+    "email": "employee181@company.ru",
+    "age": 37,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 174000,
+    "hire_date": "2023-11-01",
+    "contract_end": "2025-07-07",
+    "address": {
+      "city": "Москва",
+      "zip": "144531"
+    }
+  },
+  {
+    "employee_id": 682,
+    "full_name": "Морозов Пётр",
+    "email": "employee182@company.ru",
+    "age": 42,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 210000,
+    "hire_date": "2023-12-11",
+    "contract_end": "2027-12-19",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "210444"
+    }
+  },
+  {
+    "employee_id": 683,
+    "full_name": "Соколов Ольга",
+    "email": null,
+    "age": 38,
+    "gender": "М",
+    "department": "Склад",
+    "salary": 110000,
+    "hire_date": "2024-06-30",
+    "contract_end": "2027-01-25",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "153153"
+    }
+  },
+  {
+    "employee_id": 684,
+    "full_name": "Морозов Михаил",
+    "email": null,
+    "age": 34,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 107000,
+    "hire_date": "2021-03-07",
+    "contract_end": "2022-06-20",
+    "address": {
+      "city": "Калининград",
+      "zip": "254107"
+    }
+  },
+  {
+    "employee_id": 685,
+    "full_name": "Петрова Юлия",
+    "email": "employee185@company.ru",
+    "age": 51,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 135000,
+    "hire_date": "2024-03-15",
+    "contract_end": "2027-12-06",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "273054"
+    }
+  },
+  {
+    "employee_id": 686,
+    "full_name": "Иванов Сергей",
+    "email": "employee186@company.ru",
+    "age": 27,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 61000,
+    "hire_date": "2024-10-03",
+    "contract_end": "2026-12-20",
+    "address": {
+      "city": "Казань",
+      "zip": "144707"
+    }
+  },
+  {
+    "employee_id": 687,
+    "full_name": "Иванова Пётр",
+    "email": "employee187@company.ru",
+    "age": 22,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": "по договорённости",
+    "hire_date": "2024-05-06",
+    "contract_end": "2025-10-02",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "298495"
+    }
+  },
+  {
+    "employee_id": 688,
+    "full_name": "Лебедева Ольга",
+    "email": "employee188@company.ru",
+    "age": 25,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 134000,
+    "hire_date": "2022-11-27",
+    "contract_end": "2025-01-05",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "268806"
+    }
+  },
+  {
+    "employee_id": 689,
+    "full_name": "Фёдорова Дмитрий",
+    "email": "employee189@company.ru",
+    "age": 39,
+    "gender": "Ж",
+    "department": "HR",
+    "salary": 92000,
+    "hire_date": "2020-08-24",
+    "contract_end": "2024-02-03",
+    "address": {
+      "city": "Калининград",
+      "zip": "109458"
+    }
+  },
+  {
+    "employee_id": 690,
+    "full_name": "Смирнова Иван",
+    "email": "employee190@company.ru",
+    "age": 62,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 248000,
+    "hire_date": "2024-04-28",
+    "contract_end": "2027-01-03",
+    "address": {
+      "city": "Казань",
+      "zip": "224518"
+    }
+  },
+  {
+    "employee_id": 691,
+    "full_name": "Смирнов Сергей",
+    "email": "employee191@company.ru",
+    "age": 63,
+    "gender": "М",
+    "department": "Продажи",
+    "salary": 145000,
+    "hire_date": "2023-02-10",
+    "contract_end": "2024-12-17",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "130048"
+    }
+  },
+  {
+    "employee_id": 692,
+    "full_name": "Смирнов Мария",
+    "email": "employee192@company.ru",
+    "age": 58,
+    "gender": "М",
+    "department": "HR",
+    "salary": 132000,
+    "hire_date": "2024-07-12",
+    "contract_end": "2028-07-17",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "238170"
+    }
+  },
+  {
+    "employee_id": 693,
+    "full_name": "Петрова Наталья",
+    "email": "employee193@company.ru",
+    "age": 54,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 185000,
+    "hire_date": "2019-08-29",
+    "contract_end": "2022-01-11",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "183751"
+    }
+  },
+  {
+    "employee_id": 694,
+    "full_name": "Волкова Алексей",
+    "email": "employee194@company.ru",
+    "age": 35,
+    "gender": "X",
+    "department": "Продажи",
+    "salary": 120000,
+    "hire_date": "2022-07-29",
+    "contract_end": "2024-03-20",
+    "address": {
+      "city": "Калининград",
+      "zip": "208077"
+    }
+  },
+  {
+    "employee_id": 695,
+    "full_name": "Смирнова Наталья",
+    "email": "employee195@company.ru",
+    "age": 32,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 109000,
+    "hire_date": "2021-05-21",
+    "contract_end": "2023-09-13",
+    "address": {
+      "city": "Казань",
+      "zip": "158331"
+    }
+  },
+  {
+    "employee_id": 696,
+    "full_name": "Новиков Юлия",
+    "email": "employee196@company.ru",
+    "age": 39,
+    "gender": "М",
+    "department": "Склад",
+    "salary": 246000,
+    "hire_date": "2023-06-06",
+    "contract_end": "2026-07-28",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "276466"
+    }
+  },
+  {
+    "employee_id": 697,
+    "full_name": "Смирнова Алексей",
+    "email": "employee197@company.ru",
+    "age": 24,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 238000,
+    "hire_date": "2021-02-04",
+    "contract_end": "2025-01-01",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "280808"
+    }
+  },
+  {
+    "employee_id": 698,
+    "full_name": "Фёдоров Иван",
+    "email": "employee198@company.ru",
+    "age": 59,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 223000,
+    "hire_date": "2022-08-30",
+    "contract_end": "2025-11-20",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "278113"
+    }
+  },
+  {
+    "employee_id": 699,
+    "full_name": "Волкова Иван",
+    "email": "employee199@company.ru",
+    "age": 25,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 79000,
+    "hire_date": "2022-04-15",
+    "contract_end": "2024-12-27",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "196804"
+    }
+  },
+  {
+    "employee_id": 700,
+    "full_name": "Попова Алексей",
+    "email": "employee200@company.ru",
+    "age": 34,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 138000,
+    "hire_date": "2024-08-23",
+    "contract_end": "2027-02-03",
+    "address": {
+      "city": "Калининград",
+      "zip": "197091"
+    }
+  },
+  {
+    "employee_id": 701,
+    "full_name": "Смирнова Юлия",
+    "email": "employee201@company.ru",
+    "age": 49,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 95000,
+    "hire_date": "2019-07-23",
+    "contract_end": "2023-01-13",
+    "address": {
+      "city": "Калининград",
+      "zip": "183891"
+    }
+  },
+  {
+    "employee_id": 702,
+    "full_name": "Лебедев Мария",
+    "email": "employee202@company.ru",
+    "age": 59,
+    "gender": "М",
+    "department": "IT",
+    "salary": 85000,
+    "hire_date": "2019-11-02",
+    "contract_end": "2022-09-26",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "152136"
+    }
+  },
+  {
+    "employee_id": 703,
+    "full_name": "Петрова Андрей",
+    "email": "employee203@company.ru",
+    "age": 40,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 109000,
+    "hire_date": "2024-06-24",
+    "contract_end": "2028-06-21",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "135387"
+    }
+  },
+  {
+    "employee_id": 704,
+    "full_name": "Попова Елена",
+    "email": "employee204@company.ru",
+    "age": 39,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 231000,
+    "hire_date": "2023-05-17",
+    "contract_end": "2027-06-21",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "181331"
+    }
+  },
+  {
+    "employee_id": 705,
+    "full_name": "Морозов Светлана",
+    "email": "employee205@company.ru",
+    "age": 54,
+    "gender": "М",
+    "department": "Склад",
+    "salary": 103000,
+    "hire_date": "2024-07-30",
+    "contract_end": "2026-12-19",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "149379"
+    }
+  },
+  {
+    "employee_id": 706,
+    "full_name": "Лебедева Андрей",
+    "email": "employee206@company.ru",
+    "age": 61,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 87000,
+    "hire_date": "2020-06-25",
+    "contract_end": "2022-04-13",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "144230"
+    }
+  },
+  {
+    "employee_id": 707,
+    "full_name": "Иванов Мария",
+    "email": "employee207@company.ru",
+    "age": 58,
+    "gender": "М",
+    "department": "HR",
+    "salary": 168000,
+    "hire_date": "2023-05-14",
+    "contract_end": "2024-10-24",
+    "address": {
+      "city": "Калининград",
+      "zip": "178471"
+    }
+  },
+  {
+    "employee_id": 708,
+    "full_name": "Новикова Анна",
+    "email": "employee208@company.ru",
+    "age": 64,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 87000,
+    "hire_date": "2021-08-10",
+    "contract_end": "2023-02-11",
+    "address": {
+      "city": "Москва",
+      "zip": "298934"
+    }
+  },
+  {
+    "employee_id": 709,
+    "full_name": "Козлов Наталья",
+    "email": null,
+    "age": 43,
+    "gender": "М",
+    "department": "HR",
+    "salary": 166000,
+    "hire_date": "2022-02-17",
+    "contract_end": "2024-07-08",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "281366"
+    }
+  },
+  {
+    "employee_id": 710,
+    "full_name": "Фёдоров Сергей",
+    "email": "employee210@company.ru",
+    "age": 24,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 245000,
+    "hire_date": "2024-05-24",
+    "contract_end": "2025-08-19",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "128900"
+    }
+  },
+  {
+    "employee_id": 711,
+    "full_name": "Петрова Дмитрий",
+    "email": "employee211@company.ru",
+    "age": 54,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 217000,
+    "hire_date": "2023-12-25",
+    "contract_end": "2027-04-09",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "286918"
+    }
+  },
+  {
+    "employee_id": 712,
+    "full_name": "Соколов Светлана",
+    "email": "employee212@company.ru",
+    "age": 22,
+    "gender": "М",
+    "department": "Продажи",
+    "salary": 48000,
+    "hire_date": "2023-03-26",
+    "contract_end": "2026-07-12",
+    "address": {
+      "city": "Москва",
+      "zip": "239248"
+    }
+  },
+  {
+    "employee_id": 713,
+    "full_name": "Смирнова Мария",
+    "email": "employee213@company.ru",
+    "age": 36,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 152000,
+    "hire_date": "2021-06-24",
+    "contract_end": "2025-07-02",
+    "address": {
+      "city": "Казань",
+      "zip": "162119"
+    }
+  },
+  {
+    "employee_id": 714,
+    "full_name": "Кузнецов Ольга",
+    "email": "employee214@company.ru",
+    "age": 54,
+    "gender": "М",
+    "department": "Продажи",
+    "salary": 130000,
+    "hire_date": "2022-04-16",
+    "contract_end": "2024-06-28",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "122149"
+    }
+  },
+  {
+    "employee_id": 715,
+    "full_name": "Соколов Наталья",
+    "email": "employee215@company.ru",
+    "age": 25,
+    "gender": "М",
+    "department": "IT",
+    "salary": 118000,
+    "hire_date": "2022-09-30",
+    "contract_end": "2024-03-06",
+    "address": {
+      "city": "Казань",
+      "zip": "111987"
+    }
+  },
+  {
+    "employee_id": 716,
+    "full_name": "Петров Елена",
+    "email": "employee216@company.ru",
+    "age": 29,
+    "gender": "М",
+    "department": "Продажи",
+    "salary": 200000,
+    "hire_date": "2020-09-29",
+    "contract_end": "2023-01-06",
+    "address": {
+      "city": null,
+      "zip": "227582"
+    }
+  },
+  {
+    "employee_id": 717,
+    "full_name": "Иванова Анна",
+    "email": "нет почты",
+    "age": 55,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 157000,
+    "hire_date": "2020-08-03",
+    "contract_end": "2023-10-17",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "150906"
+    }
+  },
+  {
+    "employee_id": 718,
+    "full_name": "Соколова Андрей",
+    "email": "employee218@company.ru",
+    "age": 51,
+    "gender": "Ж",
+    "department": "HR",
+    "salary": 193000,
+    "hire_date": "2021-07-17",
+    "contract_end": "2025-03-13",
+    "address": {
+      "city": "Москва",
+      "zip": "138923"
+    }
+  },
+  {
+    "employee_id": 719,
+    "full_name": "Волкова Мария",
+    "email": "employee219@company.ru",
+    "age": 37,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 97000,
+    "hire_date": "2023-01-29",
+    "contract_end": "2024-11-30",
+    "address": {
+      "city": "Калининград",
+      "zip": "232995"
+    }
+  },
+  {
+    "employee_id": 720,
+    "full_name": "Попов Анна",
+    "email": "employee220@company.ru",
+    "age": 60,
+    "gender": "М",
+    "department": "Склад",
+    "salary": 178000,
+    "hire_date": "2024-11-10",
+    "contract_end": "2026-11-30",
+    "address": {
+      "city": "Калининград",
+      "zip": "134447"
+    }
+  },
+  {
+    "employee_id": 721,
+    "full_name": "Петрова Юлия",
+    "email": "employee221@company.ru",
+    "age": 37,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 176000,
+    "hire_date": "2021-06-15",
+    "contract_end": "2023-06-27",
+    "address": {
+      "city": "Казань",
+      "zip": "232275"
+    }
+  },
+  {
+    "employee_id": 722,
+    "full_name": "Соколов Ольга",
+    "email": "employee222@company.ru",
+    "age": 22,
+    "gender": "М",
+    "department": "Продажи",
+    "salary": 104000,
+    "hire_date": "2021-07-15",
+    "contract_end": "2025-01-06",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "226489"
+    }
+  },
+  {
+    "employee_id": 723,
+    "full_name": "Иванова Анна",
+    "email": "employee223@company.ru",
+    "age": 28,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 53000,
+    "hire_date": "2023-04-17",
+    "contract_end": "2025-12-06",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "175481"
+    }
+  },
+  {
+    "employee_id": 724,
+    "full_name": "Фёдоров Татьяна",
+    "email": "employee224@company.ru",
+    "age": 51,
+    "gender": "М",
+    "department": "Продажи",
+    "salary": 69000,
+    "hire_date": "2024-11-12",
+    "contract_end": "2026-05-18",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "251757"
+    }
+  },
+  {
+    "employee_id": 725,
+    "full_name": "Попова Дмитрий",
+    "email": "employee225@company.ru",
+    "age": 21,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 48000,
+    "hire_date": "2019-12-02",
+    "contract_end": "2021-08-06",
+    "address": {
+      "city": "Казань",
+      "zip": "263860"
+    }
+  },
+  {
+    "employee_id": 726,
+    "full_name": "Попов Михаил",
+    "email": "employee226@company.ru",
+    "age": 49,
+    "gender": "М",
+    "department": "Склад",
+    "salary": 130000,
+    "hire_date": "2020-02-03",
+    "contract_end": "2021-04-18",
+    "address": {
+      "city": "Москва",
+      "zip": "168391"
+    }
+  },
+  {
+    "employee_id": 727,
+    "full_name": "Морозова Мария",
+    "email": "employee227@company.ru",
+    "age": 41,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 82000,
+    "hire_date": "2021-03-24",
+    "contract_end": "2024-07-03",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "167869"
+    }
+  },
+  {
+    "employee_id": 728,
+    "full_name": "Лебедев Пётр",
+    "email": "employee228@company.ru",
+    "age": 49,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 241000,
+    "hire_date": "2022-07-27",
+    "contract_end": "2026-07-27",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "253232"
+    }
+  },
+  {
+    "employee_id": 729,
+    "full_name": "Попова Татьяна",
+    "email": "employee229@company.ru",
+    "age": 54,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 184000,
+    "hire_date": "2022-08-19",
+    "contract_end": "2025-06-08",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "265299"
+    }
+  },
+  {
+    "employee_id": 730,
+    "full_name": "Смирнова Алексей",
+    "email": "employee230@company.ru",
+    "age": 57,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 180000,
+    "hire_date": "2023-01-16",
+    "contract_end": "2025-09-09",
+    "address": {
+      "city": null,
+      "zip": "278074"
+    }
+  },
+  {
+    "employee_id": 731,
+    "full_name": "Смирнов Юлия",
+    "email": "employee231@company.ru",
+    "age": 47,
+    "gender": "М",
+    "department": "Продажи",
+    "salary": 122000,
+    "hire_date": "2024-10-21",
+    "contract_end": "2027-03-09",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "134715"
+    }
+  },
+  {
+    "employee_id": 732,
+    "full_name": "Соколова Иван",
+    "email": "employee232@company.ru",
+    "age": 43,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 170000,
+    "hire_date": "2023-03-01",
+    "contract_end": "2026-04-29",
+    "address": {
+      "city": "Москва",
+      "zip": "173229"
+    }
+  },
+  {
+    "employee_id": 733,
+    "full_name": "Попова Светлана",
+    "email": "employee233@company.ru",
+    "age": 31,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 160000,
+    "hire_date": "2024-05-17",
+    "contract_end": "2027-04-27",
+    "address": {
+      "city": "Москва",
+      "zip": "191804"
+    }
+  },
+  {
+    "employee_id": 734,
+    "full_name": "Морозов Татьяна",
+    "email": "employee234@company.ru",
+    "age": 50,
+    "gender": "М",
+    "department": "Продажи",
+    "salary": 165000,
+    "hire_date": "2023-01-14",
+    "contract_end": "2025-01-10",
+    "address": {
+      "city": "Казань",
+      "zip": "220770"
+    }
+  },
+  {
+    "employee_id": 735,
+    "full_name": "Волкова Андрей",
+    "email": "employee235@company.ru",
+    "age": 56,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 82000,
+    "hire_date": "2024-01-04",
+    "contract_end": "2025-11-08",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "210059"
+    }
+  },
+  {
+    "employee_id": 736,
+    "full_name": "Петрова Михаил",
+    "email": "employee236@company.ru",
+    "age": 54,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 134000,
+    "hire_date": "2023-03-30",
+    "contract_end": "2024-05-21",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "180018"
+    }
+  },
+  {
+    "employee_id": 737,
+    "full_name": "Смирнова Пётр",
+    "email": "employee237@company.ru",
+    "age": 52,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 106000,
+    "hire_date": "2024-09-05",
+    "contract_end": "2026-09-27",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "196725"
+    }
+  },
+  {
+    "employee_id": 738,
+    "full_name": "Кузнецова Пётр",
+    "email": null,
+    "age": 27,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 226000,
+    "hire_date": "2021-04-05",
+    "contract_end": "2024-04-04",
+    "address": {
+      "city": "Калининград",
+      "zip": "279574"
+    }
+  },
+  {
+    "employee_id": 739,
+    "full_name": "Смирнов Мария",
+    "email": "employee239@company.ru",
+    "age": 28,
+    "gender": "М",
+    "department": "HR",
+    "salary": 172000,
+    "hire_date": "2023-10-19",
+    "contract_end": "2027-08-04",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "216567"
+    }
+  },
+  {
+    "employee_id": 740,
+    "full_name": "Лебедева Елена",
+    "email": "employee240@company.ru",
+    "age": 43,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 120000,
+    "hire_date": "2021-06-14",
+    "contract_end": "2025-01-06",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "144993"
+    }
+  },
+  {
+    "employee_id": 741,
+    "full_name": "Волков Дмитрий",
+    "email": "employee241@company.ru",
+    "age": 47,
+    "gender": "М",
+    "department": "Склад",
+    "salary": 79000,
+    "hire_date": "2023-11-26",
+    "contract_end": "2025-05-18",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "216654"
+    }
+  },
+  {
+    "employee_id": 742,
+    "full_name": "Иванова Светлана",
+    "email": "employee242@company.ru",
+    "age": 28,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 246000,
+    "hire_date": "2019-11-26",
+    "contract_end": "2021-03-26",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "253171"
+    }
+  },
+  {
+    "employee_id": 743,
+    "full_name": "Фёдоров Пётр",
+    "email": "employee243@company.ru",
+    "age": 40,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 158000,
+    "hire_date": "2023-07-28",
+    "contract_end": "2027-04-09",
+    "address": {
+      "city": "Казань",
+      "zip": "240689"
+    }
+  },
+  {
+    "employee_id": 744,
+    "full_name": "Попова Михаил",
+    "email": "employee244@company.ru",
+    "age": 44,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 207000,
+    "hire_date": "2021-07-23",
+    "contract_end": "2022-09-14",
+    "address": {
+      "city": "Москва",
+      "zip": "121846"
+    }
+  },
+  {
+    "employee_id": 745,
+    "full_name": "Кузнецова Сергей",
+    "email": "employee245@company.ru",
+    "age": 44,
+    "gender": "Ж",
+    "department": "HR",
+    "salary": 233000,
+    "hire_date": "2022-10-12",
+    "contract_end": "2024-04-11",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "291773"
+    }
+  },
+  {
+    "employee_id": 746,
+    "full_name": "Морозов Татьяна",
+    "email": "employee246@company.ru",
+    "age": 24,
+    "gender": "М",
+    "department": "IT",
+    "salary": 164000,
+    "hire_date": "2019-12-31",
+    "contract_end": "2022-02-22",
+    "address": {
+      "city": "Москва",
+      "zip": "264747"
+    }
+  },
+  {
+    "employee_id": 747,
+    "full_name": "Кузнецова Юлия",
+    "email": "employee247@company.ru",
+    "age": 27,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 55000,
+    "hire_date": "2020-01-25",
+    "contract_end": "2023-03-02",
+    "address": {
+      "city": "Казань",
+      "zip": "128546"
+    }
+  },
+  {
+    "employee_id": 748,
+    "full_name": "Новикова Дмитрий",
+    "email": "employee248@company.ru",
+    "age": 61,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 74000,
+    "hire_date": "2021-11-06",
+    "contract_end": "2023-02-11",
+    "address": {
+      "city": "Москва",
+      "zip": "201335"
+    }
+  },
+  {
+    "employee_id": 749,
+    "full_name": "Смирнова Михаил",
+    "email": "employee249@company.ru",
+    "age": 32,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 117000,
+    "hire_date": "2024-08-26",
+    "contract_end": "2027-05-31",
+    "address": {
+      "city": "Калининград",
+      "zip": "120705"
+    }
+  },
+  {
+    "employee_id": 750,
+    "full_name": "Волков Юлия",
+    "email": "employee250@company.ru",
+    "age": 30,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 94000,
+    "hire_date": "2022-01-23",
+    "contract_end": "2023-03-18",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "165343"
+    }
+  },
+  {
+    "employee_id": 751,
+    "full_name": "Соколов Сергей",
+    "email": "employee251@company.ru",
+    "age": 23,
+    "gender": "М",
+    "department": "HR",
+    "salary": 160000,
+    "hire_date": "2023-11-19",
+    "contract_end": "2026-06-25",
+    "address": {
+      "city": null,
+      "zip": "223587"
+    }
+  },
+  {
+    "employee_id": 752,
+    "full_name": "Иванова Наталья",
+    "email": "employee252@company.ru",
+    "age": 50,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 176000,
+    "hire_date": "2022-01-07",
+    "contract_end": "2023-09-23",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "183698"
+    }
+  },
+  {
+    "employee_id": 753,
+    "full_name": "Смирнова Алексей",
+    "email": "employee253@company.ru",
+    "age": 51,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 105000,
+    "hire_date": "2020-09-04",
+    "contract_end": "2022-02-20",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "118713"
+    }
+  },
+  {
+    "employee_id": 754,
+    "full_name": "Иванова Пётр",
+    "email": "employee254@company.ru",
+    "age": 37,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 117000,
+    "hire_date": "2019-12-15",
+    "contract_end": "2022-12-12",
+    "address": {
+      "city": "Казань",
+      "zip": "206426"
+    }
+  },
+  {
+    "employee_id": 755,
+    "full_name": "Лебедева Наталья",
+    "email": "employee255@company.ru",
+    "age": 43,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 233000,
+    "hire_date": "2022-06-04",
+    "contract_end": "2026-03-18",
+    "address": {
+      "city": "Москва",
+      "zip": "267021"
+    }
+  },
+  {
+    "employee_id": 756,
+    "full_name": "Козлова Наталья",
+    "email": "employee256@company.ru",
+    "age": 21,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 162000,
+    "hire_date": "2021-12-27",
+    "contract_end": "2025-03-28",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "165920"
+    }
+  },
+  {
+    "employee_id": 757,
+    "full_name": "Новиков Анна",
+    "email": "employee257@company.ru",
+    "age": 32,
+    "gender": "М",
+    "department": "Продажи",
+    "salary": 198000,
+    "hire_date": "2019-10-12",
+    "contract_end": "2023-05-06",
+    "address": {
+      "city": null,
+      "zip": "297882"
+    }
+  },
+  {
+    "employee_id": 758,
+    "full_name": "Фёдоров Елена",
+    "email": "employee258@company.ru",
+    "age": 61,
+    "gender": "М",
+    "department": "HR",
+    "salary": 74000,
+    "hire_date": "2021-07-20",
+    "contract_end": "2024-06-26",
+    "address": {
+      "city": "Москва",
+      "zip": "223638"
+    }
+  },
+  {
+    "employee_id": 759,
+    "full_name": "Иванова Сергей",
+    "email": "employee259@company.ru",
+    "age": 40,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 89000,
+    "hire_date": "2023-07-13",
+    "contract_end": "2025-03-20",
+    "address": {
+      "city": "Казань",
+      "zip": "139299"
+    }
+  },
+  {
+    "employee_id": 760,
+    "full_name": "Кузнецова Елена",
+    "email": "employee260@company.ru",
+    "age": 45,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 109000,
+    "hire_date": "2023-09-18",
+    "contract_end": "2026-07-24",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "224475"
+    }
+  },
+  {
+    "employee_id": 761,
+    "full_name": "Волков Елена",
+    "email": "employee261@company.ru",
+    "age": 50,
+    "gender": "М",
+    "department": "IT",
+    "salary": 186000,
+    "hire_date": "2022-08-19",
+    "contract_end": "2024-05-14",
+    "address": {
+      "city": "Москва",
+      "zip": "181616"
+    }
+  },
+  {
+    "employee_id": 762,
+    "full_name": "Смирнова Иван",
+    "email": "employee262@company.ru",
+    "age": 48,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 150000,
+    "hire_date": "2022-06-05",
+    "contract_end": "2023-06-30",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "251512"
+    }
+  },
+  {
+    "employee_id": 763,
+    "full_name": "Смирнова Татьяна",
+    "email": "employee263@company.ru",
+    "age": 44,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 161000,
+    "hire_date": "2020-12-10",
+    "contract_end": "2024-05-16",
+    "address": {
+      "city": "Казань",
+      "zip": "162153"
+    }
+  },
+  {
+    "employee_id": 764,
+    "full_name": "Фёдорова Наталья",
+    "email": "employee264@company.ru",
+    "age": 60,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 100000,
+    "hire_date": "2024-11-16",
+    "contract_end": "2025-12-27",
+    "address": {
+      "city": "Калининград",
+      "zip": "144298"
+    }
+  },
+  {
+    "employee_id": 765,
+    "full_name": "Козлова Анна",
+    "email": "employee265@company.ru",
+    "age": 57,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 79000,
+    "hire_date": "2020-04-28",
+    "contract_end": "2023-09-15",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "171621"
+    }
+  },
+  {
+    "employee_id": 766,
+    "full_name": "Иванов Татьяна",
+    "email": "employee266@company.ru",
+    "age": 41,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 171000,
+    "hire_date": "2020-08-14",
+    "contract_end": "2021-11-28",
+    "address": {
+      "city": null,
+      "zip": "152944"
+    }
+  },
+  {
+    "employee_id": 766,
+    "full_name": "Соколова Наталья",
+    "email": "employee267@company.ru",
+    "age": 35,
+    "gender": "Ж",
+    "department": "HR",
+    "salary": 238000,
+    "hire_date": "2021-09-13",
+    "contract_end": "2023-06-10",
+    "address": {
+      "city": "Москва",
+      "zip": "242740"
+    }
+  },
+  {
+    "employee_id": 768,
+    "full_name": "Петров Андрей",
+    "email": "employee268@company.ru",
+    "age": 25,
+    "gender": "М",
+    "department": "IT",
+    "salary": 139000,
+    "hire_date": "2023-01-24",
+    "contract_end": "2024-04-18",
+    "address": {
+      "city": "Москва",
+      "zip": "214382"
+    }
+  },
+  {
+    "employee_id": 769,
+    "full_name": "Кузнецова Анна",
+    "email": "employee269@company.ru",
+    "age": 55,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 181000,
+    "hire_date": "2023-05-04",
+    "contract_end": "2024-05-18",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "231640"
+    }
+  },
+  {
+    "employee_id": 770,
+    "full_name": "Попова Иван",
+    "email": "employee270@company.ru",
+    "age": 26,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 82000,
+    "hire_date": "2020-04-13",
+    "contract_end": "2023-07-09",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "283105"
+    }
+  },
+  {
+    "employee_id": 771,
+    "full_name": "Смирнова Светлана",
+    "email": "employee271@company.ru",
+    "age": 35,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 241000,
+    "hire_date": "2023-08-29",
+    "contract_end": "2027-10-05",
+    "address": {
+      "city": "Москва",
+      "zip": "204857"
+    }
+  },
+  {
+    "employee_id": 772,
+    "full_name": "Иванова Пётр",
+    "email": "employee272@company.ru",
+    "age": 51,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 80000,
+    "hire_date": "2022-03-08",
+    "contract_end": "2023-05-22",
+    "address": {
+      "city": "Казань",
+      "zip": "124851"
+    }
+  },
+  {
+    "employee_id": 773,
+    "full_name": "Лебедева Сергей",
+    "email": "employee273@company.ru",
+    "age": 63,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 91000,
+    "hire_date": "2021-11-21",
+    "contract_end": "2024-12-14",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "109596"
+    }
+  },
+  {
+    "employee_id": 774,
+    "full_name": "Петрова Татьяна",
+    "email": "employee274@company.ru",
+    "age": 45,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 233000,
+    "hire_date": "2022-04-23",
+    "contract_end": "2023-09-16",
+    "address": {
+      "city": "Москва",
+      "zip": "185513"
+    }
+  },
+  {
+    "employee_id": 775,
+    "full_name": "Козлова Елена",
+    "email": "employee275@company.ru",
+    "age": 34,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 73000,
+    "hire_date": "2024-03-10",
+    "contract_end": "2027-03-24",
+    "address": {
+      "city": "Калининград",
+      "zip": "274245"
+    }
+  },
+  {
+    "employee_id": 776,
+    "full_name": "Смирнов Михаил",
+    "email": "employee276@company.ru",
+    "age": 44,
+    "gender": "М",
+    "department": "IT",
+    "salary": 230000,
+    "hire_date": "2024-05-05",
+    "contract_end": "2026-10-22",
+    "address": {
+      "city": "Казань",
+      "zip": "186113"
+    }
+  },
+  {
+    "employee_id": 777,
+    "full_name": "Кузнецов Татьяна",
+    "email": "employee277@company.ru",
+    "age": 51,
+    "gender": "М",
+    "department": "HR",
+    "salary": 133000,
+    "hire_date": "2022-07-24",
+    "contract_end": "2024-04-17",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "250036"
+    }
+  },
+  {
+    "employee_id": 778,
+    "full_name": "Козлов Сергей",
+    "email": "employee278@company.ru",
+    "age": 50,
+    "gender": "М",
+    "department": "IT",
+    "salary": 187000,
+    "hire_date": "2022-01-06",
+    "contract_end": "2025-11-17",
+    "address": {
+      "city": "Калининград",
+      "zip": "139992"
+    }
+  },
+  {
+    "employee_id": 779,
+    "full_name": "Лебедев Анна",
+    "email": "employee279@company.ru",
+    "age": 41,
+    "gender": "М",
+    "department": "IT",
+    "salary": 109000,
+    "hire_date": "2020-06-22",
+    "contract_end": "2023-05-14",
+    "address": {
+      "city": "Калининград",
+      "zip": "218905"
+    }
+  },
+  {
+    "employee_id": 780,
+    "full_name": "Волков Иван",
+    "email": "employee280@company.ru",
+    "age": 60,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 88000,
+    "hire_date": "2019-12-14",
+    "contract_end": "2022-12-06",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "216309"
+    }
+  },
+  {
+    "employee_id": 781,
+    "full_name": "Лебедев Сергей",
+    "email": "employee281@company.ru",
+    "age": 64,
+    "gender": "М",
+    "department": "IT",
+    "salary": 248000,
+    "hire_date": "2019-07-27",
+    "contract_end": "2022-07-10",
+    "address": {
+      "city": "Калининград",
+      "zip": "148948"
+    }
+  },
+  {
+    "employee_id": 782,
+    "full_name": "Смирнов Наталья",
+    "email": "employee282@company.ru",
+    "age": 22,
+    "gender": "М",
+    "department": "HR",
+    "salary": 97000,
+    "hire_date": "2019-07-28",
+    "contract_end": "2021-09-26",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "134393"
+    }
+  },
+  {
+    "employee_id": 783,
+    "full_name": "Петров Юлия",
+    "email": "employee283@company.ru",
+    "age": 44,
+    "gender": "М",
+    "department": "Склад",
+    "salary": 54000,
+    "hire_date": "2023-01-10",
+    "contract_end": "2026-08-28",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "172744"
+    }
+  },
+  {
+    "employee_id": 784,
+    "full_name": "Иванова Наталья",
+    "email": "employee284@company.ru",
+    "age": 50,
+    "gender": "Ж",
+    "department": "HR",
+    "salary": 126000,
+    "hire_date": "2020-01-21",
+    "contract_end": "2023-11-01",
+    "address": {
+      "city": "Москва",
+      "zip": "143514"
+    }
+  },
+  {
+    "employee_id": 785,
+    "full_name": "Иванова Татьяна",
+    "email": "employee285@company.ru",
+    "age": 59,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 238000,
+    "hire_date": "2019-08-25",
+    "contract_end": "2021-08-26",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "159394"
+    }
+  },
+  {
+    "employee_id": 786,
+    "full_name": "Лебедева Елена",
+    "email": "employee286@company.ru",
+    "age": 34,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 60000,
+    "hire_date": "2022-02-05",
+    "contract_end": "2025-07-09",
+    "address": {
+      "city": "Москва",
+      "zip": "296889"
+    }
+  },
+  {
+    "employee_id": 787,
+    "full_name": "Лебедев Наталья",
+    "email": "employee287@company.ru",
+    "age": 49,
+    "gender": "М",
+    "department": "IT",
+    "salary": 177000,
+    "hire_date": "2021-01-29",
+    "contract_end": "2024-09-18",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "105123"
+    }
+  },
+  {
+    "employee_id": 788,
+    "full_name": "Соколов Мария",
+    "email": "employee288@company.ru",
+    "age": 40,
+    "gender": "М",
+    "department": "Склад",
+    "salary": 131000,
+    "hire_date": "2022-12-05",
+    "contract_end": "2026-06-14",
+    "address": {
+      "city": "Москва",
+      "zip": "231337"
+    }
+  },
+  {
+    "employee_id": 789,
+    "full_name": "Смирнова Дмитрий",
+    "email": "employee289@company.ru",
+    "age": 39,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 225000,
+    "hire_date": "2022-10-30",
+    "contract_end": "2025-09-10",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "269672"
+    }
+  },
+  {
+    "employee_id": 790,
+    "full_name": "Попова Светлана",
+    "email": "employee290@company.ru",
+    "age": 55,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 166000,
+    "hire_date": "2019-11-26",
+    "contract_end": "2021-05-09",
+    "address": {
+      "city": null,
+      "zip": "147425"
+    }
+  },
+  {
+    "employee_id": 790,
+    "full_name": "Фёдоров Пётр",
+    "email": "employee291@company.ru",
+    "age": 31,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 172000,
+    "hire_date": "2022-12-12",
+    "contract_end": "2024-08-18",
+    "address": {
+      "city": "Москва",
+      "zip": "213180"
+    }
+  },
+  {
+    "employee_id": 792,
+    "full_name": "Попова Ольга",
+    "email": "employee292@company.ru",
+    "age": 49,
+    "gender": "Ж",
+    "department": "IT",
+    "salary": 154000,
+    "hire_date": "2023-02-08",
+    "contract_end": "2026-07-14",
+    "address": {
+      "city": "Москва",
+      "zip": "153225"
+    }
+  },
+  {
+    "employee_id": 793,
+    "full_name": "Фёдорова Елена",
+    "email": "employee293@company.ru",
+    "age": 21,
+    "gender": "Ж",
+    "department": "HR",
+    "salary": 48000,
+    "hire_date": "2019-09-07",
+    "contract_end": "2022-02-02",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "268479"
+    }
+  },
+  {
+    "employee_id": 794,
+    "full_name": "Волков Пётр",
+    "email": "employee294@company.ru",
+    "age": 28,
+    "gender": "М",
+    "department": "Продажи",
+    "salary": 234000,
+    "hire_date": "2022-10-01",
+    "contract_end": "2026-09-05",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "230175"
+    }
+  },
+  {
+    "employee_id": 795,
+    "full_name": "Новикова Юлия",
+    "email": "employee295@company.ru",
+    "age": 36,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 231000,
+    "hire_date": "2020-01-12",
+    "contract_end": "2023-12-03",
+    "address": {
+      "city": "Санкт-Петербург",
+      "zip": "289621"
+    }
+  },
+  {
+    "employee_id": 796,
+    "full_name": "Смирнова Дмитрий",
+    "email": "employee296@company.ru",
+    "age": 61,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 161000,
+    "hire_date": "2023-11-14",
+    "contract_end": "2027-04-30",
+    "address": {
+      "city": "Казань",
+      "zip": "250399"
+    }
+  },
+  {
+    "employee_id": 797,
+    "full_name": "Морозова Юлия",
+    "email": "employee297@company.ru",
+    "age": 63,
+    "gender": "Ж",
+    "department": "Продажи",
+    "salary": 56000,
+    "hire_date": "2020-09-19",
+    "contract_end": "2022-11-20",
+    "address": {
+      "city": "Калининград",
+      "zip": "285552"
+    }
+  },
+  {
+    "employee_id": 798,
+    "full_name": "Лебедев Татьяна",
+    "email": "employee298@company.ru",
+    "age": 62,
+    "gender": "М",
+    "department": "Бухгалтерия",
+    "salary": 232000,
+    "hire_date": "2023-04-12",
+    "contract_end": "2024-06-01",
+    "address": {
+      "city": "Екатеринбург",
+      "zip": "265483"
+    }
+  },
+  {
+    "employee_id": 799,
+    "full_name": "Волкова Сергей",
+    "email": "employee299@company.ru",
+    "age": 53,
+    "gender": "Ж",
+    "department": "Бухгалтерия",
+    "salary": 71000,
+    "hire_date": "2022-05-14",
+    "contract_end": "2025-03-20",
+    "address": {
+      "city": "Новосибирск",
+      "zip": "195620"
+    }
+  },
+  {
+    "employee_id": 515,
+    "full_name": "Фёдорова Елена",
+    "email": "employee15@company.ru",
+    "age": 64,
+    "gender": "Ж",
+    "department": "Склад",
+    "salary": 56000,
+    "hire_date": "2022-10-05",
+    "contract_end": "2024-10-08",
+    "address": {
+      "city": "Казань",
+      "zip": "276288"
+    }
+  }
+]

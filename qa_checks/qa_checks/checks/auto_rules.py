@@ -62,8 +62,10 @@ ENUM_RARE_SHARE = 0.005  # значение встречается реже 0,5%
 PRICE_WORDS = ["price", "цена", "стоимость"]
 QUANTITY_WORDS = ["quantity", "qty", "count", "количество", "кол-во"]
 TOTAL_WORDS = ["total", "sum", "amount", "сумма", "итог"]
-START_WORDS = ["start", "begin", "created", "from", "open", "начал", "создан", "открыт"]
-END_WORDS = ["end", "finish", "complet", "close", "until", "оконч", "заверш", "закрыт"]
+START_WORDS = ["start", "begin", "created", "from", "open", "order", "hire", "issue",
+               "начал", "создан", "открыт", "заказ", "найм", "приём", "прием", "выдач"]
+END_WORDS = ["end", "finish", "complet", "close", "until", "deliver", "expir", "due", "deadline",
+             "оконч", "заверш", "закрыт", "доставк", "увольн", "срок"]
 
 
 def _name(column):
