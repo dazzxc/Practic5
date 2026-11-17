@@ -1,0 +1,86 @@
+/* загрузка файла */
+.uploadCard {
+  margin-bottom: var(--space-2xl);
+  padding: var(--space-3xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xl);
+  text-align: center;
+  background: var(--color-surface);
+  border: var(--border-medium) dashed var(--color-accent);
+  border-radius: var(--radius-xl);
+  transition: var(--duration-fast);
+}
+
+/* подсветка при перетаскивании */
+.uploadCardDragging {
+  background: var(--color-surface-hover);
+  border-color: var(--color-accent-light);
+}
+
+.uploadArea {
+  margin-bottom: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* цвет иконки */
+.uploadIcon {
+  color: var(--color-accent);
+}
+
+/* скрытый input */
+.hiddenInput {
+  display: none;
+}
+
+.textTitle {
+  margin: var(--space-s) 0;
+  font-size: var(--font-size-3xl);
+}
+
+.textSubtitle {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-base);
+}
+
+.fileLink {
+  color: var(--color-accent);
+  font-weight: var(--font-weight-bold);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.primaryButton {
+  padding: var(--space-m) var(--space-2xl);
+  font-size: var(--font-size-l);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  background: var(--color-accent);
+  border: none;
+  border-radius: var(--radius-m);
+  cursor: pointer;
+  transition: var(--duration-fast);
+}
+
+.primaryButton:hover {
+  background: var(--color-accent-dark);
+}
+
+.primaryButton:disabled {
+  background: var(--color-disabled);
+  cursor: not-allowed;
+}
+
+.errorText {
+  margin-top: var(--space-l);
+  color: var(--color-error);
+}
+
+/* отступ над отчётом */
+.reportBlock {
+  margin-top: var(--space-3xl);
+}

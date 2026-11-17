@@ -1,0 +1,12 @@
+/* каркас: меню + контент */
+.app {
+  min-height: 100vh;
+  display: flex;
+  background: var(--color-bg);
+}
+
+.mainContent {
+  flex: 1;
+  min-height: 100vh;
+  background: var(--color-bg);
+}

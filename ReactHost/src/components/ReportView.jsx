@@ -1,47 +1,46 @@
-import "../Pages/MainPage.css";
+import styles from "./ReportView.module.css";
 import DataDistribution from "./DataDistribution";
 import Recommendations from "./Recommendations";
 import { CATEGORIES, TYPE_LABELS, getCategory } from "../utils/issueCategories";
 
-// Сам отчёт: карточки, диаграмма, советы и таблица.
-// Один и тот же на главной и на странице старого отчёта.
+// отчёт целиком
 function ReportView({ report }) {
   return (
     <>
-      <div className="kpi-grid">
-        <div className="kpi-card">
-          <span className="kpi-title">Всего строк</span>
-          <span className="kpi-value">{report.profile.rows_count.toLocaleString()}</span>
+      <div className={styles.kpiGrid}>
+        <div className={styles.kpiCard}>
+          <span className={styles.kpiTitle}>Всего строк</span>
+          <span className={styles.kpiValue}>{report.profile.rows_count.toLocaleString()}</span>
         </div>
-        <div className="kpi-card">
-          <span className="kpi-title">Пропуски</span>
-          <span className="kpi-value danger">{report.profile.missing_values.toLocaleString()}</span>
+        <div className={styles.kpiCard}>
+          <span className={styles.kpiTitle}>Пропуски</span>
+          <span className={`${styles.kpiValue} ${styles.missing}`}>{report.profile.missing_values.toLocaleString()}</span>
         </div>
-        <div className="kpi-card">
-          <span className="kpi-title">Дубликаты</span>
-          <span className="kpi-value warning">{report.profile.duplicates.toLocaleString()}</span>
+        <div className={styles.kpiCard}>
+          <span className={styles.kpiTitle}>Дубликаты</span>
+          <span className={`${styles.kpiValue} ${styles.duplicate}`}>{report.profile.duplicates.toLocaleString()}</span>
         </div>
-        <div className="kpi-card">
-          <span className="kpi-title">Некорректные значения</span>
-          <span className="kpi-value" style={{ color: CATEGORIES.invalid.color }}>
+        <div className={styles.kpiCard}>
+          <span className={styles.kpiTitle}>Некорректные значения</span>
+          <span className={`${styles.kpiValue} ${styles.invalid}`}>
             {(report.profile.invalid_values || 0).toLocaleString()}
           </span>
         </div>
-        <div className="kpi-card">
-          <span className="kpi-title">Несогласованности</span>
-          <span className="kpi-value" style={{ color: CATEGORIES.inconsistency.color }}>
+        <div className={styles.kpiCard}>
+          <span className={styles.kpiTitle}>Несогласованности</span>
+          <span className={`${styles.kpiValue} ${styles.inconsistency}`}>
             {(report.profile.inconsistencies || 0).toLocaleString()}
           </span>
         </div>
-        <div className="kpi-card">
-          <span className="kpi-title">Типов ошибок</span>
-          <span className="kpi-value info">{report.total_issues}</span>
+        <div className={styles.kpiCard}>
+          <span className={styles.kpiTitle}>Типов ошибок</span>
+          <span className={`${styles.kpiValue} ${styles.kpiValueInfo}`}>{report.total_issues}</span>
         </div>
       </div>
       <DataDistribution report={report} />
       <Recommendations issues={report.issues} />
-      <h3>Найденные проблемы</h3>
-      <table className="issues-table">
+      <h3 className={styles.issuesTitle}>Найденные проблемы</h3>
+      <table className={styles.issuesTable}>
         <thead>
           <tr>
             <th>Группа</th>
@@ -53,18 +52,19 @@ function ReportView({ report }) {
         </thead>
         <tbody>
           {report.issues.map((issue, index) => {
-            const category = CATEGORIES[getCategory(issue)];
+            const categoryKey = getCategory(issue);
+            const category = CATEGORIES[categoryKey];
             return (
             <tr key={index}>
               <td>
-                <span className="badge" style={{ borderLeft: `4px solid ${category.color}`, whiteSpace: "nowrap" }}>
+                <span className={`${styles.badge} ${styles[categoryKey]}`}>
                   {category.label}
                 </span>
               </td>
               <td>{TYPE_LABELS[issue.type] || issue.type}</td>
               <td>{issue.column || "Вся строка"}</td>
               <td>{issue.description}</td>
-              <td className="count-cell">{issue.count.toLocaleString()}</td>
+              <td className={styles.countCell}>{issue.count.toLocaleString()}</td>
             </tr>
             );
           })}

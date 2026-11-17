@@ -3,14 +3,14 @@ import Sidebar from "./components/Sidebar";
 import MainPage from "./Pages/MainPage";
 import ReportPage from "./Pages/ReportPage";
 import ReportDetailPage from "./Pages/ReportDetailPage";
-import "./App.css";
+import styles from "./App.module.css";
 
 function App() {
 return (
-<div className="app">
+<div className={styles.app}>
 <Sidebar />
 
-  <main className="main-content">
+  <main className={styles.mainContent}>
     <Routes>
       <Route
         path="/"

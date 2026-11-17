@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import ReportView from "../components/ReportView";
 import { formatDate } from "../utils/formatDate";
-import "./ReportPage.css";
+import pageStyles from "./Page.module.css";
+import styles from "./ReportPage.module.css";
 
-// Страница одного старого отчёта: /reports/<id>
+// старый отчёт: /reports/<id>
 function ReportDetailPage() {
   const { reportId } = useParams();
   const [report, setReport] = useState(null);
@@ -27,17 +28,17 @@ function ReportDetailPage() {
   }, [reportId]);
 
   return (
-    <section className="page" style={{ padding: "40px", color: "white" }}>
-      <Link to="/reports" className="back-link">← Ко всем отчётам</Link>
+    <section className={pageStyles.page}>
+      <Link to="/reports" className={styles.backLink}>← Ко всем отчётам</Link>
 
-      {loading && <div className="report-message">Загрузка отчёта...</div>}
+      {loading && <div className={styles.message}>Загрузка отчёта...</div>}
 
-      {error && <div className="report-message">{error}</div>}
+      {error && <div className={styles.message}>{error}</div>}
 
       {report && (
-        <div className="report-dashboard" style={{ animation: "fadeIn 0.4s ease-in-out" }}>
-          <h1 className="page-title">{report.profile.file_name}</h1>
-          <p className="page-subtitle">
+        <div className={pageStyles.reportDashboard}>
+          <h1 className={pageStyles.pageTitle}>{report.profile.file_name}</h1>
+          <p className={pageStyles.pageSubtitle}>
             {report.created_at ? `Проверен ${formatDate(report.created_at)}` : "Сохранённый отчёт"}
             {report.auto_rules ? " · правила подобраны автоматически" : ""}
           </p>

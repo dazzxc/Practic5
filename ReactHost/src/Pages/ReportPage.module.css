@@ -1,0 +1,86 @@
+/* отчёты */
+
+.reportList {
+  margin-top: var(--space-2xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-l);
+}
+
+/* карточка отчёта */
+.reportCard {
+  padding: var(--space-xl);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-xl);
+  color: var(--color-text);
+  text-decoration: none;
+  background: var(--color-surface);
+  border-left: var(--border-accent) solid var(--color-accent);
+  border-radius: var(--radius-m);
+  cursor: pointer;
+  transition: background var(--duration-fast) ease, transform var(--duration-fast) ease;
+}
+
+.reportCard:hover {
+  background: var(--color-surface-hover);
+  transform: translateX(var(--shift-hover));
+}
+
+.reportCardTitle {
+  margin-bottom: var(--space-s);
+  font-size: var(--font-size-xl);
+}
+
+.reportCardStats {
+  color: var(--color-text-muted);
+}
+
+.reportCardErrors {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-error);
+}
+
+.reportCardSide {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-xs);
+  white-space: nowrap;
+}
+
+.reportCardDate {
+  font-size: var(--font-size-s);
+  color: var(--color-text-muted);
+}
+
+.reportCardOpen {
+  font-size: var(--font-size-m);
+  color: var(--color-accent-light);
+}
+
+/* один отчёт */
+.backLink {
+  display: inline-block;
+  margin-bottom: var(--space-xl);
+  color: var(--color-accent-light);
+  text-decoration: none;
+}
+
+.backLink:hover {
+  text-decoration: underline;
+}
+
+/* статусы */
+.message {
+  margin-top: var(--space-4xl);
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.messageHint {
+  display: block;
+  margin-top: var(--space-s);
+  font-size: var(--font-size-m);
+}

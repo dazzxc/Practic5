@@ -1,0 +1,32 @@
+/* общее для страниц */
+.page {
+  width: 100%;
+  padding: var(--space-3xl);
+  color: var(--color-text);
+}
+
+.pageTitle {
+  margin-bottom: var(--space-s);
+  font-size: var(--font-size-5xl);
+}
+
+.pageSubtitle {
+  margin-bottom: var(--space-2xl);
+  color: var(--color-text-secondary);
+}
+
+/* появление снизу */
+.reportDashboard {
+  animation: fadeIn var(--duration-slow) ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(var(--shift-appear));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

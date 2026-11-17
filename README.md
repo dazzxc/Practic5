@@ -7,9 +7,9 @@
 
 | Часть | Папка | На чём | Что делает |
 |-------|-------|--------|------------|
-| Фронтенд | `Practic/` | React + Vite | Загрузка файла, карточки, диаграмма, таблица ошибок, история отчётов |
+| Фронтенд | `ReactHost/` | React + Vite | Загрузка файла, карточки, диаграмма, таблица ошибок, история отчётов |
 | Бэкенд | `backend-python/` | FastAPI | Принимает файл, запускает проверки, отдаёт отчёт и выгрузку в Excel/JSON |
-| Проверки | `qa_checks/qa_checks/` | pandas + numpy | Сами проверки, можно запускать и без сайта |
+| Проверки | `qa_checks/CHECKS/` | pandas + numpy | Сами проверки, можно запускать и без сайта |
 
 ## Что умеет
 
@@ -31,7 +31,7 @@
 ```
 python -m venv backend-python\venv
 backend-python\venv\Scripts\python -m pip install -r requirements.txt
-cd Practic
+cd ReactHost
 npm install
 ```
 
@@ -49,7 +49,7 @@ python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 
 Фронтенд (во втором терминале):
 ```
-cd Practic
+cd ReactHost
 npm run dev
 ```
 
@@ -59,18 +59,18 @@ npm run dev
 
 ## Тестовые файлы
 
-Лежат в `qa_checks/qa_checks/test_data/`. Для показа удобнее всего `demo_*` - в них есть
-ошибки всех видов, а `demo_clean.csv` чистый. Подробнее в `qa_checks/qa_checks/README.md`.
+Лежат в `qa_checks/CHECKS/test_data/`. Для показа удобнее всего `demo_*` - в них есть
+ошибки всех видов, а `demo_clean.csv` чистый. Подробнее в `qa_checks/CHECKS/README.md`.
 
 ## Структура
 
 ```
 Practic5/
-├── Practic/              # фронтенд
+├── ReactHost/            # фронтенд
 ├── backend-python/       # бэкенд
 │   ├── app/
 │   └── uploads/          # загруженные файлы, удаляются через 3 дня
-├── qa_checks/qa_checks/  # проверки
+├── qa_checks/CHECKS/     # проверки
 ├── loaders/              # загрузчики CSV/JSON (отдельный модуль)
 ├── backend/app/db_connector/  # подключение к БД (в работе)
 ├── prototype/            # первая версия на PyQt

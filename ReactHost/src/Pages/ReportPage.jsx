@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { formatDate } from "../utils/formatDate";
-import "./ReportPage.css";
+import pageStyles from "./Page.module.css";
+import styles from "./ReportPage.module.css";
 
 function ReportPage() {
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Берём историю с бэкенда, свежие отчёты приходят первыми
+    // история, свежие первыми
     fetch("/api/history")
       .then(res => res.json())
       .then(data => {
@@ -22,39 +23,39 @@ function ReportPage() {
   }, []);
 
   return (
-    <div className="page" style={{ padding: "40px", color: "white" }}>
-      <h1 className="page-title">Отчёт по анализу</h1>
-      <p className="page-subtitle">Список проверенных объектов. Нажмите на отчёт, чтобы открыть его</p>
+    <div className={pageStyles.page}>
+      <h1 className={pageStyles.pageTitle}>Отчёт по анализу</h1>
+      <p className={pageStyles.pageSubtitle}>Список проверенных объектов. Нажмите на отчёт, чтобы открыть его</p>
 
       {loading ? (
-        <div style={{ textAlign: "center", color: "#ACACAC", marginTop: "50px" }}>
+        <div className={styles.message}>
           Загрузка истории...
         </div>
       ) : reports.length === 0 ? (
-        <div style={{ textAlign: "center", color: "#ACACAC", marginTop: "50px" }}>
-          Необходимые данные не найдены.<br/>
-          <span style={{ fontSize: "14px", marginTop: "10px", display: "block" }}>
+        <div className={styles.message}>
+          Необходимые данные не найдены.
+          <span className={styles.messageHint}>
             Загрузите файл на главной странице, чтобы создать первый отчет.
           </span>
         </div>
       ) : (
-        <div style={{ marginTop: "30px", display: "flex", flexDirection: "column", gap: "15px" }}>
+        <div className={styles.reportList}>
           {reports.map((rep) => (
-            <Link key={rep.report_id} to={`/reports/${rep.report_id}`} className="report-card">
+            <Link key={rep.report_id} to={`/reports/${rep.report_id}`} className={styles.reportCard}>
               <div>
-                <h3 style={{ margin: "0 0 10px 0", fontSize: "20px" }}>{rep.profile.file_name}</h3>
-                <p style={{ margin: 0, color: "#ACACAC" }}>
+                <h3 className={styles.reportCardTitle}>{rep.profile.file_name}</h3>
+                <p className={styles.reportCardStats}>
                   Строк: {rep.profile.rows_count.toLocaleString()} |
-                  Ошибок: <span style={{ color: "#ff4c4c", fontWeight: "bold" }}>{rep.total_issues}</span> |
+                  Ошибок: <span className={styles.reportCardErrors}>{rep.total_issues}</span> |
                   Пропуски: {rep.profile.missing_values.toLocaleString()} |
                   Дубликаты: {rep.profile.duplicates.toLocaleString()} |
                   Некорректные: {(rep.profile.invalid_values || 0).toLocaleString()} |
                   Несогласованности: {(rep.profile.inconsistencies || 0).toLocaleString()}
                 </p>
               </div>
-              <div className="report-card-side">
-                {rep.created_at && <span className="report-card-date">{formatDate(rep.created_at)}</span>}
-                <span className="report-card-open">Открыть →</span>
+              <div className={styles.reportCardSide}>
+                {rep.created_at && <span className={styles.reportCardDate}>{formatDate(rep.created_at)}</span>}
+                <span className={styles.reportCardOpen}>Открыть →</span>
               </div>
             </Link>
           ))}

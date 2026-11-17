@@ -1,8 +1,8 @@
-import "./Recommendations.css";
+import styles from "./Recommendations.module.css";
 import { CATEGORIES, CATEGORY_ORDER, countByCategory } from "../utils/issueCategories";
 
 function Recommendations({ issues = [] }) {
-  // Показываем совет только для тех групп, где есть ошибки
+  // только группы с ошибками
   const counts = countByCategory(issues);
 
   const recommendations = CATEGORY_ORDER
@@ -10,26 +10,23 @@ function Recommendations({ issues = [] }) {
     .map((category) => ({ category, ...CATEGORIES[category] }));
 
   return (
-    <section className="recommendations-section">
-      <h2 className="recommendations-title">Рекомендации по исправлению</h2>
+    <section className={styles.recommendationsSection}>
+      <h2 className={styles.recommendationsTitle}>Рекомендации по исправлению</h2>
       {recommendations.length === 0 ? (
-        <div className="recommendation-success">
-          <div className="success-icon">✓</div>
+        <div className={styles.recommendationSuccess}>
+          <div className={styles.successIcon}>✓</div>
           <div>
             <h3>Ошибки не обнаружены</h3>
             <p>Данные успешно прошли проверку, исправления не требуются!</p>
           </div>
         </div>
       ) : (
-        <div className="recommendations-list">
+        <div className={styles.recommendationsList}>
           {recommendations.map((item) => (
-            <div className="recommendation-card" key={item.category}>
-              <div
-                className="recommendation-indicator"
-                style={{ backgroundColor: item.color }}
-              />
-              <div className="recommendation-content">
-                <div className="recommendation-header">
+            <div className={styles.recommendationCard} key={item.category}>
+              <div className={`${styles.recommendationIndicator} ${styles[item.category]}`} />
+              <div className={styles.recommendationContent}>
+                <div className={styles.recommendationHeader}>
                   <h3>{item.title}</h3>
                 </div>
                 <p>{item.text}</p>

@@ -1,14 +1,16 @@
-import "./DataDistribution.css";
+import styles from "./DataDistribution.module.css";
 import { CATEGORIES, CATEGORY_ORDER, countByCategory } from "../utils/issueCategories";
 
-// Группы ошибок с названиями и цветами (берём из общего файла)
+// группы ошибок
 const ERROR_TYPES = CATEGORY_ORDER.map((category) => ({
   type: category,
   label: CATEGORIES[category].label,
   color: CATEGORIES[category].color,
 }));
 
-const CORRECT_COLOR = "#54B65F";
+const CORRECT_COLOR = "var(--color-success)";
+const EMPTY_COLOR = "var(--color-chart-empty)";
+const DEGREES_PER_PERCENT = 360 / 100; // проценты в градусы
 
 function DataDistribution({ report }) {
   const issues = report?.issues || [];
@@ -18,13 +20,13 @@ function DataDistribution({ report }) {
     (profile?.rows_count || 0) *
     (profile?.columns_count || 0);
 
-  // Сколько ошибок в каждой группе
+  // ошибки по группам
   const counts = countByCategory(issues);
 
-  // Грубая оценка: считаем, что каждая ошибка портит одну ячейку
+  // одна ошибка = одна ячейка
   const allErrors = Object.values(counts).reduce((sum, value) => sum + value, 0);
 
-  // Процент нормальных ячеек
+  // процент корректных
   const correctPercentage =
     totalCells > 0
       ? Math.max(
@@ -36,7 +38,7 @@ function DataDistribution({ report }) {
         )
       : 0;
 
-  // Оставляем только те группы, где что-то нашлось
+  // только непустые группы
   const distribution = ERROR_TYPES
     .map((item) => ({ ...item, count: counts[item.type] }))
     .filter((item) => item.count > 0);
@@ -47,7 +49,7 @@ function DataDistribution({ report }) {
   );
 
   const errorPercentage = 100 - correctPercentage;
-  let currentAngle = correctPercentage * 3.6;
+  let currentAngle = correctPercentage * DEGREES_PER_PERCENT;
   const gradientParts = [];
 
   if (correctPercentage > 0) {
@@ -63,7 +65,7 @@ function DataDistribution({ report }) {
         : 0;
 
     const startAngle = currentAngle;
-    currentAngle += percentage * 3.6;
+    currentAngle += percentage * DEGREES_PER_PERCENT;
 
     if (percentage > 0) {
       gradientParts.push(
@@ -75,35 +77,33 @@ function DataDistribution({ report }) {
   const gradient =
     totalCells > 0
       ? `conic-gradient(${gradientParts.join(", ")})`
-      : "conic-gradient(#292B3B 0deg 360deg)";
+      : `conic-gradient(${EMPTY_COLOR} 0deg 360deg)`;
 
   return (
-    <section className="distribution-section">
-      <div className="distribution-card">
-        <h2 className="distribution-title">Распределение данных</h2>
-        <div className="distribution-content">
+    <section className={styles.distributionSection}>
+      <div className={styles.distributionCard}>
+        <h2 className={styles.distributionTitle}>Распределение данных</h2>
+        <div className={styles.distributionContent}>
+          {/* цвет кольца зависит от данных */}
           <div
-            className="donut-chart"
+            className={styles.donutChart}
             style={{ background: gradient }}>
-            <div className="donut-center">
-              <span className="donut-total">
+            <div className={styles.donutCenter}>
+              <span className={styles.donutTotal}>
                 {correctPercentage.toFixed(1)}%
               </span>
-              <span className="donut-label">
+              <span className={styles.donutLabel}>
                 корректных данных
               </span>
             </div>
           </div>
-          <div className="distribution-legend">
-            <div className="legend-item">
-              <span
-                className="legend-color"
-                style={{ backgroundColor: CORRECT_COLOR }}
-              />
-              <span className="legend-label">
+          <div className={styles.distributionLegend}>
+            <div className={styles.legendItem}>
+              <span className={`${styles.legendColor} ${styles.correct}`} />
+              <span className={styles.legendLabel}>
                 Корректные данные
               </span>
-              <span className="legend-value">
+              <span className={styles.legendValue}>
                 {correctPercentage.toFixed(1)}%
               </span>
             </div>
@@ -115,17 +115,14 @@ function DataDistribution({ report }) {
 
               return (
                 <div
-                  className="legend-item"
+                  className={styles.legendItem}
                   key={item.type}
                 >
-                  <span
-                    className="legend-color"
-                    style={{ backgroundColor: item.color }}
-                  />
-                  <span className="legend-label">
+                  <span className={`${styles.legendColor} ${styles[item.type]}`} />
+                  <span className={styles.legendLabel}>
                     {item.label}
                   </span>
-                  <span className="legend-value">
+                  <span className={styles.legendValue}>
                     {percentage.toFixed(1)}%
                   </span>
                 </div>
@@ -134,21 +131,18 @@ function DataDistribution({ report }) {
           </div>
         </div>
       </div>
-      <div className="error-types-card">
-        <h2 className="distribution-title">
+      <div className={styles.errorTypesCard}>
+        <h2 className={styles.distributionTitle}>
           Типы ошибок
         </h2>
-        <div className="error-types-list">
+        <div className={styles.errorTypesList}>
           {ERROR_TYPES.map((item) => (
             <div
-              className="error-type-item"
+              className={styles.errorTypeItem}
               key={item.type}
             >
-              <span
-                className="legend-color"
-                style={{ backgroundColor: item.color }}
-              />
-              <span className="error-type-label">
+              <span className={`${styles.legendColor} ${styles[item.type]}`} />
+              <span className={styles.errorTypeLabel}>
                 {item.label}
               </span>
             </div>

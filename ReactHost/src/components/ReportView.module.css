@@ -1,0 +1,86 @@
+/* карточки и таблица */
+
+/* цвет группы */
+.missing { --category-color: var(--color-missing); }
+.duplicate { --category-color: var(--color-duplicate); }
+.invalid { --category-color: var(--color-invalid); }
+.inconsistency { --category-color: var(--color-inconsistency); }
+
+.kpiGrid {
+  margin-bottom: var(--space-2xl);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--kpi-card-min-width), 1fr));
+  gap: var(--space-xl);
+}
+
+.kpiCard {
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+  background: var(--color-surface);
+  border-left: var(--border-accent) solid var(--color-accent);
+  border-radius: var(--radius-xl);
+}
+
+.kpiTitle {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-m);
+}
+
+.kpiValue {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+}
+
+/* число цветом группы */
+.kpiValue.missing,
+.kpiValue.duplicate,
+.kpiValue.invalid,
+.kpiValue.inconsistency {
+  color: var(--category-color);
+}
+
+.kpiValueInfo {
+  color: var(--color-info);
+}
+
+.issuesTitle {
+  margin-bottom: var(--space-s);
+}
+
+.issuesTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.issuesTable th,
+.issuesTable td {
+  padding: var(--space-l);
+  text-align: left;
+  border-bottom: var(--border-thin) solid var(--color-accent-dark);
+}
+
+.issuesTable th {
+  font-weight: normal;
+  color: var(--color-text-muted);
+  background: var(--color-surface-hover);
+}
+
+/* плашка группы */
+.badge {
+  padding: var(--space-2xs) var(--space-s);
+  font-size: var(--font-size-xs);
+  white-space: nowrap;
+  background: var(--color-accent-dark);
+  border-left: var(--border-accent) solid var(--category-color);
+  border-radius: var(--radius-pill);
+}
+
+.countCell {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-highlight);
+}

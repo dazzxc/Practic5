@@ -1,27 +1,130 @@
-*{
-margin: 0;
-padding: 0;
-box-sizing: border-box;
+/* переменные проекта */
+:root {
+  /* цвета: фон */
+  --color-bg: #0e0f19;              /* фон страницы */
+  --color-surface: #161826;         /* карточки, меню, таблица, загрузка */
+  --color-surface-hover: #1e2033;   /* наведение на карточку, шапка таблицы */
+  --color-surface-alt: #202337;     /* чётные строки «Типы ошибок» */
+  --color-chart-empty: #292b3b;     /* пустая диаграмма */
+
+  /* цвета: текст */
+  --color-text: #ffffff;            /* основной текст */
+  --color-text-muted: #acacac;      /* подписи, даты, неактивное меню */
+  --color-text-secondary: #a29ac3;  /* подзаголовки, рекомендации, легенда */
+  --color-text-soft: #afafd6;       /* названия в «Типы ошибок» */
+
+  /* цвета: акцент */
+  --color-accent: #3734c7;          /* кнопка, рамка загрузки, полоски, наведение в меню */
+  --color-accent-dark: #25246a;     /* активное меню, плашки, линии таблицы, наведение кнопки */
+  --color-accent-light: #7c79ff;    /* ссылки */
+
+  /* цвета: состояния */
+  --color-success: #54b65f;         /* корректные данные, галочка */
+  --color-error: #ff4c4c;           /* текст ошибки, число ошибок в истории */
+  --color-highlight: #ffb84c;       /* количество в таблице */
+  --color-info: #4c9aff;            /* карточка «Типов ошибок» */
+  --color-disabled: #555555;        /* кнопка во время проверки */
+
+  /* цвета: группы ошибок */
+  --color-missing: #d9444a;         /* пропуски */
+  --color-duplicate: #d7df55;       /* дубликаты */
+  --color-invalid: #169bd5;         /* некорректные */
+  --color-inconsistency: #e17a21;   /* несогласованности */
+
+  /* шрифт */
+  --font-family: Arial, Helvetica, sans-serif;
+
+  --font-size-xs: 12px;     /* плашки */
+  --font-size-s: 13px;      /* даты, центр диаграммы */
+  --font-size-m: 14px;      /* подписи, легенда */
+  --font-size-base: 16px;   /* обычный текст */
+  --font-size-l: 18px;      /* кнопка */
+  --font-size-xl: 20px;     /* меню, имя файла */
+  --font-size-2xl: 22px;    /* заголовки блоков */
+  --font-size-3xl: 24px;    /* рамка загрузки */
+  --font-size-4xl: 28px;    /* большие числа */
+  --font-size-5xl: 32px;    /* заголовок страницы */
+
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* отступы */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-s: 10px;
+  --space-m: 12px;
+  --space-l: 16px;
+  --space-xl: 20px;
+  --space-2xl: 30px;
+  --space-3xl: 40px;
+  --space-4xl: 50px;
+
+  /* скругления */
+  --radius-s: 4px;          /* меню */
+  --radius-m: 8px;          /* кнопка, история */
+  --radius-l: 10px;         /* блоки отчёта */
+  --radius-xl: 12px;        /* карточки, загрузка, таблица */
+  --radius-pill: 20px;      /* плашки */
+  --radius-round: 50%;      /* кружки */
+
+  /* толщина линий */
+  --border-thin: 1px;       /* таблица */
+  --border-medium: 2px;     /* пунктир загрузки */
+  --border-accent: 4px;     /* полоска карточек */
+  --border-indicator: 5px;  /* полоска рекомендации */
+
+  /* размеры */
+  --page-min-width: 320px;          /* мин. ширина страницы */
+  --sidebar-width: 250px;
+  --sidebar-padding-top: 77px;      /* на уровне заголовка */
+  --nav-item-height: 68px;
+  --nav-icon-offset-top: 11px;      /* подгонка иконок */
+  --nav-icon-offset-bottom: 18px;
+  --kpi-card-min-width: 200px;      /* перенос карточек */
+  --donut-size: 182px;              /* диаграмма */
+  --donut-hole-size: 132px;         /* дырка диаграммы */
+  --distribution-min-height: 190px;
+  --error-type-row-height: 53px;
+  --legend-dot-size: 12px;
+  --success-icon-size: 34px;
+
+  /* анимации */
+  --duration-fast: 0.2s;    /* наведение */
+  --duration-slow: 0.5s;    /* появление отчёта */
+  --shift-hover: 4px;       /* сдвиг при наведении */
+  --shift-appear: 10px;     /* сдвиг при появлении */
+}
+
+/* общее */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html,
 body,
 #root {
-min-height: 100%;
+  min-height: 100%;
+}
+
+#root {
+  min-height: 100vh;
 }
 
 body {
-background: #0e0f19;
-color: #ffffff;
-font-family: Arial, Helvetica, sans-serif;
-min-width: 320px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-family);
+  min-width: var(--page-min-width);
 }
 
 button,
 input {
-font: inherit;
+  font: inherit;
 }
 
 button {
-border: none;
+  border: none;
 }

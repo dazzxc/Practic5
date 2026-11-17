@@ -1,0 +1,164 @@
+/* диаграмма и типы ошибок */
+
+/* цвет кружка */
+.correct { --category-color: var(--color-success); }
+.missing { --category-color: var(--color-missing); }
+.duplicate { --category-color: var(--color-duplicate); }
+.invalid { --category-color: var(--color-invalid); }
+.inconsistency { --category-color: var(--color-inconsistency); }
+
+.distributionSection {
+  width: 100%;
+  margin-top: var(--space-2xl);
+  padding-bottom: var(--space-s);
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: var(--space-2xl);
+}
+
+.distributionCard,
+.errorTypesCard {
+  min-width: 0;
+  background: var(--color-surface);
+  border-radius: var(--radius-l);
+  overflow: hidden;
+}
+
+.distributionCard {
+  padding: var(--space-xl);
+}
+
+.distributionTitle {
+  margin: 0 0 var(--space-xl);
+  padding: 0 var(--space-xl);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.distributionContent {
+  min-height: var(--distribution-min-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xl);
+}
+
+/* кольцо, цвет в JSX */
+.donutChart {
+  flex: 0 0 var(--donut-size);
+  width: var(--donut-size);
+  height: var(--donut-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-round);
+}
+
+.donutCenter {
+  width: var(--donut-hole-size);
+  height: var(--donut-hole-size);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-round);
+  background: var(--color-surface);
+}
+
+.donutTotal {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.donutLabel {
+  margin-top: var(--space-2xs);
+  font-size: var(--font-size-s);
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+.distributionLegend {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-l);
+}
+
+.legendItem,
+.errorTypeItem {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+}
+
+.legendColor {
+  flex: 0 0 var(--legend-dot-size);
+  width: var(--legend-dot-size);
+  height: var(--legend-dot-size);
+  border-radius: var(--radius-round);
+  background: var(--category-color);
+}
+
+.legendLabel,
+.errorTypeLabel {
+  font-size: var(--font-size-m);
+  color: var(--color-text-secondary);
+}
+
+.legendValue {
+  margin-left: auto;
+  font-size: var(--font-size-m);
+  white-space: nowrap;
+  color: var(--color-text);
+}
+
+.errorTypesCard {
+  padding-top: var(--space-xl);
+}
+
+.errorTypesList {
+  display: flex;
+  flex-direction: column;
+}
+
+.errorTypeItem {
+  min-height: var(--error-type-row-height);
+  padding: 0 var(--space-xl);
+}
+
+/* чередование строк */
+.errorTypeItem:nth-child(odd) {
+  background: var(--color-surface);
+}
+
+.errorTypeItem:nth-child(even) {
+  background: var(--color-surface-alt);
+}
+
+.errorTypeLabel {
+  color: var(--color-text-soft);
+}
+
+/* переменные в @media не работают */
+@media (max-width: 1100px) {
+  .distributionSection {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .distributionContent {
+    flex-direction: column;
+    padding: var(--space-s) 0;
+  }
+
+  .distributionLegend {
+    width: 100%;
+  }
+
+  .distributionTitle {
+    font-size: var(--font-size-xl);
+  }
+}

@@ -1,0 +1,76 @@
+/* рекомендации */
+
+/* цвет полоски */
+.missing { --category-color: var(--color-missing); }
+.duplicate { --category-color: var(--color-duplicate); }
+.invalid { --category-color: var(--color-invalid); }
+.inconsistency { --category-color: var(--color-inconsistency); }
+
+.recommendationsSection {
+  width: 100%;
+  margin-top: var(--space-s);
+  padding-bottom: var(--space-l);
+}
+
+.recommendationsTitle {
+  margin: 0 0 var(--space-xl);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.recommendationsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-m);
+}
+
+.recommendationCard {
+  display: flex;
+  background: var(--color-surface);
+  border-radius: var(--radius-l);
+  overflow: hidden;
+}
+
+.recommendationIndicator {
+  width: var(--border-indicator);
+  background: var(--category-color);
+}
+
+.recommendationContent {
+  flex: 1;
+  padding: var(--space-l) var(--space-xl);
+  font-size: var(--font-size-m);
+  color: var(--color-text-secondary);
+}
+
+.recommendationHeader {
+  margin-bottom: var(--space-xs);
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+/* ошибок нет */
+.recommendationSuccess {
+  padding: var(--space-xl);
+  display: flex;
+  align-items: center;
+  background: var(--color-surface);
+  border-radius: var(--radius-l);
+  overflow: hidden;
+}
+
+.successIcon {
+  width: var(--success-icon-size);
+  height: var(--success-icon-size);
+  margin-right: var(--space-l);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-round);
+  background: var(--color-success);
+  color: var(--color-text);
+}
