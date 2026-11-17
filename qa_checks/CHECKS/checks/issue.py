@@ -1,14 +1,11 @@
-"""
-Как выглядит одна найденная ошибка, плюс общие помощники для всех проверок.
-Все проверки отдают ошибки в одном формате, чтобы бэкенду и фронту было проще.
-"""
+"""формат ошибки и общие помощники"""
 
-# Каждый тип ошибки входит в одну из 4 групп, по ним фронт и группирует
+# тип -> группа
 CATEGORIES = {
     "missing": "missing",                 # пропуски
     "duplicate_row": "duplicate",         # дубликаты
     "duplicate_key": "duplicate",
-    "wrong_type": "invalid",              # некорректные значения
+    "wrong_type": "invalid",              # некорректные
     "out_of_range": "invalid",
     "wrong_format": "invalid",
     "wrong_date": "invalid",
@@ -18,12 +15,12 @@ CATEGORIES = {
 
 
 def get_category(issue_type):
-    """Группа по типу ошибки."""
+    """группа по типу"""
     return CATEGORIES.get(issue_type, "invalid")
 
 
 def get_severity(percent):
-    """Насколько всё плохо - по проценту строк с ошибкой."""
+    """серьёзность по проценту"""
     if percent >= 20:
         return "high"
     if percent >= 5:
@@ -32,15 +29,7 @@ def get_severity(percent):
 
 
 def make_issue(issue_type, column, bad_rows, total_rows, message):
-    """
-    Собирает описание одной ошибки.
-
-    issue_type - тип, например "missing" или "duplicate_row"
-    column     - колонка (None, если речь про всю строку)
-    bad_rows   - номера строк с ошибкой
-    total_rows - сколько всего строк
-    message    - текст для человека
-    """
+    """описание одной ошибки"""
     count = len(bad_rows)
 
     if total_rows > 0:
@@ -56,15 +45,12 @@ def make_issue(issue_type, column, bad_rows, total_rows, message):
         "percent": percent,
         "severity": get_severity(percent),
         "message": message,
-        "sample_rows": bad_rows[:5],  # хватит 5 примеров
+        "sample_rows": bad_rows[:5],  # 5 примеров
     }
 
 
 def to_number(series):
-    """
-    Колонка -> числа. Что не число (например "abc"), станет NaN.
-    Запятую и пробелы тоже понимает: "1 234,5" -> 1234.5
-    """
+    """колонка -> числа, не число -> NaN"""
     import pandas as pd
 
     text = series.astype("string").str.strip()
@@ -74,25 +60,22 @@ def to_number(series):
 
 
 def to_dates(series, date_format=None):
-    """
-    Колонка -> даты. Неправильная дата станет NaT.
-    В CSV даты приходят текстом ("01.02.2024"), а из Excel уже готовыми - понимаем оба случая.
-    """
+    """колонка -> даты, ошибка -> NaT"""
     import datetime
 
     import pandas as pd
 
-    # Где уже лежит готовая дата (так бывает в Excel)
+    # готовые даты из Excel
     is_date = series.map(lambda v: isinstance(v, (datetime.date, pd.Timestamp)))
 
-    # Текст разбираем всей колонкой разом - так быстрее
+    # парсим колонкой разом
     text = series.where(~is_date).astype("string").str.strip()
     if date_format:
         result = pd.to_datetime(text, format=date_format, errors="coerce")
     else:
         result = pd.to_datetime(text, errors="coerce", dayfirst=True)
 
-    # Готовые даты просто подставляем
+    # подставляем готовые
     if is_date.any():
         result[is_date] = pd.to_datetime(series[is_date].astype("object"))
 
@@ -100,7 +83,7 @@ def to_dates(series, date_format=None):
 
 
 def has_value(series):
-    """True, если в ячейке что-то есть. Пусто - это None, NaN, "" и одни пробелы."""
+    """есть ли значение в ячейке"""
     not_nan = series.notna()
     not_blank = series.astype(str).str.strip() != ""
     return not_nan & not_blank

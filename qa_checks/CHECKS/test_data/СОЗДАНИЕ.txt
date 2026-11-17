@@ -1,0 +1,6 @@
+cd C:\Users\ИМЯ-АККАУНТА\Documents\GitHub\Practic5\qa_checks\CHECKS
+..\..\backend-python\venv\Scripts\python make_big_file.py ЧИСЛО-СТРОК
+
+В КОНЦЕ МОЖНО ПРИПИСАТЬ НУЖНЫЙ ФОРМАТ
+..\..\backend-python\venv\Scripts\python make_big_file.py 200000 xlsx     Excel на 200К
+..\..\backend-python\venv\Scripts\python make_big_file.py 500000 json     JSON на 500К

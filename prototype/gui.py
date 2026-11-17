@@ -7,7 +7,7 @@ from PyQt6.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout,
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont, QColor
 
-# Графики
+# графики
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 
@@ -16,7 +16,7 @@ from .quality_engine import DataQualityEngine
 from .report_gen import ReportGenerator
 
 
-# Поле для графика matplotlib
+# холст matplotlib
 class MplCanvas(FigureCanvas):
     def __init__(self, parent=None, width=5, height=4, dpi=100):
         fig = Figure(figsize=(width, height), dpi=dpi)
@@ -44,7 +44,7 @@ class DataQualityApp(QMainWindow):
         self.setCentralWidget(central_widget)
         main_layout = QVBoxLayout(central_widget)
 
-        # Верх: заголовок и выбор файла
+        # верх
         header_layout = QHBoxLayout()
 
         title_label = QLabel("Сервис аудита качества данных")
@@ -69,7 +69,7 @@ class DataQualityApp(QMainWindow):
 
         main_layout.addLayout(header_layout)
 
-        # Середина: вкладки
+        # вкладки
         self.tabs = QTabWidget()
         main_layout.addWidget(self.tabs)
 
@@ -81,7 +81,7 @@ class DataQualityApp(QMainWindow):
         self.setup_issues_tab()
         self.tabs.addTab(self.tab_issues, "Найденные ошибки")
 
-        # Низ: статус и сохранение
+        # низ
         footer_layout = QHBoxLayout()
 
         self.status_label = QLabel("Готов к работе")
@@ -102,7 +102,7 @@ class DataQualityApp(QMainWindow):
         main_layout.addLayout(footer_layout)
 
     def setup_summary_tab(self):
-        # Слева карточки, справа график
+        # карточки и график
         main_layout = QHBoxLayout(self.tab_summary)
 
         left_layout = QVBoxLayout()
@@ -213,13 +213,13 @@ class DataQualityApp(QMainWindow):
             self.btn_select.setEnabled(True)
 
     def update_ui_with_report(self, report):
-        # Карточки
+        # карточки
         self.lbl_total_rows.findChild(QLabel).setText(str(report.total_rows))
         self.lbl_total_errors.findChild(QLabel).setText(str(int(report.metrics['total_errors_found'])))
         self.lbl_quality_score.findChild(QLabel).setText(f"{report.metrics['quality_score']}%")
         self.lbl_completeness.findChild(QLabel).setText(f"{report.metrics['completeness_score']}%")
 
-        # Таблица
+        # таблица
         self.table.setRowCount(len(report.issues))
         for row, issue in enumerate(report.issues):
             self.table.setItem(row, 0, QTableWidgetItem(issue.check_type))
@@ -240,7 +240,7 @@ class DataQualityApp(QMainWindow):
 
             self.table.setItem(row, 4, QTableWidgetItem(str(issue.count)))
 
-        # График
+        # график
         self.canvas.axes.clear()
 
         if not report.issues:
@@ -248,12 +248,12 @@ class DataQualityApp(QMainWindow):
                                   ha='center', va='center', fontsize=14, color='green')
             self.canvas.axes.axis('off')
         else:
-            # {тип ошибки: сколько}
+            # {тип: сколько}
             issue_counts = {}
             for issue in report.issues:
                 issue_counts[issue.check_type] = issue_counts.get(issue.check_type, 0) + issue.count
 
-            # Русские подписи
+            # подписи
             labels_map = {
                 "missing_values": "Пропуски",
                 "duplicates": "Дубликаты",
@@ -268,7 +268,7 @@ class DataQualityApp(QMainWindow):
 
             bars = self.canvas.axes.bar(labels, counts, color=colors[:len(labels)])
 
-            # Числа над столбцами
+            # числа над столбцами
             for bar in bars:
                 yval = bar.get_height()
                 self.canvas.axes.text(bar.get_x() + bar.get_width()/2, yval, int(yval), 

@@ -13,14 +13,14 @@ class CSVLoader(BaseLoader):
         super().__init__(max_size_mb=max_size_mb)
 
     def _detect_encoding(self, file_path: str) -> str:
-        """Угадываем кодировку по первым 100 КБ."""
+        """кодировка"""
         with open(file_path, 'rb') as f:
             raw_data = f.read(100 * 1024)
             result = chardet.detect(raw_data)
             return result['encoding'] or 'utf-8'
 
     def _detect_delimiter(self, file_path: str, encoding: str) -> str:
-        """Угадываем разделитель."""
+        """разделитель"""
         with open(file_path, 'r', encoding=encoding, errors='ignore') as f:
             sample = f.read(4096)
             try:
@@ -36,7 +36,7 @@ class CSVLoader(BaseLoader):
 
         warnings: list[str] = []
         try:
-            # Читаем кусками, потом склеиваем
+            # кусками
             chunks: list[pd.DataFrame] = []
             for chunk in pd.read_csv(file_path, sep=delimiter, encoding=encoding, 
                                      chunksize=chunksize, low_memory=False):
@@ -49,7 +49,7 @@ class CSVLoader(BaseLoader):
             warnings.append(f"Проблемы с кодировкой: {e}. Прочитали как utf-8, битые символы заменили.")
             df = pd.read_csv(file_path, sep=delimiter, encoding='utf-8', encoding_errors='replace')
 
-        # Типы колонок
+        # типы колонок
         schema = {col: str(dtype) for col, dtype in df.dtypes.items()}
 
         metadata = LoadMetadata(

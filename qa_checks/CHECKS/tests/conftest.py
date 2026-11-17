@@ -1,4 +1,4 @@
-# Чтобы pytest видел папку checks/
+# путь к checks/
 import os
 import sys
 

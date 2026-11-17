@@ -9,7 +9,7 @@ class BaseLoader(ABC):
         self.max_size_bytes = int(max_size_mb * 1024 * 1024)
 
     def _validate_file(self, file_path: str, expected_mime_prefix: str) -> int:
-        """Проверяем, что файл есть, не слишком большой и нужного типа."""
+        """проверка файла"""
         if not os.path.exists(file_path):
             raise FileNotFoundError(f"Файл не найден: {file_path}")
 

@@ -1,8 +1,4 @@
-"""
-Тесты чтения кусками.
-
-Результат должен быть одинаковым, читаем ли мы файл целиком или по 3 строки.
-"""
+"""чтение кусками = целиком"""
 
 import datetime
 import os
@@ -31,7 +27,7 @@ CONFIG = {
 
 
 def short(issues):
-    """Оставляем главное, чтобы удобно сравнивать."""
+    """главное для сравнения"""
     return sorted((i["type"], str(i["column"]), i["count"], tuple(i["sample_rows"])) for i in issues)
 
 
@@ -43,7 +39,7 @@ def test_chunks_give_same_result_as_whole_file():
 
 
 def test_duplicate_in_different_chunks_is_found():
-    # Строка 1 и её копия (строка 8) попадают в разные куски по 3 строки
+    # копия в другом куске
     result = check_file(CLIENTS, CONFIG, chunk_size=3)
     dup = [i for i in result["issues"] if i["type"] == "duplicate_row"][0]
 
@@ -51,7 +47,7 @@ def test_duplicate_in_different_chunks_is_found():
 
 
 def test_row_numbers_are_global():
-    # Пустое имя в строке 9 (последний кусок) - номер должен быть 9, а не 0
+    # номер строки 9
     result = check_file(CLIENTS, CONFIG, chunk_size=3)
     missing_name = [i for i in result["issues"]
                     if i["type"] == "missing" and i["column"] == "name"][0]
@@ -61,7 +57,7 @@ def test_row_numbers_are_global():
 
 
 def test_count_is_full_even_if_more_than_5_errors(tmp_path):
-    # 20 пустых email - count должен быть 20, а примеров только 5
+    # 20 ошибок, 5 примеров
     path = tmp_path / "many.csv"
     pd.DataFrame({"email": [""] * 20, "x": range(20)}).to_csv(path, index=False)
 
@@ -79,7 +75,7 @@ def test_excel_file(tmp_path):
     ws.append(["id", "age", "start_date", "end_date"])
     ws.append([1, 25, datetime.date(2024, 1, 1), datetime.date(2024, 1, 10)])
     ws.append([2, -5, datetime.date(2024, 5, 10), datetime.date(2024, 5, 1)])  # возраст и даты
-    ws.append([1, None, "32.13.2024", datetime.date(2024, 1, 1)])              # дубль id, пусто, плохая дата
+    ws.append([1, None, "32.13.2024", datetime.date(2024, 1, 1)])              # дубль, пусто, дата
     wb.save(path)
 
     config = {
@@ -101,7 +97,7 @@ def test_excel_file(tmp_path):
 
 
 def test_semicolon_and_cp1251(tmp_path):
-    # Excel в России часто сохраняет CSV через ";" и в кодировке Windows-1251
+    # ; и cp1251
     path = tmp_path / "ru.csv"
     path.write_bytes("name;age\nАня;25\n;30\n".encode("cp1251"))
 

@@ -6,7 +6,7 @@ class DataLoader:
     @staticmethod
     def load_csv(file_path: str) -> pd.DataFrame:
         print(f"Читаем CSV: {file_path}")
-        # sep=None - pandas сам поймёт, запятая там или точка с запятой
+        # автоопределение разделителя
         return pd.read_csv(file_path, sep=None, engine='python', encoding='utf-8-sig')
 
     @staticmethod

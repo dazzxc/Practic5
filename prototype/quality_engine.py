@@ -38,15 +38,15 @@ class DataQualityEngine:
                 sample=[{k: (None if pd.isna(v) else v) for k, v in r.items()} for r in samples]
             ))
 
-    # Дата завершения не может быть раньше даты создания
+    # завершение не раньше создания
     def check_date_consistency(self):
-        # Только если такие колонки вообще есть
+        # если колонки есть
         if 'created_at' in self.df.columns and 'completed_at' in self.df.columns:
-            # Кривые даты станут NaT
+            # кривые -> NaT
             created = pd.to_datetime(self.df['created_at'], errors='coerce')
             completed = pd.to_datetime(self.df['completed_at'], errors='coerce')
 
-            # Пустые даты не считаем
+            # без пустых
             invalid_mask = (completed < created) & created.notna() & completed.notna()
             invalid_count = invalid_mask.sum()
 
@@ -62,10 +62,10 @@ class DataQualityEngine:
                     sample=clean_samples
                 ))
 
-    # Сумма не может быть отрицательной
+    # сумма >= 0
     def check_invalid_values(self):
         if 'amount' in self.df.columns:
-            # Текст станет NaN
+            # текст -> NaN
             amounts = pd.to_numeric(self.df['amount'], errors='coerce')
             negative_mask = amounts < 0
             negative_count = negative_mask.sum()
@@ -88,12 +88,12 @@ class DataQualityEngine:
         self.check_date_consistency()
         self.check_invalid_values()
 
-        # Полнота: доля заполненных ячеек
+        # полнота
         total_cells = self.total_rows * len(self.df.columns)
         total_missing = self.df.isna().sum().sum()
         completeness = ((total_cells - total_missing) / total_cells) * 100 if total_cells > 0 else 100
 
-        # Оценка качества: начинаем со 100 и снимаем баллы за каждую ошибку
+        # оценка: 100 минус штрафы
         penalty = 0
         for issue in self.issues:
             if issue.severity == 'high':

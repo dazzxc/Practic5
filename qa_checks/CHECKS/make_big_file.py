@@ -1,13 +1,4 @@
-"""
-Делает большой тестовый файл, чтобы проверить чтение кусками.
-
-Запуск:
-    python make_big_file.py 1000000          -> test_data/big.csv на 1 млн строк
-    python make_big_file.py 200000 xlsx      -> test_data/big.xlsx на 200 тыс. строк
-    python make_big_file.py 500000 json      -> test_data/big.json на 500 тыс. записей
-
-Ошибки добавлены специально, примерно по 1% строк каждого вида.
-"""
+"""большой тестовый файл: python make_big_file.py <строк> [csv|xlsx|json]"""
 
 import random
 import sys
@@ -29,7 +20,7 @@ def make_row(i):
     if r < 0.01:
         row[2] = ""                 # пустой email
     elif r < 0.02:
-        row[2] = "bad-email"        # неправильный email
+        row[2] = "bad-email"        # неверный email
     elif r < 0.03:
         row[3] = -1                 # плохой возраст
     elif r < 0.04:
@@ -47,7 +38,7 @@ if file_type == "xlsx":
     from openpyxl import Workbook
 
     path = "test_data/big.xlsx"
-    wb = Workbook(write_only=True)  # write_only, чтобы не держать всё в памяти
+    wb = Workbook(write_only=True)  # write_only - экономим память
     ws = wb.create_sheet()
     ws.append(HEADER)
     for i in range(rows):
@@ -57,7 +48,7 @@ elif file_type == "json":
     import json
 
     path = "test_data/big.json"
-    # Пишем по одной записи, чтобы не держать всё в памяти
+    # по одной записи
     with open(path, "w", encoding="utf-8") as f:
         f.write("[\n")
         for i in range(rows):

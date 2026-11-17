@@ -1,42 +1,29 @@
-"""
-Проверка 3: некорректные значения.
-
-Правила - обычный словарь:
-
-rules = {
-    "age":    {"type": "number", "min": 0, "max": 120},
-    "email":  {"type": "email"},
-    "birth":  {"type": "date"},
-    "gender": {"allowed": ["М", "Ж"]},
-}
-
-Пустые ячейки тут не трогаем, их уже ловит missing.py.
-"""
+"""проверка 3: некорректные значения"""
 
 import pandas as pd
 
 from checks.issue import make_issue, has_value, to_dates, to_number
 
-# Email в виде что-то@что-то.что-то
+# x@y.z
 EMAIL_PATTERN = r"^[^@\s]+@[^@\s]+\.[^@\s]+$"
 
 
 def check_number(df, column, rule):
-    """В колонке должны быть числа, и не выходить за min/max."""
+    """число в пределах min/max"""
     issues = []
     total = len(df)
     filled = has_value(df[column])
 
     numbers = to_number(df[column])
 
-    # Не число
+    # не число
     not_number = filled & numbers.isna()
     bad_rows = df.index[not_number].tolist()
     if bad_rows:
         issues.append(make_issue("wrong_type", column, bad_rows, total,
                                  f"В колонке '{column}' есть значения, которые не являются числом"))
 
-    # Вне диапазона
+    # вне диапазона
     out_of_range = pd.Series(False, index=df.index)
     if "min" in rule:
         out_of_range |= numbers < rule["min"]
@@ -52,7 +39,7 @@ def check_number(df, column, rule):
 
 
 def check_email(df, column):
-    """Похоже ли на email."""
+    """похоже на email"""
     filled = has_value(df[column])
     is_ok = df[column].astype(str).str.strip().str.match(EMAIL_PATTERN)
     bad_rows = df.index[filled & ~is_ok].tolist()
@@ -64,10 +51,7 @@ def check_email(df, column):
 
 
 def check_date(df, column, date_format=None):
-    """
-    Дата должна существовать (32.13.2024 - ошибка).
-    date_format - например "%d.%m.%Y"; не задан - pandas угадает сам.
-    """
+    """дата существует"""
     filled = has_value(df[column])
     dates = to_dates(df[column], date_format)
     bad_rows = df.index[filled & dates.isna()].tolist()
@@ -79,7 +63,7 @@ def check_date(df, column, date_format=None):
 
 
 def check_allowed(df, column, allowed):
-    """Значение должно быть из списка разрешённых."""
+    """значение из списка"""
     filled = has_value(df[column])
     allowed_str = [str(a) for a in allowed]
     is_ok = df[column].astype(str).str.strip().isin(allowed_str)
@@ -87,14 +71,14 @@ def check_allowed(df, column, allowed):
 
     if not bad_rows:
         return []
-    # Длинный список обрезаем, чтобы сообщение не разъезжалось
+    # обрезаем длинный список
     shown = ", ".join(allowed_str[:5]) + (", ..." if len(allowed_str) > 5 else "")
     return [make_issue("not_allowed", column, bad_rows, len(df),
                        f"В колонке '{column}' есть недопустимые значения (разрешены: {shown})")]
 
 
 def check_invalid(df, rules):
-    """Гоняем проверки по всем колонкам из rules."""
+    """проверки по rules"""
     issues = []
 
     for column, rule in rules.items():

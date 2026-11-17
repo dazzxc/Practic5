@@ -1,9 +1,4 @@
-"""
-Тесты чтения JSON.
-
-В clients.json те же данные, что в clients.csv, значит и ошибки должны совпасть
-(плюс один пустой город в address.city).
-"""
+"""тесты JSON"""
 
 import json
 import os
@@ -37,7 +32,7 @@ def test_json_finds_same_errors_as_csv():
     csv_issues = check_file(CLIENTS_CSV, CONFIG)["issues"]
     json_result = check_file(CLIENTS_JSON, CONFIG, chunk_size=3)
 
-    # В JSON есть ещё вложенное поле address.city, где один город пустой
+    # пустой address.city
     json_issues = [i for i in json_result["issues"] if i["column"] != "address.city"]
     assert short(json_issues) == short(csv_issues)
     assert "address.city" in json_result["columns"]
@@ -65,7 +60,7 @@ def test_json_lines(tmp_path):
 
 
 def test_wrapper_object(tmp_path):
-    # Список лежит внутри {"meta": ..., "data": [...]}
+    # список внутри обёртки
     path = tmp_path / "wrapped.json"
     data = {"meta": {"source": "crm"}, "data": [{"id": 1}, {"id": 2}, {"id": None}]}
     path.write_text(json.dumps(data), encoding="utf-8")
@@ -76,12 +71,12 @@ def test_wrapper_object(tmp_path):
 
 
 def test_field_appears_later(tmp_path):
-    # Поле "phone" есть только у последней записи -> у первых 4 оно пустое
+    # phone только у последней
     path = tmp_path / "late.json"
     data = [{"id": i} for i in range(4)] + [{"id": 4, "phone": "123"}]
     path.write_text(json.dumps(data), encoding="utf-8")
 
-    result = check_file(str(path), chunk_size=2)  # phone появится только в 3-й части
+    result = check_file(str(path), chunk_size=2)  # phone в 3-й части
     phone = [i for i in result["issues"] if i["column"] == "phone"][0]
 
     assert phone["count"] == 4
@@ -90,7 +85,7 @@ def test_field_appears_later(tmp_path):
 
 
 def test_numbers_stay_integers(tmp_path):
-    # id 7 не должен превращаться в 7.0, даже если где-то id пустой
+    # 7 не 7.0
     path = tmp_path / "ids.json"
     path.write_text(json.dumps([{"id": 7}, {"id": None}, {"id": 7}]), encoding="utf-8")
 

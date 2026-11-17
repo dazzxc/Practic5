@@ -4,11 +4,11 @@ import pandas as pd
 
 @dataclass
 class LoadMetadata:
-    """Что узнали о файле при загрузке."""
+    """сведения о файле"""
     file_name: str
     mime_type: str
     encoding: str | None
-    delimiter: str | None  # только для CSV
+    delimiter: str | None  # только CSV
     row_count: int
     column_count: int
     schema: dict[str, str] 
@@ -19,6 +19,6 @@ class LoadMetadata:
 
 @dataclass
 class LoadResult:
-    """Таблица + сведения о файле."""
+    """таблица + сведения"""
     df: pd.DataFrame
     metadata: LoadMetadata

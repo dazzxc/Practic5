@@ -13,7 +13,7 @@ class JSONLoader(BaseLoader):
         super().__init__(max_size_mb=max_size_mb)
 
     def _is_jsonl(self, file_path: str, encoding: str = 'utf-8') -> bool:
-        """JSON Lines или нет - смотрим по первой строке."""
+        """JSON Lines?"""
         with open(file_path, 'r', encoding=encoding) as f:
             first_line = f.readline().strip()
             try:
@@ -35,7 +35,7 @@ class JSONLoader(BaseLoader):
 
         try:
             if is_jsonl:
-                # JSON Lines читаем кусками
+                # JSON Lines кусками
                 chunks: list[pd.DataFrame] = []
                 with open(file_path, 'r', encoding=encoding) as f:
                     current_chunk: list[dict] = []
@@ -48,7 +48,7 @@ class JSONLoader(BaseLoader):
                         chunks.append(pd.DataFrame(current_chunk))
                 df = pd.concat(chunks, ignore_index=True) if chunks else pd.DataFrame()
             else:
-                # Обычный JSON: список объектов или один объект
+                # обычный JSON
                 with open(file_path, 'r', encoding=encoding) as f:
                     data = json.load(f)
                     if isinstance(data, list):

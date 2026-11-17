@@ -1,5 +1,4 @@
-# Отчёты храним прямо в памяти сервера.
-# Минус: после перезапуска бэкенда история пропадает.
+# отчёты в памяти, после перезапуска пропадут
 reports_db = {}
 
 
@@ -8,7 +7,7 @@ def save_report(report_id: str, report_data: dict):
 
 
 def get_all_reports():
-    # Свежие отчёты сверху
+    # свежие сверху
     return sorted(reports_db.values(), key=lambda r: r.get("created_at") or "", reverse=True)
 
 

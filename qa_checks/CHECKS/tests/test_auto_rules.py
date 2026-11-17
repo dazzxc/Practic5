@@ -1,6 +1,4 @@
-"""
-Автоправила: файл без настроек всё равно должен проверяться по всем 4 группам.
-"""
+"""автоправила"""
 
 import os
 
@@ -14,7 +12,7 @@ CLIENTS = os.path.join(HERE, "..", "test_data", "clients.csv")
 
 
 def test_clients_without_config_finds_all_4_categories():
-    result = check_file(CLIENTS)  # config не передаём
+    result = check_file(CLIENTS)  # без config
 
     assert result["auto_rules"] is True
     summary = result["summary"]
@@ -31,14 +29,14 @@ def test_every_issue_has_category():
 
 
 def test_transactions_like_file(tmp_path):
-    # Похоже на реальный файл, который загружали в приложение
+    # как реальный файл
     path = tmp_path / "transactions.csv"
     path.write_text(
         "transaction_id;customer_id;amount;created_at;completed_at\n"
         "1;100;50.5;2026-07-05 20:14:00;2026-07-10 20:14:00\n"
         "2;100;-10;2026-07-06 10:00:00;2026-07-07 10:00:00\n"      # отрицательная сумма
-        "3;100;abc;2026-07-07 10:00:00;2026-07-01 10:00:00\n"      # не число + конец раньше начала
-        "3;101;20;2026-07-08 10:00:00;2026-07-09 10:00:00\n"       # повтор transaction_id
+        "3;100;abc;2026-07-07 10:00:00;2026-07-01 10:00:00\n"      # не число + конец раньше
+        "3;101;20;2026-07-08 10:00:00;2026-07-09 10:00:00\n"       # повтор id
         "5;101;30;2026-13-45 10:00:00;2026-07-09 10:00:00\n",      # несуществующая дата
         encoding="utf-8",
     )
@@ -46,7 +44,7 @@ def test_transactions_like_file(tmp_path):
     types = {i["type"] for i in result["issues"]}
 
     assert "transaction_id" in result["config"]["key_columns"]
-    assert "customer_id" not in result["config"]["key_columns"]  # клиенты повторяются - это нормально
+    assert "customer_id" not in result["config"]["key_columns"]  # повтор клиента - норма
     assert {"out_of_range", "wrong_type", "wrong_date", "inconsistent", "duplicate_key"} <= types
 
 
@@ -66,7 +64,7 @@ def test_text_column_is_not_checked_as_number():
 
 
 def test_rare_value_in_list_is_error():
-    # 300 строк: BUY/SELL, и одна опечатка "BYU"
+    # опечатка BYU
     values = ["BUY", "SELL"] * 150
     values[10] = "BYU"
     df = pd.DataFrame({"intent": values})
@@ -76,7 +74,7 @@ def test_rare_value_in_list_is_error():
 
 
 def test_given_config_is_used_as_is():
-    # Если правила переданы, автоправила не включаются
+    # ручные правила без автоподбора
     result = check_file(CLIENTS, {"key_columns": ["id"]})
     assert result["auto_rules"] is False
     assert result["summary"]["invalid"] == 0

@@ -1,8 +1,4 @@
-"""
-Тесты проверок. Запуск из папки qa_checks: pytest
-
-Делаем маленькую таблицу, где заранее знаем все ошибки, и смотрим, что их нашли.
-"""
+"""тесты проверок"""
 
 import pandas as pd
 
@@ -12,18 +8,18 @@ from checks.invalid import check_invalid
 from checks.consistency import check_consistency
 
 
-# ---------- 1. Пропуски ----------
+# 1. пропуски
 
 def test_missing_finds_none_nan_and_empty_string():
     df = pd.DataFrame({
-        "name": ["Аня", None, "Петя", "   "],  # 2 пропуска: None и пробелы
-        "age": [20, 30, float("nan"), 40],    # 1 пропуск: NaN
+        "name": ["Аня", None, "Петя", "   "],  # None и пробелы
+        "age": [20, 30, float("nan"), 40],    # NaN
         "city": ["Москва", "Казань", "Сочи", "Омск"],  # без пропусков
     })
     issues = check_missing(df)
 
     by_column = {i["column"]: i for i in issues}
-    assert set(by_column) == {"name", "age"}      # city не должно быть
+    assert set(by_column) == {"name", "age"}      # city нет
     assert by_column["name"]["count"] == 2
     assert by_column["name"]["sample_rows"] == [1, 3]
     assert by_column["age"]["count"] == 1
@@ -35,7 +31,7 @@ def test_missing_nothing_found():
     assert check_missing(df) == []
 
 
-# ---------- 2. Дубликаты ----------
+# 2. дубликаты
 
 def test_full_duplicates():
     df = pd.DataFrame({"id": [1, 2, 1], "name": ["Аня", "Петя", "Аня"]})
@@ -43,7 +39,7 @@ def test_full_duplicates():
 
     assert len(issues) == 1
     assert issues[0]["type"] == "duplicate_row"
-    assert issues[0]["sample_rows"] == [2]  # копия - третья строка
+    assert issues[0]["sample_rows"] == [2]  # копия
 
 
 def test_key_duplicates():
@@ -51,11 +47,11 @@ def test_key_duplicates():
     issues = check_duplicates(df, key_columns=["id"])
 
     types = [i["type"] for i in issues]
-    assert "duplicate_row" not in types  # строки разные (имена другие)
+    assert "duplicate_row" not in types  # строки разные
     assert "duplicate_key" in types
 
 
-# ---------- 3. Некорректные значения ----------
+# 3. некорректные
 
 def test_number_type_and_range():
     df = pd.DataFrame({"age": ["25", "abc", "-5", "300", None]})
@@ -64,7 +60,7 @@ def test_number_type_and_range():
     by_type = {i["type"]: i for i in issues}
     assert by_type["wrong_type"]["sample_rows"] == [1]       # "abc"
     assert by_type["out_of_range"]["sample_rows"] == [2, 3]  # -5 и 300
-    # None не считается ошибкой здесь (это работа missing.py)
+    # None - не здесь
 
 
 def test_email_format():
@@ -89,12 +85,12 @@ def test_allowed_values():
     assert issues[0]["sample_rows"] == [2]
 
 
-# ---------- 4. Несогласованности ----------
+# 4. несогласованности
 
 def test_end_date_before_start_date():
     df = pd.DataFrame({
         "start": ["01.01.2024", "10.05.2024"],
-        "end": ["05.01.2024", "01.05.2024"],  # во второй строке конец раньше начала
+        "end": ["05.01.2024", "01.05.2024"],  # конец раньше начала
     })
     issues = check_consistency(df, [{"rule": "dates_order", "start": "start", "end": "end",
                                      "format": "%d.%m.%Y"}])
@@ -103,7 +99,7 @@ def test_end_date_before_start_date():
 
 
 def test_total_not_equal_price_times_quantity():
-    df = pd.DataFrame({"price": [100, 20], "qty": [2, 4], "total": [200, 100]})  # 20*4=80, а не 100
+    df = pd.DataFrame({"price": [100, 20], "qty": [2, 4], "total": [200, 100]})  # 20*4 != 100
     issues = check_consistency(df, [{"rule": "total", "price": "price",
                                      "quantity": "qty", "total": "total"}])
 

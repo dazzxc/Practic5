@@ -1,19 +1,4 @@
-"""
-Делает небольшие демо-файлы для защиты.
-
-Запуск (из папки qa_checks/qa_checks):
-    python make_demo_files.py
-
-Файлы появятся в test_data/:
-    demo_orders.xlsx           - заказы магазина (Excel)
-    demo_employees.json        - сотрудники (JSON со вложенным адресом)
-    demo_transactions_1c.csv   - выгрузка как из 1С (разделитель ";", кодировка Windows-1251,
-                                 русские названия колонок, дробные числа через запятую)
-    demo_clean.csv             - чистый файл без ошибок
-
-Во всех файлах, кроме demo_clean.csv, специально заложены ошибки всех 4 видов:
-пропуски, дубликаты, некорректные значения и несогласованности.
-"""
+"""демо-файлы для защиты в test_data/"""
 
 import csv
 import datetime as dt
@@ -22,7 +7,7 @@ import random
 
 from openpyxl import Workbook
 
-random.seed(2026)  # чтобы файлы каждый раз получались одинаковые
+random.seed(2026)  # одинаковый результат
 
 FIRST_NAMES = ["Анна", "Иван", "Мария", "Пётр", "Ольга", "Дмитрий", "Елена", "Сергей",
                "Наталья", "Алексей", "Татьяна", "Михаил", "Юлия", "Андрей", "Светлана"]
@@ -44,14 +29,12 @@ def latin_login(i):
 
 
 def pick_rows(total, count, exclude=()):
-    """Случайные строки под ошибки (без повторов и без exclude)."""
+    """случайные строки без повторов"""
     candidates = [i for i in range(total) if i not in exclude]
     return set(random.sample(candidates, count))
 
 
-# ---------------------------------------------------------------------------
-# 1. Заказы магазина (Excel)
-# ---------------------------------------------------------------------------
+# 1. заказы (Excel)
 
 def make_orders(path, rows=500):
     statuses = ["Новый", "Оплачен", "Отправлен", "Доставлен"]
@@ -98,9 +81,9 @@ def make_orders(path, rows=500):
     for i in take(2):
         data[i]["status"] = "Доставлне"                      # опечатка в статусе
     for i in take(4):
-        data[i]["order_id"] = data[i - 1]["order_id"]        # повтор номера заказа
+        data[i]["order_id"] = data[i - 1]["order_id"]        # повтор номера
 
-    data += [dict(data[7]), dict(data[42])]                   # 2 полностью одинаковые строки
+    data += [dict(data[7]), dict(data[42])]                   # 2 одинаковые строки
 
     wb = Workbook()
     ws = wb.active
@@ -116,9 +99,7 @@ def make_orders(path, rows=500):
     return len(data)
 
 
-# ---------------------------------------------------------------------------
-# 2. Сотрудники (JSON)
-# ---------------------------------------------------------------------------
+# 2. сотрудники (JSON)
 
 def make_employees(path, rows=300):
     departments = ["Бухгалтерия", "IT", "Продажи", "Склад", "HR"]
@@ -164,21 +145,19 @@ def make_employees(path, rows=300):
     for i in take(8):
         data[i]["address"]["city"] = None                    # пропуск во вложенном поле
     for i in take(3):
-        data[i]["employee_id"] = data[i - 1]["employee_id"]  # повтор табельного номера
+        data[i]["employee_id"] = data[i - 1]["employee_id"]  # повтор табельного
 
-    data.append(json.loads(json.dumps(data[15])))            # полный дубль сотрудника
+    data.append(json.loads(json.dumps(data[15])))            # полный дубль
 
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
     return len(data)
 
 
-# ---------------------------------------------------------------------------
-# 3. Выгрузка как из 1С (CSV, ";", Windows-1251, запятая в дробях)
-# ---------------------------------------------------------------------------
+# 3. выгрузка 1С (CSV, ;, cp1251)
 
 def money(value):
-    """12345.5 -> '12345,50' (так пишет 1С)."""
+    """12345.5 -> '12345,50'"""
     return f"{value:.2f}".replace(".", ",")
 
 
@@ -225,9 +204,9 @@ def make_transactions_1c(path, rows=400):
     for i in take(3):
         data[i][3] = "много"                                 # текст вместо числа
     for i in take(4):
-        data[i][0] = data[i - 1][0]                          # повтор номера документа
+        data[i][0] = data[i - 1][0]                          # повтор документа
 
-    data += [list(data[10]), list(data[200])]                 # 2 полностью одинаковые строки
+    data += [list(data[10]), list(data[200])]                 # 2 одинаковые строки
 
     with open(path, "w", newline="", encoding="cp1251") as f:
         writer = csv.writer(f, delimiter=";")
@@ -236,9 +215,7 @@ def make_transactions_1c(path, rows=400):
     return len(data)
 
 
-# ---------------------------------------------------------------------------
-# 4. Чистый файл без ошибок (CSV)
-# ---------------------------------------------------------------------------
+# 4. чистый файл (CSV)
 
 def make_clean(path, rows=200):
     categories = ["Электроника", "Аксессуары", "Офис"]

@@ -8,7 +8,7 @@ router = APIRouter()
 
 @router.post("/export/json")
 async def export_json(report_data: dict):
-    """Отдаёт отчёт файлом .json."""
+    """отчёт в .json"""
     try:
         json_str = json.dumps(report_data, ensure_ascii=False, indent=2)
         return Response(
@@ -22,9 +22,9 @@ async def export_json(report_data: dict):
 
 @router.post("/export/excel")
 async def export_excel(report_data: dict):
-    """Отдаёт отчёт файлом .xlsx: лист со сводкой и лист с ошибками."""
+    """отчёт в .xlsx"""
     try:
-        # Лист 1: сводка
+        # лист 1: сводка
         profile = report_data.get("profile", {})
         summary_data = {
             "Метрика": ["Имя файла", "Всего строк", "Колонок", "Пропуски", "Дубликаты",
@@ -42,11 +42,11 @@ async def export_excel(report_data: dict):
         }
         df_summary = pd.DataFrame(summary_data)
 
-        # Лист 2: ошибки
+        # лист 2: ошибки
         issues = report_data.get("issues", [])
         if issues:
             df_issues = pd.DataFrame(issues)
-            # Название группы по-русски (в старых отчётах поля category нет)
+            # название группы
             category_names = {
                 "missing": "Пропуски",
                 "duplicate": "Дубликаты",
@@ -56,7 +56,7 @@ async def export_excel(report_data: dict):
             if "category" not in df_issues.columns:
                 df_issues["category"] = ""
             df_issues["category"] = df_issues["category"].map(category_names).fillna("")
-            # Русские названия колонок
+            # названия колонок
             df_issues = df_issues.rename(columns={
                 "category": "Группа",
                 "type": "Тип ошибки",
@@ -68,7 +68,7 @@ async def export_excel(report_data: dict):
         else:
             df_issues = pd.DataFrame({"Информация": ["Ошибок не найдено"]})
 
-        # Собираем оба листа в один файл
+        # собираем файл
         output = io.BytesIO()
         with pd.ExcelWriter(output, engine='openpyxl') as writer:
             df_summary.to_excel(writer, sheet_name='Сводка', index=False)

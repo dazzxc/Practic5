@@ -1,11 +1,4 @@
-"""
-Проверить файл из консоли, без сайта. Правила подбираются сами.
-
-python run.py                                 - тестовый clients.csv
-python run.py путь/к/файлу.csv                - свой файл
-python run.py путь/к/файлу.xlsx 50000         - свой размер куска
-python run.py путь/к/файлу.csv 15000 manual   - правила из MANUAL_CONFIG ниже
-"""
+"""проверка из консоли: python run.py [файл] [размер_куска] [manual]"""
 
 import json
 import sys
@@ -19,7 +12,7 @@ chunk_size = int(sys.argv[2]) if len(sys.argv) > 2 else DEFAULT_CHUNK_SIZE
 
 use_manual = len(sys.argv) > 3 and sys.argv[3] == "manual"
 
-# Пример правил вручную (под clients.csv и big.csv), работают только с флагом manual
+# ручные правила, только с флагом manual
 MANUAL_CONFIG = {
     "key_columns": ["id"],
     "invalid_rules": {
@@ -41,7 +34,7 @@ def show_progress(rows_done):
 
 
 started = time.time()
-config = MANUAL_CONFIG if use_manual else None  # None - подобрать самим
+config = MANUAL_CONFIG if use_manual else None  # None - автоподбор
 result = check_file(file_path, config, chunk_size=chunk_size, on_progress=show_progress)
 seconds = round(time.time() - started, 1)
 

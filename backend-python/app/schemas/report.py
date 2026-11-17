@@ -13,8 +13,8 @@ class Report(BaseModel):
     issues: list[Issue]
     total_issues: int = 0
     recommendations: list[str] = Field(default_factory=list)
-    # Какие правила использовались и подобраны ли они сами
+    # правила и автоподбор
     applied_rules: Optional[dict[str, Any]] = None
     auto_rules: bool = False
-    # Время проверки, например "2026-11-15T14:58:03"
+    # время проверки
     created_at: Optional[str] = None

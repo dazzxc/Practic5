@@ -12,7 +12,7 @@ def run_prototype():
 
     file_path = input("Путь к CSV-файлу (например, data.csv): ").strip()
 
-    # Если файл перетащили в терминал, путь будет в кавычках - убираем их
+    # убираем кавычки
     file_path = file_path.strip("'\"")
 
     if not os.path.exists(file_path):

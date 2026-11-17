@@ -55,7 +55,7 @@ def test_json_loader_success(temp_jsonl_file):
 
 
 def test_size_limit_exceeded(temp_csv_file):
-    loader = CSVLoader(max_size_mb=0.0001)  # лимит около 100 байт
+    loader = CSVLoader(max_size_mb=0.0001)  # лимит ~100 байт
     with pytest.raises(ValueError, match="превышает лимит размера"):
         loader.load(temp_csv_file)
 
