@@ -12,11 +12,9 @@ function Recommendations({ issues = [] }) {
   return (
     <section className="recommendations-section">
       <h2 className="recommendations-title">Рекомендации по исправлению</h2>
-
       {recommendations.length === 0 ? (
         <div className="recommendation-success">
           <div className="success-icon">✓</div>
-
           <div>
             <h3>Ошибки не обнаружены</h3>
             <p>Данные успешно прошли проверку, исправления не требуются!</p>
@@ -30,14 +28,12 @@ function Recommendations({ issues = [] }) {
                 className="recommendation-indicator"
                 style={{ backgroundColor: item.color }}
               />
-
               <div className="recommendation-content">
                 <div className="recommendation-header">
                   <h3>{item.title}</h3>
                 </div>
                 <p>{item.text}</p>
               </div>
-
             </div>
           ))}
         </div>

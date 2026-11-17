@@ -24,7 +24,7 @@ start "Backend API" cmd /k "cd /d "%~dp0backend-python" && venv\Scripts\activate
 timeout /t 3 /nobreak >nul
 
 echo [2/2] Запуск Frontend (React)...
-start "Frontend" cmd /k "cd /d "%~dp0Practic" && npm run dev -- --host"
+start "Frontend" cmd /k "cd /d "%~dp0ReactHost" && npm run dev -- --host"
 
 timeout /t 5 /nobreak >nul
 echo.

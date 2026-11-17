@@ -47,9 +47,7 @@ function DataDistribution({ report }) {
   );
 
   const errorPercentage = 100 - correctPercentage;
-
   let currentAngle = correctPercentage * 3.6;
-
   const gradientParts = [];
 
   if (correctPercentage > 0) {
@@ -83,39 +81,32 @@ function DataDistribution({ report }) {
     <section className="distribution-section">
       <div className="distribution-card">
         <h2 className="distribution-title">Распределение данных</h2>
-
         <div className="distribution-content">
           <div
             className="donut-chart"
-            style={{ background: gradient }}
-          >
+            style={{ background: gradient }}>
             <div className="donut-center">
               <span className="donut-total">
                 {correctPercentage.toFixed(1)}%
               </span>
-
               <span className="donut-label">
                 корректных данных
               </span>
             </div>
           </div>
-
           <div className="distribution-legend">
             <div className="legend-item">
               <span
                 className="legend-color"
                 style={{ backgroundColor: CORRECT_COLOR }}
               />
-
               <span className="legend-label">
                 Корректные данные
               </span>
-
               <span className="legend-value">
                 {correctPercentage.toFixed(1)}%
               </span>
             </div>
-
             {distribution.map((item) => {
               const percentage =
                 totalErrors > 0
@@ -131,11 +122,9 @@ function DataDistribution({ report }) {
                     className="legend-color"
                     style={{ backgroundColor: item.color }}
                   />
-
                   <span className="legend-label">
                     {item.label}
                   </span>
-
                   <span className="legend-value">
                     {percentage.toFixed(1)}%
                   </span>
@@ -145,12 +134,10 @@ function DataDistribution({ report }) {
           </div>
         </div>
       </div>
-
       <div className="error-types-card">
         <h2 className="distribution-title">
           Типы ошибок
         </h2>
-
         <div className="error-types-list">
           {ERROR_TYPES.map((item) => (
             <div
@@ -161,7 +148,6 @@ function DataDistribution({ report }) {
                 className="legend-color"
                 style={{ backgroundColor: item.color }}
               />
-
               <span className="error-type-label">
                 {item.label}
               </span>

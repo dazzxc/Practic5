@@ -38,11 +38,8 @@ function ReportView({ report }) {
           <span className="kpi-value info">{report.total_issues}</span>
         </div>
       </div>
-
       <DataDistribution report={report} />
-
       <Recommendations issues={report.issues} />
-
       <h3>Найденные проблемы</h3>
       <table className="issues-table">
         <thead>
