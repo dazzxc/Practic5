@@ -10,6 +10,12 @@ from app.schemas.profile import DataProfile
 from app.schemas.common import Issue
 from app.services.dataset_registry import get_dataset
 from app.services.report_registry import save_report
+from app.services.cache_service import (
+    get_file_hash,
+    make_cache_key,
+    get_cached_report,
+    save_cached_report
+)
 
 # путь к движку проверок
 current_dir = Path(__file__).resolve().parent
@@ -18,7 +24,6 @@ qa_checks_path = current_dir.parents[2] / "qa_checks" / "CHECKS"
 if not (qa_checks_path / "checks" / "__init__.py").exists():
     raise RuntimeError(f"Не нашёл движок проверок в папке {qa_checks_path}. Если папку переименовали, поправь путь здесь.")
 
-# в начало, чтобы не перехватили
 sys.path.insert(0, str(qa_checks_path))
 
 try:
@@ -28,7 +33,7 @@ try:
 except ImportError as e:
     raise RuntimeError(f"Не удалось импортировать check_file. Ошибка: {e}")
 
-# советы по группам
+
 RECOMMENDATIONS = {
     "missing": "Заполните пустые ячейки корректными значениями или удалите неполные строки.",
     "duplicate": "Удалите повторяющиеся строки и проверьте уникальность ключевых полей (id).",
@@ -47,7 +52,6 @@ def _get_file(dataset_id):
 
 
 def suggest_file_rules(dataset_id: str) -> dict:
-    """автоправила и колонки для настройки на сайте"""
     dataset = _get_file(dataset_id)
     try:
         first_chunk = next(iter(read_in_chunks(str(dataset["file_path"]))), None)
@@ -64,11 +68,28 @@ def suggest_file_rules(dataset_id: str) -> dict:
     }
 
 
+
 def run_data_analysis(request: AnalysisRequest) -> Report:
     dataset = _get_file(request.dataset_id)
     file_path = dataset["file_path"]
 
-    # None - автоподбор
+    # ========== КЭШИРОВАНИЕ ==========
+    file_hash = get_file_hash(file_path)
+    cache_key = make_cache_key(file_hash, request.config, request.groups)
+
+    cached = get_cached_report(cache_key)
+    if cached:
+        # Берём из кэша, но всё равно добавляем в историю как новый отчёт
+        report = Report(**cached)
+        
+        # Создаём новый ID и время, чтобы в истории это была отдельная запись
+        report.report_id = str(uuid.uuid4())
+        report.created_at = datetime.now().isoformat(timespec="seconds")
+        
+        save_report(report.report_id, report.model_dump())
+        return report
+    # ================================
+
     config_to_use = request.config if request.config else None
 
     try:
@@ -76,7 +97,7 @@ def run_data_analysis(request: AnalysisRequest) -> Report:
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Ошибка при анализе: {str(e)}")
 
-    # только выбранные группы
+    # Фильтрация по выбранным группам
     raw_issues = raw_result["issues"]
     if request.groups is not None:
         raw_issues = [i for i in raw_issues if i.get("category") in request.groups]
@@ -96,10 +117,10 @@ def run_data_analysis(request: AnalysisRequest) -> Report:
             recommendation=RECOMMENDATIONS.get(category, "Рекомендуется проверить эти строки"),
         ))
 
-    # ошибки по группам
     summary = {category: 0 for category in RECOMMENDATIONS}
     for issue in raw_issues:
-        summary[issue.get("category", "invalid")] = summary.get(issue.get("category", "invalid"), 0) + issue["count"]
+        cat = issue.get("category", "invalid")
+        summary[cat] = summary.get(cat, 0) + issue["count"]
 
     profile = DataProfile(
         file_name=dataset["file_name"],
@@ -113,7 +134,6 @@ def run_data_analysis(request: AnalysisRequest) -> Report:
         inconsistencies=summary.get("inconsistency", 0),
     )
 
-    # советы только по найденным
     recommendations = [text for category, text in RECOMMENDATIONS.items() if summary.get(category)]
     if not recommendations:
         recommendations = ["Ошибок не найдено, данные в хорошем состоянии."]
@@ -131,5 +151,12 @@ def run_data_analysis(request: AnalysisRequest) -> Report:
         created_at=datetime.now().isoformat(timespec="seconds"),
     )
 
-    save_report(report.report_id, report.model_dump())
+    report_dict = report.model_dump()
+
+    # Сохраняем в кэш
+    save_cached_report(cache_key, report_dict)
+
+    # Сохраняем в обычную историю
+    save_report(report.report_id, report_dict)
+
     return report

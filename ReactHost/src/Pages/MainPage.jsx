@@ -56,6 +56,8 @@ function MainPage() {
   // счётчик, чтобы рамка не мигала
   const dragCounter = useRef(0);
 
+  const [progress, setProgress] = useState(0);
+
   // настройки проверки
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [groups, setGroups] = useState(CATEGORY_ORDER);
@@ -179,41 +181,68 @@ function MainPage() {
   };
 
   const handleAnalyze = async () => {
-    if (!file) {
-      setError("Пожалуйста, выберите файл для анализа.");
-      return;
-    }
+  if (!file) {
+    setError("Пожалуйста, выберите файл для анализа.");
+    return;
+  }
 
-    setLoading(true);
-    setError("");
+  setLoading(true);
+  setError("");
+  setProgress(0);
+
+  try {
+    setStatusText("Загрузка файла на сервер...");
+    const datasetId = await uploadFile();
+
+    setStatusText("Запуск проверки...");
     
-    try {
-      setStatusText("Загрузка файла на сервер...");
-      const datasetId = await uploadFile();
+    // 1. Запускаем задачу
+    const startRes = await fetch("/api/run-check", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        dataset_id: datasetId,
+        groups: groups.length === CATEGORY_ORDER.length ? null : groups,
+        config: ruleMode === "manual" && rules ? rules : null,
+      }),
+    });
 
-      setStatusText("Анализ данных...");
-      const analyzeRes = await fetch("/api/run-check", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          dataset_id: datasetId,
-          // null - все группы и автоподбор
-          groups: groups.length === CATEGORY_ORDER.length ? null : groups,
-          config: ruleMode === "manual" && rules ? rules : null,
-        }),
-      });
+    if (!startRes.ok) throw new Error("Ошибка при запуске проверки");
+    const startData = await startRes.json();
+    const taskId = startData.task_id;
 
-      if (!analyzeRes.ok) throw new Error("Ошибка при анализе данных");
-      const reportData = await analyzeRes.json();
+    // 2. Поллим статус
+    const poll = async () => {
+      const res = await fetch(`/api/tasks/${taskId}`);
+      if (!res.ok) throw new Error("Ошибка при получении статуса");
 
-      setReport(reportData);
-      setStatusText("");
-    } catch (err) {
-      setError(err.message || "Произошла ошибка");
-    } finally {
-      setLoading(false);
-    }
-  };
+      const data = await res.json();
+
+      setProgress(data.progress || 0);
+      setStatusText(data.message || "Проверка...");
+
+      if (data.status === "completed") {
+        setReport(data.report);
+        setStatusText("");
+        setLoading(false);
+        setProgress(100);
+        return;
+      }
+
+      if (data.status === "failed") {
+        throw new Error(data.error || "Ошибка при проверке");
+      }
+
+      // Продолжаем опрашивать
+      setTimeout(poll, 800);
+    };
+
+    poll();
+  } catch (err) {
+    setError(err.message || "Произошла ошибка");
+    setLoading(false);
+  }
+};
 
   return (
     <section className={pageStyles.page}>
@@ -264,6 +293,27 @@ function MainPage() {
             </>
           ) : (file ? "Запустить аудит" : "Выбрать файл")}
         </button>
+        {loading && (
+  <div style={{ marginTop: 16, width: "100%" }}>
+    <div style={{ marginBottom: 6, fontSize: 14 }}>{statusText}</div>
+    <div style={{
+      height: 8,
+      background: "#e5e7eb",
+      borderRadius: 4,
+      overflow: "hidden"
+    }}>
+      <div style={{
+        width: `${progress}%`,
+        height: "100%",
+        background: "#4f46e5",
+        transition: "width 0.3s ease"
+      }} />
+    </div>
+    <div style={{ marginTop: 4, fontSize: 13, color: "#6b7280" }}>
+      {progress}%
+    </div>
+  </div>
+)}
         {error && <p className={styles.errorText}>{error}</p>}
       </div>
       {file && (
