@@ -23,6 +23,8 @@ sys.path.insert(0, str(qa_checks_path))
 
 try:
     from checks import check_file
+    from checks.auto_rules import DATE_FORMATS, suggest_rules
+    from checks.reader import read_in_chunks
 except ImportError as e:
     raise RuntimeError(f"Не удалось импортировать check_file. Ошибка: {e}")
 
@@ -35,16 +37,36 @@ RECOMMENDATIONS = {
 }
 
 
-def run_data_analysis(request: AnalysisRequest) -> Report:
-    dataset = get_dataset(request.dataset_id)
-
+def _get_file(dataset_id):
+    dataset = get_dataset(dataset_id)
     if dataset is None:
         raise HTTPException(status_code=404, detail="Dataset not found")
-
-    file_path = dataset["file_path"]
-
-    if not file_path.exists():
+    if not dataset["file_path"].exists():
         raise HTTPException(status_code=404, detail="Dataset file does not exist")
+    return dataset
+
+
+def suggest_file_rules(dataset_id: str) -> dict:
+    """автоправила и колонки для настройки на сайте"""
+    dataset = _get_file(dataset_id)
+    try:
+        first_chunk = next(iter(read_in_chunks(str(dataset["file_path"]))), None)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Ошибка при чтении файла: {str(e)}")
+
+    if first_chunk is None:
+        return {"columns": [], "rules": {"key_columns": [], "invalid_rules": {}, "consistency_rules": []}, "date_formats": DATE_FORMATS}
+
+    return {
+        "columns": [str(c) for c in first_chunk.columns],
+        "rules": suggest_rules(first_chunk),
+        "date_formats": DATE_FORMATS,
+    }
+
+
+def run_data_analysis(request: AnalysisRequest) -> Report:
+    dataset = _get_file(request.dataset_id)
+    file_path = dataset["file_path"]
 
     # None - автоподбор
     config_to_use = request.config if request.config else None
@@ -54,8 +76,13 @@ def run_data_analysis(request: AnalysisRequest) -> Report:
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Ошибка при анализе: {str(e)}")
 
+    # только выбранные группы
+    raw_issues = raw_result["issues"]
+    if request.groups is not None:
+        raw_issues = [i for i in raw_issues if i.get("category") in request.groups]
+
     mapped_issues = []
-    for raw_issue in raw_result["issues"]:
+    for raw_issue in raw_issues:
         category = raw_issue.get("category", "invalid")
         mapped_issues.append(Issue(
             type=raw_issue["type"],
@@ -70,7 +97,9 @@ def run_data_analysis(request: AnalysisRequest) -> Report:
         ))
 
     # ошибки по группам
-    summary = raw_result.get("summary", {})
+    summary = {category: 0 for category in RECOMMENDATIONS}
+    for issue in raw_issues:
+        summary[issue.get("category", "invalid")] = summary.get(issue.get("category", "invalid"), 0) + issue["count"]
 
     profile = DataProfile(
         file_name=dataset["file_name"],
@@ -98,6 +127,7 @@ def run_data_analysis(request: AnalysisRequest) -> Report:
         recommendations=recommendations,
         applied_rules=raw_result.get("config"),
         auto_rules=raw_result.get("auto_rules", False),
+        checked_groups=request.groups,
         created_at=datetime.now().isoformat(timespec="seconds"),
     )
 

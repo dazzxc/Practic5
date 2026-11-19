@@ -18,3 +18,5 @@ class Report(BaseModel):
     auto_rules: bool = False
     # время проверки
     created_at: Optional[str] = None
+    # какие группы искали, None - все
+    checked_groups: Optional[list[str]] = None

@@ -2,6 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import pageStyles from "./Page.module.css";
 import styles from "./MainPage.module.css";
 import ReportView from "../components/ReportView";
+import CheckSettings from "../components/CheckSettings";
+import { CATEGORY_ORDER } from "../utils/issueCategories";
 
 const SCROLL_DURATION = 1200; // длительность прокрутки, мс
 const SCROLL_OFFSET = 40;     // отступ над отчётом
@@ -54,6 +56,18 @@ function MainPage() {
   // счётчик, чтобы рамка не мигала
   const dragCounter = useRef(0);
 
+  // настройки проверки
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [groups, setGroups] = useState(CATEGORY_ORDER);
+  const [ruleMode, setRuleMode] = useState("auto");
+  const [rules, setRules] = useState(null);
+  const [autoRules, setAutoRules] = useState(null);
+  const [columns, setColumns] = useState([]);
+  const [dateFormats, setDateFormats] = useState([]);
+  const [rulesLoading, setRulesLoading] = useState(false);
+  // файл уже на сервере: { file, id }
+  const uploadedRef = useRef(null);
+
   const fileInputRef = useRef(null);
   const reportRef = useRef(null); // цель прокрутки
 
@@ -66,11 +80,62 @@ function MainPage() {
     }
   }, [report]);
 
+  // новый файл - правила старого не подходят
+  const selectFile = (newFile) => {
+    setFile(newFile);
+    setError("");
+    setReport(null);
+    setRules(null);
+    setAutoRules(null);
+    setRuleMode("auto");
+    uploadedRef.current = null;
+  };
+
+  const uploadFile = async () => {
+    if (uploadedRef.current?.file === file) return uploadedRef.current.id;
+
+    const formData = new FormData();
+    formData.append("file", file);
+    const uploadRes = await fetch("/api/upload", { method: "POST", body: formData });
+    if (!uploadRes.ok) throw new Error("Ошибка при загрузке файла");
+    const uploadData = await uploadRes.json();
+
+    uploadedRef.current = { file, id: uploadData.dataset_id };
+    return uploadData.dataset_id;
+  };
+
+  const loadRules = async () => {
+    setRulesLoading(true);
+    setError("");
+    try {
+      const datasetId = await uploadFile();
+      const res = await fetch("/api/suggest-rules", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ dataset_id: datasetId }),
+      });
+      if (!res.ok) throw new Error("Не удалось прочитать колонки файла");
+      const data = await res.json();
+      setRules(data.rules);
+      setAutoRules(data.rules);
+      setColumns(data.columns);
+      setDateFormats(data.date_formats);
+    } catch (err) {
+      setError(err.message || "Произошла ошибка");
+      setRuleMode("auto");
+    } finally {
+      setRulesLoading(false);
+    }
+  };
+
+  const handleModeChange = (mode) => {
+    setRuleMode(mode);
+    if (mode === "manual" && !rules) loadRules();
+  };
+
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
-      setFile(e.target.files[0]);
-      setError("");
-      setReport(null);
+      selectFile(e.target.files[0]);
     }
   };
 
@@ -109,9 +174,7 @@ function MainPage() {
 
     const droppedFile = e.dataTransfer.files && e.dataTransfer.files[0];
     if (droppedFile) {
-      setFile(droppedFile);
-      setError("");
-      setReport(null);
+      selectFile(droppedFile);
     }
   };
 
@@ -126,22 +189,18 @@ function MainPage() {
     
     try {
       setStatusText("Загрузка файла на сервер...");
-      const formData = new FormData();
-      formData.append("file", file);
-
-      const uploadRes = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!uploadRes.ok) throw new Error("Ошибка при загрузке файла");
-      const uploadData = await uploadRes.json();
+      const datasetId = await uploadFile();
 
       setStatusText("Анализ данных...");
       const analyzeRes = await fetch("/api/run-check", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ dataset_id: uploadData.dataset_id }),
+        body: JSON.stringify({
+          dataset_id: datasetId,
+          // null - все группы и автоподбор
+          groups: groups.length === CATEGORY_ORDER.length ? null : groups,
+          config: ruleMode === "manual" && rules ? rules : null,
+        }),
       });
 
       if (!analyzeRes.ok) throw new Error("Ошибка при анализе данных");
@@ -194,12 +253,45 @@ function MainPage() {
         <button 
           className={styles.primaryButton} 
           onClick={file ? handleAnalyze : () => fileInputRef.current.click()}
-          disabled={loading}
+          disabled={loading || rulesLoading || (file && groups.length === 0)}
         >
-          {loading ? statusText : (file ? "Запустить аудит" : "Выбрать файл")}
+          {loading ? (
+            <>
+              {statusText.replace(/\.+$/, "")}
+              <span className={styles.dots}>
+                <span>.</span><span>.</span><span>.</span>
+              </span>
+            </>
+          ) : (file ? "Запустить аудит" : "Выбрать файл")}
         </button>
         {error && <p className={styles.errorText}>{error}</p>}
       </div>
+      {file && (
+        <div className={styles.settingsCard}>
+          <button
+            type="button"
+            className={styles.settingsToggle}
+            onClick={() => setSettingsOpen(!settingsOpen)}
+          >
+            Настройки проверки
+            <span className={settingsOpen ? styles.arrowOpen : styles.arrow}>▾</span>
+          </button>
+          {settingsOpen && (
+            <CheckSettings
+              groups={groups}
+              onGroupsChange={setGroups}
+              mode={ruleMode}
+              onModeChange={handleModeChange}
+              rules={rules}
+              onRulesChange={setRules}
+              columns={columns}
+              dateFormats={dateFormats}
+              rulesLoading={rulesLoading}
+              onReset={() => setRules(autoRules)}
+            />
+          )}
+        </div>
+      )}
       {/* результат */}
       {report && (
         <div
