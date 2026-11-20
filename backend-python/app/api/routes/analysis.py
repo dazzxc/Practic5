@@ -15,7 +15,7 @@ router = APIRouter()
 def run_analysis_in_background(task_id: str, request: AnalysisRequest):
     try:
         print(f"[TASK {task_id}] Старт проверки")
-        update_task(task_id, status=TaskStatus.RUNNING, progress=10, message="Начинаем проверку...")
+        update_task(task_id, status=TaskStatus.RUNNING, progress=10, message="Идёт проверка...")
 
         report = run_data_analysis(request)
 
